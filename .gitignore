@@ -39,3 +39,7 @@ next-env.d.ts
 .prettierrc
 package-lock.json
 package.json
+
+# yml
+/.github
+deploy.yml
