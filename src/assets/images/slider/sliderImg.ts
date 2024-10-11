@@ -12,10 +12,12 @@ import img11 from './main_img_11.png';
 import img12 from './main_img_12.png';
 
 import img_stop from './main_stop.png';
+import img_start from './main_start.png';
 import img_arrow_next from './arrow_next.png';
 import img_arrow_prev from './arrow_prev.png';
 
-export const slider_img = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12];
-export const stop_img = img_stop;
+export const sliderImgArr = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12];
+export const stopImg = img_stop;
+export const startImg = img_start;
 export const arrowNext = img_arrow_next;
 export const arrowPrev = img_arrow_prev;
