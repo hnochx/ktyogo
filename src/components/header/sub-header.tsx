@@ -1,12 +1,18 @@
-import Link from 'next/link';
+'use client';
+import HeaderLink from './header-link';
+import { useState } from 'react';
 
 const SubHeader = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <header className='border-b border-[#ccc] h-[52px] leading-[52px] pl-[46px]'>
-      <h1 className='text-[17px] font-bold'>
-        <Link href="/">요고 다이렉트</Link>
-      </h1>
-    </header>
+    <>
+      <div className="border-b border-[#ccc] h-[52px] leading-[52px] pl-[46px]">
+        <h1 className="text-[17px] font-bold">
+          <button onClick={() => setIsOpen(!isOpen)}>요고 다이렉트</button>
+        </h1>
+      </div>
+      <HeaderLink isOpen={isOpen} />
+    </>
   );
 };
 export default SubHeader;
