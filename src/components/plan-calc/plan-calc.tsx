@@ -1,16 +1,39 @@
+'use client';
+import { useState } from 'react';
+
 const PlanCalc = () => {
+  const [isToggled, setIsToggled] = useState(false); // 데이터 용량과 월정액간의 토글
+
+  const handleClick = () => {
+    setIsToggled((prev) => !prev);
+  };
+
   return (
-    <div>
-      <div className="bg-[#f5f5f5] rounded-[25px] ">
+    <div className=" h-screen">
+      <div className="bg-[#f5f5f5] rounded-[25px] px-[5.2vw] py-[7.2vw] leading-[1.2]">
         {/* 상단 타이틀 */}
-        <strong>
+        <strong className="text-[5vw] text-center block">
           Y에겐 데이터가 2배!
-          <span>34세 이하의 Y라면? Y덤 혜택받기!</span>
+          <span className="text-[3.2vw] block mt-[10px] text-[#0f807b]">34세 이하의 Y라면? Y덤 혜택받기!</span>
         </strong>
         {/* 용량 또는 월정액 토글 버튼 */}
-        <div>
+        <div className="border-[#ccc] border-t py-[4vw] flex justify-center gap-[2rem] mt-[5vw] text-[4.2vw]">
           <button>데이터 용량</button>
-          <span>스위치</span>
+          <label className="inline-flex items-center cursor-pointer">
+            <input type="checkbox" className="sr-only peer" />
+
+            <button
+              onClick={handleClick}
+              className={`relative w-[75px] h-[30px] rounded-[30px] bg-[#0f807b] text-[0]
+        after:w-[22px] after:h-[22px] after:bg-white after:content-[''] 
+        after:block after:rounded-full after:absolute after:top-[4px] 
+        after:left-[4px] after:transition-transform after:duration-500 
+        ${isToggled ? 'after:translate-x-[45px]' : ''}`}
+            >
+              스위치
+            </button>
+          </label>
+
           <button>월정액</button>
         </div>
         {/* 단계 조정 */}
