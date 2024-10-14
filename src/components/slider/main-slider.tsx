@@ -46,11 +46,14 @@ export const MainSlider = () => {
         onSwiper={setMainSwiper}
         navigation={false}
       >
-        <div className="absolute bottom-[1vw] left-[6.6vw] z-[1] rounded-xl border-[2px] border-[#D9D9D9] flex items-center pr-[1vw]">
-          <div className="px-[2vw] text-[3.4vw] font-bold text-black whitespace-nowrap">
+        <div className="absolute bottom-[1vw] left-[6.6vw] z-[1] rounded-xl border-[1px] border-[#D9D9D9] flex items-center pr-[8vw] py-[0.7vw]">
+          <div className="pl-[2vw] text-[3.4vw] font-bold text-black whitespace-nowrap ">
             {swiperIndex + 1} / {sliderImgArr.length}
           </div>
-          <button className="rounded-[10px] border border-[#D9D9D9] bg-white" onClick={swiperStop}>
+          <button
+            className="rounded-[10px] border border-[#D9D9D9] bg-white absolute bottom-[-1px] right-[-1px]"
+            onClick={swiperStop}
+          >
             <Image src={controlImg} alt="stop_button" className="w-[6.4vw] h-[6.4vw]" />
           </button>
         </div>
