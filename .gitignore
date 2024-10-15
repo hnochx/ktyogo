@@ -35,7 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.eslintrc.json
-.prettierrc
+
 package-lock.json
-package.json
+
+# yml
+/.github
+deploy.yml
