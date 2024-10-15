@@ -1,7 +1,7 @@
 export default function footer() {
   return (
     <>
-      <div className="w-full h-[310px] bg-[#f2f2f2] py-8 px-5">
+      <footer className="w-full h-[310px] bg-[#f2f2f2] py-8 px-5">
         <h1 className="text-sm font-bold text-[#666666] mb-4">KT 공식 온라인샵</h1>
         <p className="text-xs font-light text-[#666666] mb-4">
           (주) 케이티 대표이사 김영섭 사업자등록번호 :102-81-42945 통신판매업신고 : 2002-경기성남-0048 사업자정보확인
@@ -16,7 +16,7 @@ export default function footer() {
           1514(발신전용), 1524(발신전용) <br />
           Copyrightⓒ kt corp. All rights reserved.
         </p>
-      </div>
+      </footer>
     </>
   );
 }
