@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-
-}
-
+/* Global CSS */
 html,
 body {
   height: 100%;
@@ -13,7 +10,6 @@ body {
 }
 
 /* swiper CSS */
-
 .swiper {
   width: 100%;
   height: 100%;
@@ -36,3 +32,25 @@ body {
   height: 100%;
   object-fit: cover;
 }
+
+/* Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Commented out for now: Theming based on prefers-color-scheme */
+/*
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+*/
