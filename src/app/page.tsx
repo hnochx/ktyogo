@@ -1,3 +1,5 @@
+import DirectChangeRate from './directChangeRate/page';
+
 export default function Home() {
-  return <div>home page@</div>;
+  return <DirectChangeRate />;
 }
