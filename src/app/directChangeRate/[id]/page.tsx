@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import earth from '@/assets/images/planChange/earth.png';
 import messageIcon from '@/assets/images/planChange/messageIcon.png';
-import Group_14 from '@/assets/images/planChange/Group_14.png';
+import graph_b from '@/assets/images/planChange/graph_b.png';
 import phoneIcon from '@/assets/images/planChange/phoneIcon.png';
 import naverIcon from '@/assets/images/planChange/naver_5.png';
 import Vector from '@/assets/images/planChange/Vector.png';
@@ -21,7 +21,7 @@ const PlanDetail = ({ params: { id } }: PlanDetailProps) => {
     { src: phoneIcon, alt: '핸드폰아이콘', text: '무제한' },
     { src: messageIcon, alt: '메시지아이콘', text: '무제한' },
     { src: earth, alt: '지구아이콘', text: 'KT망' },
-    { src: Group_14, alt: '그래프아이콘', text: '5G' },
+    { src: graph_b, alt: '그래프아이콘', text: '5G' },
   ];
 
   const details = [
@@ -51,8 +51,8 @@ const PlanDetail = ({ params: { id } }: PlanDetailProps) => {
   return (
     <div className="flex flex-col justify-center items-center h-screen p-8">
       <div className=" w-full  ">
-        <h1 className="text-lg font-bold mt-10">월 40GB</h1>
-        <h1>{id}</h1>
+        <h1 className="text-lg font-bold mt-10">월 40GB{id}</h1>
+
         <p className="text-medium_gray text-sm mb-5">데이터 다 써도 음악재생 가능(1Mbps)</p>
         <div className="flex row gap-5 items-center">
           {features.map(({ src, alt, text }) => (

@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import Image_63 from '@/assets/images/planChange/image_63.png';
-import Group_6 from '@/assets/images/planChange/Group_6.png';
-import Group_8 from '@/assets/images/planChange/Group_8.png';
+import planChangeMain from '@/assets/images/planChange/planChangeMain.png';
+import control from '@/assets/images/planChange/control.png';
+import rise_fall from '@/assets/images/planChange/rise_fall.png';
 import LGU_Logo from '@/assets/images/planChange/LGU_Logo.png';
 import SKT_Logo from '@/assets/images/planChange/SKT_Logo.png';
 
@@ -33,17 +33,17 @@ const DirectChangeRate = () => {
               요고로 변경하세요.
             </p>
           </div>
-          <Image src={Image_63} alt="요고 이미지" width={200} height={150} />
+          <Image src={planChangeMain} alt="요고 이미지" width={200} height={150} />
         </div>
         <div className="border-t border-medium_gray mb-5 " />
         <DataPlanSelect />
         <div className="flex flex-row mt-5 gap-2 justify-end">
           <div className="flex flex-row gap-2 rounded-full border border-gray-300 w-20 h-10 justify-center items-center">
-            <Image src={Group_6} height={15} width={15} alt="up&down" />
+            <Image src={rise_fall} height={15} width={15} alt="rise_fall" />
             <p className="text-sm text-medium_gray cursor-pointer">추천순</p>
           </div>
           <div className="flex flex-row gap-2 rounded-full border border-gray-300 w-20 h-10 justify-center items-center">
-            <Image src={Group_8} height={15} width={15} alt="up&down" />
+            <Image src={control} height={15} width={15} alt="control" />
             <p className="text-sm text-medium_gray cursor-pointer" onClick={toggleFilter}>
               필터
             </p>

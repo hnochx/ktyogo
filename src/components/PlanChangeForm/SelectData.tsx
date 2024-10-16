@@ -2,9 +2,9 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import Group_5 from '@/assets/images/planChange/Group_5.png';
-import Image_51 from '@/assets/images/planChange/Image_51.png';
-import Image_51_up from '@/assets/images/planChange/image_51_up.png';
+import graph from '@/assets/images/planChange/graph.png';
+import up from '@/assets/images/planChange/up.png';
+import down from '@/assets/images/planChange/down.png';
 
 const dataOptions = [
   '1.8GB',
@@ -49,16 +49,16 @@ export default function DataPlanSelect() {
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex flex-row gap-3 items-center">
-          <Image src={Group_5} alt="group_5" width={20} height={20} />
+          <Image src={graph} alt="graph" width={20} height={20} />
           <p className="text-sm text-medium_gray">월 데이터</p>
           <p className="font-bold ">{selectedPlan}</p>
         </div>
 
         <div onClick={() => setIsOpen(!isOpen)} className="flex items-center ">
           {isOpen ? (
-            <Image src={Image_51_up} alt="상승" width={15} height={15} />
+            <Image src={up} alt="상승" width={15} height={15} />
           ) : (
-            <Image src={Image_51} alt="상승" width={15} height={15} />
+            <Image src={down} alt="상승" width={15} height={15} />
           )}
         </div>
       </div>

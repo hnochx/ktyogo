@@ -1,6 +1,5 @@
-// components/PlanChangeDetail/FeeInfo.tsx
 import Image from 'next/image';
-import Group_34 from '@/assets/images/planChange/Group_34.png';
+import bigmessage from '@/assets/images/planChange/bigmessage.png';
 
 interface IFeeInfoProps {
   position: { left: string; top: string };
@@ -13,7 +12,7 @@ const FeeInfo = ({ position, showFeeInfo }: IFeeInfoProps) => {
   return (
     <div className="flex flex-col items-center z-10 absolute" style={{ left: position.left, top: position.top }}>
       <div className="relative">
-        <Image src={Group_34} height={100} width={200} alt="안내사항" />
+        <Image src={bigmessage} height={100} width={200} alt="안내사항" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-xs text-white gap-1">
           <div className="flex flex-row gap-3 mb-2 text-center">
             <div className="flex flex-col">
