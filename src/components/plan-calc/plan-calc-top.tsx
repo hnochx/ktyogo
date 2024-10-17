@@ -1,5 +1,5 @@
 'use client';
-import { range_bg } from '@/assets/images/images';
+import { range_bg } from '@/assets/images/plan-calc/images';
 import { useState } from 'react';
 
 const PlanCalcTop = () => {
