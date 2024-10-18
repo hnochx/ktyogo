@@ -1,7 +1,7 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
   "rules": {
-    "no-var": "error", // var 금지
+    "no-var": "error",
     "no-multiple-empty-lines": "error",
     "no-unused-vars": "off",
     "no-console": "error"
