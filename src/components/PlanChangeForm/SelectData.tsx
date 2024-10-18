@@ -1,3 +1,4 @@
+// eslint-disable
 'use client';
 
 import Image from 'next/image';
@@ -33,13 +34,18 @@ const dataOptions = [
   '무제한',
 ];
 
-export default function DataPlanSelect() {
+interface ISelectData {
+  onSelect: (option: string) => void;
+}
+
+export default function DataPlanSelect({ onSelect }: ISelectData) {
   const [selectedPlan, setSelectedPlan] = useState<string>('전체 용량');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSelect = (option: string) => {
     setSelectedPlan(option);
     setIsOpen(false);
+    onSelect(option);
   };
 
   return (
@@ -54,18 +60,18 @@ export default function DataPlanSelect() {
           <p className="font-bold ">{selectedPlan}</p>
         </div>
 
-        <div onClick={() => setIsOpen(!isOpen)} className="flex items-center ">
+        <div className="flex items-center">
           {isOpen ? (
             <Image src={up} alt="상승" width={15} height={15} />
           ) : (
-            <Image src={down} alt="상승" width={15} height={15} />
+            <Image src={down} alt="하락" width={15} height={15} />
           )}
         </div>
       </div>
 
       {isOpen && (
         <div className="absolute z-10 mt-1 bg-white border border-gray-200 rounded-lg w-full shadow-lg">
-          {dataOptions.map((option, index) => (
+          {dataOptions.map((option: string, index: number) => (
             <div
               key={index}
               className="px-4 py-2 cursor-pointer border-b border-neutral-200"
@@ -76,8 +82,6 @@ export default function DataPlanSelect() {
           ))}
         </div>
       )}
-
-      {/* {selectedPlan && <p className="mt-2">선택한 요금제: {selectedPlan}</p>} */}
     </div>
   );
 }

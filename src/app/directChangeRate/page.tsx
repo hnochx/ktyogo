@@ -4,39 +4,76 @@ import Image from 'next/image';
 import planChangeMain from '@/assets/images/planChange/planChangeMain.png';
 import control from '@/assets/images/planChange/control.png';
 import rise_fall from '@/assets/images/planChange/rise_fall.png';
-import LGU_Logo from '@/assets/images/planChange/LGU_Logo.png';
-import SKT_Logo from '@/assets/images/planChange/SKT_Logo.png';
-
 import DataPlanSelect from '@/components/PlanChangeForm/SelectData';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterForm from '@/components/PlanChangeForm/FilterForm';
-import Link from 'next/link';
-import KTPlanSummary from '@/components/PlanChangeForm/KTPlanSummary';
+import { PlanData, PlanMeta } from '@/types/types';
+import fetchPlan from '../services/planServices';
+import PlanSummary from '@/components/PlanChangeForm/PlanSummary';
 
 const DirectChangeRate = () => {
+  const [data, setData] = useState<PlanData[] | null>(null);
+  const [filteredPlans, setFilteredPlans] = useState<PlanMeta[]>([]);
+  const [selectedPlan, setSelectedPlan] = useState<string>('전체 용량');
+
+  useEffect(() => {
+    const getPlans = async () => {
+      const planList = await fetchPlan('g0vgJer9zDCnuz5ZgxuH');
+      // console.log('Fetched Plans:', planList);
+      setData(planList);
+    };
+
+    getPlans();
+  }, []);
+
+  const handleDataFilter = (selectedData: string) => {
+    setSelectedPlan(selectedData);
+
+    if (!selectedData || !data) {
+      return;
+    }
+
+    if (selectedData === '전체 용량') {
+      setFilteredPlans([]); // 빈 배열로 설정
+      return;
+    }
+
+    const filtered = data.flatMap((plan) =>
+      plan.planMetas.filter((planMeta) => planMeta.mobileDataStr === selectedData),
+    );
+
+    //console.log('Filtered Plans:', filtered);
+    setFilteredPlans(filtered);
+  };
+
   const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   const toggleFilter = () => {
     setIsFilterVisible((prev) => !prev);
   };
+
   return (
     <>
-      <div className="h-full px-5  mx-auto ">
-        <div className="flex flex-row justify-center items-center">
+      <div className="min-h-full px-5 mx-auto mb-5">
+        <div className="flex flex-row justify-around items-center">
           <div>
-            <h1 className="text-yogoGreen text-sm font-semibold">요고 요금제 변경</h1>
+            <h1 className="text-yogoGreen text-sm font-semibold">요금제 변경</h1>
             <p className="font-bold text-lg flex gap-0">
-              자급제폰 KT고객님
+              3사 통신사를
               <br />
-              알뜰한 요금제
+              비교하고
               <br />
-              요고로 변경하세요.
+              알뜰 요금제로
+              <br />
+              변경하세요.
             </p>
           </div>
           <Image src={planChangeMain} alt="요고 이미지" width={200} height={150} />
         </div>
         <div className="border-t border-medium_gray mb-5 " />
-        <DataPlanSelect />
+
+        <DataPlanSelect onSelect={handleDataFilter} />
+
         <div className="flex flex-row mt-5 gap-2 justify-end">
           <div className="flex flex-row gap-2 rounded-full border border-gray-300 w-20 h-10 justify-center items-center">
             <Image src={rise_fall} height={15} width={15} alt="rise_fall" />
@@ -51,18 +88,17 @@ const DirectChangeRate = () => {
           {isFilterVisible && <FilterForm toggleFilter={toggleFilter} />}
         </div>
         <div className="border-t border-lightGray my-4 " />
-        <div className="flex flex-row justify-between items-center *:text-medium_gray *:text-sm mb-4">
-          <p>13개의 결과 </p>
-          <Link
-            href={`directChangeRate/data`}
-            className="flex flex-row items-center gap-2  border p-2 border-lightGray rounded-xl"
-          >
-            <Image src={SKT_Logo} alt="SKT로고" width={15} height={15} />
-            <Image src={LGU_Logo} alt="LGU로고" width={15} height={15} />
-            <p>와 비교하러 가기</p>
-          </Link>
+        <div className="flex flex-row justify-between items-center text-medium_gray text-sm mb-4">
+          <p>{filteredPlans.length}개의 결과 </p>
         </div>
-        <KTPlanSummary />
+
+        {
+          filteredPlans.length > 0
+            ? filteredPlans.map((plan) => (
+                <PlanSummary key={`${plan.mno}-${plan.mobileDataStr}-${plan.name}`} plan={plan} />
+              ))
+            : selectedPlan === '전체 용량' && <p className="text-medium_gray">결과가 없습니다.</p> // 전체 용량일 때 메시지
+        }
       </div>
     </>
   );
