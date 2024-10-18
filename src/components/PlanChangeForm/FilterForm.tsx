@@ -10,7 +10,7 @@ interface IFilterProps {
 }
 
 const telecomOptions = ['KT', 'SKT', 'LGU'];
-const mobileDataTotal = ['0~10GB', '10GB ~ 100GB', '110GB ~ 300GB', '무제한'];
+const mobileDataTotal = ['1~10GB', '11GB ~ 100GB', '110GB ~ 300GB', '무제한'];
 const netOptions = ['5G', 'LTE'];
 
 const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {

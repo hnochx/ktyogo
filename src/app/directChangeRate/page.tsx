@@ -1,15 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import images from '@/assets/images/planChange/directChangeRateImage';
-import DataPlanSelect from '@/components/PlanChangeForm/SelectData';
 import { useEffect, useState } from 'react';
-import FilterForm from '@/components/PlanChangeForm/FilterForm';
-import { PlanData, PlanMeta } from '@/types/types';
-import PlanSummary from '@/components/PlanChangeForm/PlanSummary';
+import DataPlanSelect, { dataRangeOptions } from '@/components/PlanChangeForm/SelectData';
 import fetchPlan from '../services/planServices';
 import FilterHandler from '@/components/PlanChangeForm/FilterHandler';
 import SortButton from '@/components/PlanChangeForm/SortButton';
+import PlanSummary from '@/components/PlanChangeForm/PlanSummary';
+import FilterForm from '@/components/PlanChangeForm/FilterForm';
+import { PlanData, PlanMeta } from '@/types/types';
+import images from '@/assets/images/planChange/directChangeRateImage';
 
 const DirectChangeRate = () => {
   const [data, setData] = useState<PlanData[] | null>(null);
@@ -32,12 +32,13 @@ const DirectChangeRate = () => {
     setSelectedPlan(selectedData);
     if (!selectedData || !data) return;
 
-    const filtered =
-      selectedData === '전체 용량'
-        ? allFilteredPlans
-        : allFilteredPlans.filter((planMeta) => planMeta.mobileDataStr === selectedData);
-
-    setFilteredPlans(filtered);
+    const range = dataRangeOptions[selectedData];
+    if (!range) {
+      setFilteredPlans(allFilteredPlans);
+    } else {
+      const filtered = allFilteredPlans.filter((planMeta) => range.includes(planMeta.mobileDataStr!));
+      setFilteredPlans(filtered);
+    }
   };
 
   const handleFilterChange = (selectedMno: string[], selectedNets: string, selectedData: string) => {
@@ -86,6 +87,7 @@ const DirectChangeRate = () => {
       </div>
       <div className="border-t border-medium_gray mb-5" />
       <DataPlanSelect onSelect={handleDataFilter} />
+
       <div className="flex flex-row mt-5 gap-2 justify-end">
         <SortButton onSort={handleSortByData} />
         <div className="flex flex-row gap-2 rounded-full border border-gray-300 w-20 h-10 justify-center items-center">
