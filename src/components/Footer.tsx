@@ -1,4 +1,4 @@
-export default function footer() {
+export default function Footer() {
   return (
     <>
       <footer className="w-full h-[310px] bg-[#f2f2f2] py-8 px-5">
