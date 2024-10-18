@@ -10,7 +10,6 @@ const fetchPlan = async (planId: string) => {
   if (docSnap.exists()) {
     return [docSnap.data() as PlanData]; // 데이터가 있을 경우 배열로 반환
   } else {
-    //console.log('No such document!');
     return [];
   }
 };

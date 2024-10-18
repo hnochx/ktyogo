@@ -2,19 +2,21 @@
 import { useState, useEffect } from 'react';
 import { ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import CheckBox from './CustomCheckBox';
+import RadioButton from './RadioButton';
 
 interface IFilterProps {
   toggleFilter: () => void;
+  onFilterChange: (selectedMno: string[], selectedNets: string, selectedData: string) => void;
 }
 
-const priceOptions = ['2만원대', '3만원대', '4만원대', '5만원대', '6만원대'];
+const telecomOptions = ['KT', 'SKT', 'LGU'];
 const mobileDataTotal = ['0~10GB', '10GB ~ 100GB', '110GB ~ 300GB', '무제한'];
 const netOptions = ['5G', 'LTE'];
 
-const FilterForm = ({ toggleFilter }: IFilterProps) => {
-  const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
-  const [selectedNets, setSelectedNets] = useState<string[]>([]);
-  const [selectedData, setSelectedData] = useState<string[]>([]);
+const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
+  const [selectedMno, setSelectedMno] = useState<string[]>([]);
+  const [selectedNets, setSelectedNets] = useState<string>('');
+  const [selectedData, setSelectedData] = useState<string>('');
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -30,21 +32,25 @@ const FilterForm = ({ toggleFilter }: IFilterProps) => {
     }, 500);
   };
 
+  const handleApply = () => {
+    onFilterChange(selectedMno, selectedNets, selectedData);
+
+    toggleFilter();
+  };
+
   const handleCheckboxChange = (setSelected: React.Dispatch<React.SetStateAction<string[]>>, value: string) => {
     setSelected((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
   };
 
-  const handleReset = () => {
-    setSelectedPrices([]);
-    setSelectedNets([]);
-    setSelectedData([]);
+  const handleRadioChange = (setSelected: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setSelected(value); // 단일 값을 설정
   };
 
-  // const handleApply = () => {
-  //   console.log('선택한 기본 요금:', selectedPrices);
-  //   console.log('선택한 망 종류:', selectedNets);
-  //   console.log('선택한 데이터 용량:', selectedData);
-  // };
+  const handleReset = () => {
+    setSelectedMno([]);
+    setSelectedNets('');
+    setSelectedData('');
+  };
 
   return (
     <>
@@ -64,13 +70,13 @@ const FilterForm = ({ toggleFilter }: IFilterProps) => {
           <div className="border-t border-medium_gray mt-3 mb-5" />
 
           <div className="space-y-2">
-            <h1 className="font-bold text-lg mb-5">기본 요금</h1>
-            {priceOptions.map((option) => (
+            <h1 className="font-bold text-lg mb-5">통신사</h1>
+            {telecomOptions.map((option) => (
               <CheckBox
                 key={option}
                 option={option}
-                checked={selectedPrices.includes(option)}
-                onChange={() => handleCheckboxChange(setSelectedPrices, option)}
+                checked={selectedMno.includes(option)}
+                onChange={() => handleCheckboxChange(setSelectedMno, option)}
               />
             ))}
           </div>
@@ -80,11 +86,11 @@ const FilterForm = ({ toggleFilter }: IFilterProps) => {
           <div className="space-y-2">
             <h1 className="font-bold text-lg mb-5">망 종류</h1>
             {netOptions.map((option) => (
-              <CheckBox
+              <RadioButton
                 key={option}
                 option={option}
                 checked={selectedNets.includes(option)}
-                onChange={() => handleCheckboxChange(setSelectedNets, option)}
+                onChange={() => handleRadioChange(setSelectedNets, option)} // 수정된 부분
               />
             ))}
           </div>
@@ -94,11 +100,11 @@ const FilterForm = ({ toggleFilter }: IFilterProps) => {
           <div className="space-y-2">
             <h1 className="font-bold text-lg mb-5">총 제공되는 데이터 용량</h1>
             {mobileDataTotal.map((option) => (
-              <CheckBox
+              <RadioButton
                 key={option}
                 option={option}
                 checked={selectedData.includes(option)}
-                onChange={() => handleCheckboxChange(setSelectedData, option)}
+                onChange={() => handleRadioChange(setSelectedData, option)} // 수정된 부분
               />
             ))}
           </div>
@@ -108,7 +114,9 @@ const FilterForm = ({ toggleFilter }: IFilterProps) => {
               <ArrowPathIcon className="h-8 w-8" />
               <span>초기화</span>
             </div>
-            <button className="bg-black text-white text-lg w-[255px] h-[50px] rounded-lg">적용하기</button>
+            <button className="bg-black text-white text-lg w-[255px] h-[50px] rounded-lg" onClick={handleApply}>
+              적용하기
+            </button>
           </div>
         </div>
       </div>

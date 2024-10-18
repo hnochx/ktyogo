@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import bigmessage from '@/assets/images/planChange/bigmessage.png';
+import bigmessage from '@/assets/images/planChange/images/bigmessage.png';
 import { PlanMeta } from '@/types/types';
 
 interface IFeeInfoProps {

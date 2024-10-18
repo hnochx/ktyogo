@@ -1,11 +1,8 @@
-// eslint-disable
 'use client';
 
 import Image from 'next/image';
 import { useState } from 'react';
-import graph from '@/assets/images/planChange/graph.png';
-import up from '@/assets/images/planChange/up.png';
-import down from '@/assets/images/planChange/down.png';
+import images from '@/assets/images/planChange/selectDataImage';
 
 const dataOptions = [
   '1.8GB',
@@ -55,16 +52,16 @@ export default function DataPlanSelect({ onSelect }: ISelectData) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex flex-row gap-3 items-center">
-          <Image src={graph} alt="graph" width={20} height={20} />
+          <Image src={images.graph} alt="graph" width={20} height={20} />
           <p className="text-sm text-medium_gray">월 데이터</p>
           <p className="font-bold ">{selectedPlan}</p>
         </div>
 
         <div className="flex items-center">
           {isOpen ? (
-            <Image src={up} alt="상승" width={15} height={15} />
+            <Image src={images.up} alt="상승" width={15} height={15} />
           ) : (
-            <Image src={down} alt="하락" width={15} height={15} />
+            <Image src={images.down} alt="하락" width={15} height={15} />
           )}
         </div>
       </div>

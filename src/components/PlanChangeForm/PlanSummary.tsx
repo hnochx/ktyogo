@@ -2,13 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import KT_Logo from '@/assets/images/planChange/KT_1.png';
-import gift_7 from '@/assets/images/planChange/gift_7.png';
-import LGU_Logo from '@/assets/images/planChange/LGU_Logo.png';
-import SKT_Logo from '@/assets/images/planChange/SKT_Logo.png';
-import starbucks_4 from '@/assets/images/planChange/starbucks_4.png';
-import naver_5 from '@/assets/images/planChange/naver_5.png';
-import Vector from '@/assets/images/planChange/Vector.png';
+import images from '@/assets/images/planChange/planSummaryImage';
 import FeeInfo from './FeeInfo';
 import DataInfo from './DataInfo';
 import { PlanMeta } from '@/types/types';
@@ -24,18 +18,26 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
   const [showFeeInfo, setShowFeeInfo] = useState(false);
   const [position, setPosition] = useState({ left: '0px', top: '0px' });
 
-  const showDataClick = (event: React.MouseEvent<HTMLImageElement>) => {
-    setShowDataInfo((prev) => !prev);
+  const handleMouseEnterData = (event: React.MouseEvent<HTMLImageElement>) => {
+    setShowDataInfo(true);
     const newLeft = `${event.clientX - 100}px`;
     const newTop = `${event.clientY + window.scrollY - 55}px`;
     setPosition({ left: newLeft, top: newTop });
   };
 
-  const showFeeClick = (event: React.MouseEvent<HTMLImageElement>) => {
-    setShowFeeInfo((prev) => !prev);
+  const handleMouseLeaveData = () => {
+    setShowDataInfo(false);
+  };
+
+  const handleMouseEnterFee = (event: React.MouseEvent<HTMLImageElement>) => {
+    setShowFeeInfo(true);
     const newLeft = `${event.clientX - 100}px`;
     const newTop = `${event.clientY + window.scrollY - 100}px`;
     setPosition({ left: newLeft, top: newTop });
+  };
+
+  const handleMouseLeaveFee = () => {
+    setShowFeeInfo(false);
   };
 
   const btnClick = () => {
@@ -45,11 +47,11 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
   const renderLogo = () => {
     switch (plan.mno) {
       case 'KT':
-        return <Image src={KT_Logo} alt="KT_LOGO" width={15} height={25} />;
+        return <Image src={images.KT_Logo} alt="KT_LOGO" width={15} height={25} />;
       case 'LGU':
-        return <Image src={LGU_Logo} alt="LGU_LOGO" width={15} height={25} />;
+        return <Image src={images.LGU_Logo} alt="LGU_LOGO" width={15} height={25} />;
       case 'SKT':
-        return <Image src={SKT_Logo} alt="SKT_LOGO" width={15} height={25} />;
+        return <Image src={images.SKT_Logo} alt="SKT_LOGO" width={15} height={25} />;
       default:
         return null;
     }
@@ -73,12 +75,13 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
             월 {plan.mobileDataStr} + {plan.speedWhenExhausted}Mbps
           </p>
           <Image
-            src={Vector}
+            src={images.Vector}
             height={13}
             width={13}
             alt="안내사항"
             className="cursor-pointer"
-            onClick={showDataClick}
+            onMouseEnter={handleMouseEnterData}
+            onMouseLeave={handleMouseLeaveData}
           />
         </div>
 
@@ -89,8 +92,16 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
         </div>
 
         <div className="flex flex-row gap-2 items-center">
-          <p className="text-blue-600 text-xl font-bold">월{plan.feeString}</p>
-          <Image src={Vector} height={13} width={13} alt="안내사항" className="cursor-pointer" onClick={showFeeClick} />
+          <p className="text-blue-600 text-xl font-bold">월 {plan.feeString} 원</p>
+          <Image
+            src={images.Vector}
+            height={13}
+            width={13}
+            alt="안내사항"
+            className="cursor-pointer"
+            onMouseEnter={handleMouseEnterFee}
+            onMouseLeave={handleMouseLeaveFee}
+          />
         </div>
 
         <FeeInfo position={position} showFeeInfo={showFeeInfo} plan={plan} />
@@ -103,9 +114,9 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
           <div className="text-xs text-medium_gray flex flex-col gap-2">
             <div className="border-t border-medium_gray my-3" />
             <div className="flex flex-row gap-2">
-              <Image src={starbucks_4} alt="스타벅스로고" width={20} height={20} />
-              <Image src={naver_5} alt="네이버로고" width={20} height={20} />
-              <Image src={gift_7} alt="선물이미지" width={20} height={20} />
+              <Image src={images.starbucks_4} alt="스타벅스로고" width={20} height={20} />
+              <Image src={images.naver_5} alt="네이버로고" width={20} height={20} />
+              <Image src={images.gift_7} alt="선물이미지" width={20} height={20} />
               <span className="text-xs text-lightGray">사은품 최대 {plan.giftList?.length}</span>
             </div>
             <ul>
