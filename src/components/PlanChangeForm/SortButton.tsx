@@ -22,9 +22,9 @@ const SortButton = ({ onSort }: SortButtonProps) => {
       onClick={handleSortClick}
     >
       {isAscending ? (
-        <Image src={up} height={15} width={15} alt="rise_fall" />
-      ) : (
         <Image src={down} height={15} width={15} alt="rise_fall" />
+      ) : (
+        <Image src={up} height={15} width={15} alt="rise_fall" />
       )}
       <p className="text-sm text-medium_gray">크기순</p>
     </div>

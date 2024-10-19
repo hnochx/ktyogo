@@ -10,6 +10,12 @@ import PlanSummary from '@/components/PlanChangeForm/PlanSummary';
 import FilterForm from '@/components/PlanChangeForm/FilterForm';
 import { PlanData, PlanMeta } from '@/types/types';
 import images from '@/assets/images/planChange/directChangeRateImage';
+import { sortPlansByData } from '@/components/PlanChangeForm/SortData';
+
+interface SelectedState {
+  selectedMno: string[];
+  selectedNets: string;
+}
 
 const DirectChangeRate = () => {
   const [data, setData] = useState<PlanData[] | null>(null);
@@ -17,6 +23,12 @@ const DirectChangeRate = () => {
   const [allFilteredPlans, setAllFilteredPlans] = useState<PlanMeta[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<string>('전체 용량');
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [selectedAll, setSelectedAll] = useState<SelectedState>({
+    selectedMno: [],
+    selectedNets: '',
+  });
+
+  const [initialFilteredPlans, setInitialFilteredPlans] = useState<PlanMeta[]>([]);
 
   useEffect(() => {
     const getPlans = async () => {
@@ -30,26 +42,35 @@ const DirectChangeRate = () => {
 
   const handleDataFilter = (selectedData: string) => {
     setSelectedPlan(selectedData);
+
     if (!selectedData || !data) return;
 
     const range = dataRangeOptions[selectedData];
+    let filtered: PlanMeta[];
+
     if (!range) {
-      setFilteredPlans(allFilteredPlans);
+      filtered = allFilteredPlans;
     } else {
-      const filtered = allFilteredPlans.filter((planMeta) => range.includes(planMeta.mobileDataStr!));
-      setFilteredPlans(filtered);
+      filtered = allFilteredPlans.filter((planMeta) => range.includes(planMeta.mobileDataStr!));
     }
+
+    setInitialFilteredPlans(filtered);
+    setFilteredPlans(filtered);
+    setSelectedAll({ selectedMno: [], selectedNets: '' });
   };
 
-  const handleFilterChange = (selectedMno: string[], selectedNets: string, selectedData: string) => {
+  const handleFilterChange = (selectedMno: string[], selectedNets: string) => {
     const finalFilteredPlans = FilterHandler({
-      allFilteredPlans,
+      filteredPlans: initialFilteredPlans,
       selectedMno,
       selectedNets,
-      selectedData,
     });
 
     setFilteredPlans(finalFilteredPlans);
+    setSelectedAll({
+      selectedMno,
+      selectedNets,
+    });
   };
 
   const toggleFilter = () => {
@@ -57,19 +78,12 @@ const DirectChangeRate = () => {
   };
 
   const handleSortByData = (isAscending: boolean) => {
-    const sortedPlans = [...filteredPlans].sort((a, b) => {
-      const dataA = parseInt(a.mobileDataStr!);
-      const dataB = parseInt(b.mobileDataStr!);
-
-      if (isNaN(dataA) || isNaN(dataB)) return 0;
-      return isAscending ? dataA - dataB : dataB - dataA; // 오름차순 또는 내림차순 정렬
-    });
-
+    const sortedPlans = sortPlansByData(filteredPlans, isAscending);
     setFilteredPlans(sortedPlans);
   };
 
   return (
-    <div className="min-h-full px-5 mx-auto mb-5">
+    <div className="min-h-full px-5 mx-auto pb-5">
       <div className="flex flex-row justify-around items-center">
         <div>
           <h1 className="text-yogoGreen text-sm font-semibold">요금제 변경</h1>
@@ -99,8 +113,17 @@ const DirectChangeRate = () => {
         {isFilterVisible && <FilterForm toggleFilter={toggleFilter} onFilterChange={handleFilterChange} />}
       </div>
       <div className="border-t border-lightGray my-4" />
-      <div className="flex flex-row justify-between items-center text-medium_gray text-sm mb-4">
+      <div className="flex flex-row justify-between items-center text-medium_gray *:text-sm mb-4">
         <p>{filteredPlans.length}개의 결과</p>
+        {selectedAll.selectedMno.length > 0 && selectedAll.selectedNets ? (
+          <>
+            <div>
+              <p className="flex flex-row">
+                <h1 className="pr-1">{selectedAll.selectedMno.join(' , ')}</h1> | {selectedAll.selectedNets}
+              </p>
+            </div>
+          </>
+        ) : null}
       </div>
       {filteredPlans.length > 0
         ? filteredPlans.map((plan) => (

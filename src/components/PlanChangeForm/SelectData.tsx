@@ -6,12 +6,13 @@ import images from '@/assets/images/planChange/selectDataImage';
 
 export const dataRangeOptions: Record<string, string[]> = {
   '1GB ~ 10GB': ['1.8GB', '2.5GB', '5GB', '6GB', '8GB', '10GB'],
-  '11GB ~ 40GB': ['11GB', '15GB', '20GB', '24GB', '25GB', '30GB', '35GB', '36GB', '40GB'],
+  '11GB ~ 20GB': ['11GB', '15GB', '20GB'],
+  '21GB ~ 40GB': ['24GB', '25GB', '30GB', '35GB', '36GB', '40GB'],
   '80GB ~ 300GB': ['80GB', '100GB', '110GB', '120GB', '160GB', '200GB', '250GB', '300GB'],
   무제한: ['무제한'],
 };
 
-const dataOptions = ['1GB ~ 10GB', '11GB ~ 40GB', '80GB ~ 300GB', '무제한'];
+const dataOptions = ['1GB ~ 10GB', '11GB ~ 20GB', '21GB ~ 40GB', '80GB ~ 300GB', '무제한'];
 
 interface ISelectData {
   onSelect: (option: string) => void;

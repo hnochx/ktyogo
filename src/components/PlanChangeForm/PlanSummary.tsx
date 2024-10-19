@@ -58,11 +58,8 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
   };
 
   return (
-    <>
-      <Link
-        href={`/directChangeRate/${plan.name}`}
-        className="w-full flex flex-col p-3 rounded-lg border border-lightGray mb-3 gap-1 "
-      >
+    <div className="w-full flex flex-col p-3 rounded-lg border border-lightGray mb-3 gap-1">
+      <Link href={`/directChangeRate/${plan.name}`} className="flex flex-col gap-1">
         <div className="flex flex-row items-center gap-2">
           {renderLogo()}
           <p className="text-xs text-lightGray">{plan.name}</p>
@@ -105,31 +102,35 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
         </div>
 
         <FeeInfo position={position} showFeeInfo={showFeeInfo} plan={plan} />
-
-        <button className="text-red-600 text-xs" onClick={btnClick}>
-          더보기
-        </button>
-
-        {click && (
-          <div className="text-xs text-medium_gray flex flex-col gap-2">
-            <div className="border-t border-medium_gray my-3" />
-            <div className="flex flex-row gap-2">
-              <Image src={images.starbucks_4} alt="스타벅스로고" width={20} height={20} />
-              <Image src={images.naver_5} alt="네이버로고" width={20} height={20} />
-              <Image src={images.gift_7} alt="선물이미지" width={20} height={20} />
-              <span className="text-xs text-lightGray">사은품 최대 {plan.giftList?.length}</span>
-            </div>
-            <ul>
-              {plan.giftList?.map((gift, index) => (
-                <li key={index} className="text-xs text-medium_gray">
-                  {gift.description}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </Link>
-    </>
+
+      <button className="text-red-600 text-xs mt-2" onClick={btnClick}>
+        더보기
+      </button>
+
+      {click && (
+        <div className="text-xs text-medium_gray flex flex-col gap-2">
+          {plan.giftList!.length > 0 && (
+            <>
+              <div className="border-t border-medium_gray my-3" />
+              <div className="flex flex-row gap-2">
+                <Image src={images.starbucks_4} alt="스타벅스로고" width={20} height={20} />
+                <Image src={images.naver_5} alt="네이버로고" width={20} height={20} />
+                <Image src={images.gift_7} alt="선물이미지" width={20} height={20} />
+                <span className="text-xs text-lightGray">사은품 최대 {plan.giftList?.length}</span>
+              </div>
+            </>
+          )}
+          <ul>
+            {plan.giftList?.map((gift, index) => (
+              <li key={index} className="text-xs text-medium_gray">
+                {gift.description}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 };
 

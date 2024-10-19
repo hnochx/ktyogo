@@ -6,17 +6,15 @@ import RadioButton from './RadioButton';
 
 interface IFilterProps {
   toggleFilter: () => void;
-  onFilterChange: (selectedMno: string[], selectedNets: string, selectedData: string) => void;
+  onFilterChange: (selectedMno: string[], selectedNets: string) => void;
 }
 
 const telecomOptions = ['KT', 'SKT', 'LGU'];
-const mobileDataTotal = ['1~10GB', '11GB ~ 100GB', '110GB ~ 300GB', '무제한'];
 const netOptions = ['5G', 'LTE'];
 
 const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
   const [selectedMno, setSelectedMno] = useState<string[]>([]);
   const [selectedNets, setSelectedNets] = useState<string>('');
-  const [selectedData, setSelectedData] = useState<string>('');
 
   const [isMounted, setIsMounted] = useState(false);
 
@@ -33,7 +31,7 @@ const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
   };
 
   const handleApply = () => {
-    onFilterChange(selectedMno, selectedNets, selectedData);
+    onFilterChange(selectedMno, selectedNets);
 
     toggleFilter();
   };
@@ -43,13 +41,12 @@ const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
   };
 
   const handleRadioChange = (setSelected: React.Dispatch<React.SetStateAction<string>>, value: string) => {
-    setSelected(value); // 단일 값을 설정
+    setSelected(value);
   };
 
   const handleReset = () => {
     setSelectedMno([]);
     setSelectedNets('');
-    setSelectedData('');
   };
 
   return (
@@ -90,21 +87,7 @@ const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
                 key={option}
                 option={option}
                 checked={selectedNets.includes(option)}
-                onChange={() => handleRadioChange(setSelectedNets, option)} // 수정된 부분
-              />
-            ))}
-          </div>
-
-          <div className="border-t border-lightGray my-5" />
-
-          <div className="space-y-2">
-            <h1 className="font-bold text-lg mb-5">총 제공되는 데이터 용량</h1>
-            {mobileDataTotal.map((option) => (
-              <RadioButton
-                key={option}
-                option={option}
-                checked={selectedData.includes(option)}
-                onChange={() => handleRadioChange(setSelectedData, option)} // 수정된 부분
+                onChange={() => handleRadioChange(setSelectedNets, option)}
               />
             ))}
           </div>
