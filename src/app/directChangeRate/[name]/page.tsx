@@ -145,7 +145,7 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
                 </div>
               </>
             ) : (
-              <p className="text-xs text-lightGray">이벤트가 없습니다.</p>
+              <p className="text-sm text-lightGray">이벤트가 없습니다.</p>
             )}
           </div>
 
