@@ -104,9 +104,11 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
         <FeeInfo position={position} showFeeInfo={showFeeInfo} plan={plan} />
       </Link>
 
-      <button className="text-red-600 text-xs mt-2" onClick={btnClick}>
-        더보기
-      </button>
+      {plan.giftList!.length > 0 && (
+        <button className="text-red-600 text-xs mt-2" onClick={btnClick}>
+          더보기
+        </button>
+      )}
 
       {click && (
         <div className="text-xs text-medium_gray flex flex-col gap-2">

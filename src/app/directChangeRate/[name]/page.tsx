@@ -84,7 +84,7 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen p-8">
+    <div className="flex flex-col px-6">
       <div className="w-full">
         <h1 className="text-xl font-bold mt-10">월 {filteredPlan.mobileDataStr}</h1>
         <p className="text-medium_gray text-sm mb-5">{filteredPlan.speedWhenExhaustedDescription}</p>
@@ -108,40 +108,42 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
         <div>
           <p className="text-base font-bold">사은품 및 이벤트</p>
           <div className="flex flex-row justify-start items-center gap-4 border border-gray-200 rounded-lg p-5 mt-2">
-            <Image
-              src={
-                filteredPlan.giftList && filteredPlan.giftList.length > 0
-                  ? getImageByCategory(filteredPlan.giftList[0].category)
-                  : images.naverIcon // 변경된 부분
-              }
-              alt="아이콘"
-              width={30}
-              height={30}
-            />
             {filteredPlan.giftList && filteredPlan.giftList.length > 0 ? (
-              <div className="flex flex-col gap-3">
-                <h1>
-                  {filteredPlan.giftList[0].description && (
-                    <>
-                      {filteredPlan.giftList[0].description.split(/\s*\(/).map((part, index) => (
-                        <span key={index}>
-                          {index === 0 ? (
-                            part.trim()
-                          ) : (
-                            <>
-                              <br />({part.trim().replace(/\)$/, '')})
-                            </>
-                          )}
-                        </span>
-                      ))}
-                    </>
-                  )}
-                </h1>
-                <p className="text-xs text-lightGray">지급 시기 : {filteredPlan.giftList[0].receiptDate}</p>
-                <p className="text-xs text-lightGray">
-                  이벤트 마감일 : {formatToDateString(filteredPlan.giftList[0].endDate)}
-                </p>
-              </div>
+              <>
+                <Image
+                  src={
+                    filteredPlan.giftList && filteredPlan.giftList.length > 0
+                      ? getImageByCategory(filteredPlan.giftList[0].category)
+                      : images.naverIcon
+                  }
+                  alt="아이콘"
+                  width={30}
+                  height={30}
+                />
+                <div className="flex flex-col gap-3">
+                  <h1>
+                    {filteredPlan.giftList[0].description && (
+                      <>
+                        {filteredPlan.giftList[0].description.split(/\s*\(/).map((part, index) => (
+                          <span key={index}>
+                            {index === 0 ? (
+                              part.trim()
+                            ) : (
+                              <>
+                                <br />({part.trim().replace(/\)$/, '')})
+                              </>
+                            )}
+                          </span>
+                        ))}
+                      </>
+                    )}
+                  </h1>
+                  <p className="text-xs text-lightGray">지급 시기 : {filteredPlan.giftList[0].receiptDate}</p>
+                  <p className="text-xs text-lightGray">
+                    이벤트 마감일 : {formatToDateString(filteredPlan.giftList[0].endDate)}
+                  </p>
+                </div>
+              </>
             ) : (
               <p className="text-xs text-lightGray">이벤트가 없습니다.</p>
             )}
