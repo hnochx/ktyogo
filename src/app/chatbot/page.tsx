@@ -59,7 +59,9 @@ const ChatBotMain = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="font-bold text-black text-lg text-center py-4 bg-white">KT 요고 챗봇</div>
+      <div className="font-bold text-black text-lg text-center py-4 bg-white border-b-[0.5px] border-[#808080]">
+        KT 요고 챗봇
+      </div>
       <div ref={msgRef} className="flex-1 bg-[#F4F7FA] py-4 px-5 overflow-y-auto">
         <div>
           <div className="pt-5">
