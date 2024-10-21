@@ -1,15 +1,12 @@
 'use client';
-import { range_bg } from '@/assets/images/plan-calc/images';
+import { checkbox, range_bg } from '@/assets/images/plan-calc/images';
 import { useState } from 'react';
 
 const PlanCalcTop = () => {
   const STAGE_MAX = 13;
   const [isToggled, setIsToggled] = useState(false); // 데이터 용량과 월정액간의 토글
-  const [planStatge, setPlanStage] = useState(1); //
-
-  const handleClick = () => {
-    setIsToggled((prev) => !prev);
-  };
+  const [isYBenefit, setIsYBenefit] = useState(false); // Y덤 혜택 여부의 토글
+  const [planStatge, setPlanStage] = useState(1); // 요금제 단계 선택
 
   const handleStageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlanStage(Number(e.target.value));
@@ -20,7 +17,14 @@ const PlanCalcTop = () => {
       {/* 상단 타이틀 */}
       <strong className="text-[5vw] text-center block">
         Y에겐 데이터가 2배!
-        <span className="text-[3.2vw] block mt-[10px] text-[#0f807b]">34세 이하의 Y라면? Y덤 혜택받기!</span>
+        <label className="text-[3.2vw] block mt-[10px] text-[#0f807b]">
+          34세 이하의 Y라면? Y덤 혜택받기!{' '}
+          <input type="checkbox" className="hidden" onChange={() => setIsYBenefit((prev) => !prev)} />
+          <i
+            className={`w-[4.2vw] h-[4.2vw] inline-block bg-no-repeat bg-[top_right] bg-[length:4.2vw] align-middle ${isYBenefit || 'bg-bottom'}`}
+            style={{ backgroundImage: `url(${checkbox.src})` }}
+          ></i>
+        </label>
       </strong>
       {/* 용량 또는 월정액 토글 버튼 */}
       <div className="border-[#ccc] border-t py-[4vw] flex justify-center gap-[2rem] mt-[5vw] text-[4.2vw]">
@@ -29,9 +33,8 @@ const PlanCalcTop = () => {
         </button>
         <label className="inline-flex items-center cursor-pointer">
           <input type="checkbox" className="sr-only peer" />
-
           <button
-            onClick={handleClick}
+            onClick={() => setIsToggled((prev) => !prev)}
             className={`relative w-[75px] h-[30px] rounded-[30px] bg-[#0f807b] text-[0]
         after:w-[22px] after:h-[22px] after:bg-white after:content-[''] 
         after:block after:rounded-full after:absolute after:top-[4px] 
@@ -89,7 +92,7 @@ const PlanCalcTop = () => {
             min="1"
             value={planStatge}
             onChange={handleStageChange}
-            className="opacity-0 absolute top-[50%] translate-y-[-50%] left-[4vw] z-10"
+            className="opacity-0 absolute top-[50%] translate-y-[-50%] left-[4vw] z-10 h-[10.5vw]"
             style={{ width: 'calc(100% - 8vw)' }}
           />
         </div>

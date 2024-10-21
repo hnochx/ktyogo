@@ -29,21 +29,21 @@ const PlanCalcBottom = () => {
         </li>
         <li className="py-[1.2vw] flex gap-2 items-center">
           <i
-            className="inline-block w-[6.5vw] h-[6.5vw] rounded-[50%] bg-[#fff]  bg-[0_-33px] bg-no-repeat bg-cover"
+            className="inline-block w-[6.5vw] h-[6.5vw] rounded-[50%] bg-[#fff]  bg-[0_-8.5vw] bg-no-repeat bg-cover"
             style={{ backgroundImage: `url(${title_icon.src})` }}
           ></i>
           티빙 광고형 12개월 제공
         </li>
         <li className="py-[1.2vw] flex gap-2 items-center">
           <i
-            className="inline-block w-[6.5vw] h-[6.5vw] rounded-[50%] bg-[#fff]  bg-[0_-66px] bg-no-repeat bg-cover"
+            className="inline-block w-[6.5vw] h-[6.5vw] rounded-[50%] bg-[#fff]  bg-[0_-17vw] bg-no-repeat bg-cover"
             style={{ backgroundImage: `url(${title_icon.src})` }}
           ></i>
           결합/멤버십 혜택 제공
         </li>
         <li className="py-[1.2vw] flex gap-2 items-center">
           <i
-            className="inline-block w-[6.5vw] h-[6.5vw] rounded-[50%] bg-[#fff]  bg-[0_-99px] bg-no-repeat bg-cover"
+            className="inline-block w-[6.5vw] h-[6.5vw] rounded-[50%] bg-[#fff]  bg-[0_-25.5vw] bg-no-repeat bg-cover"
             style={{ backgroundImage: `url(${title_icon.src})` }}
           ></i>
           월 2,000원 쿠폰 제공
