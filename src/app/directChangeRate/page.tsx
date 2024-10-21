@@ -34,7 +34,10 @@ const DirectChangeRate = () => {
     const getPlans = async () => {
       const planList = await fetchPlan('g0vgJer9zDCnuz5ZgxuH');
       setData(planList);
-      setAllFilteredPlans(planList.flatMap((plan) => plan.planMetas));
+      const allPlans = planList.flatMap((plan) => plan.planMetas);
+      setAllFilteredPlans(allPlans);
+      setInitialFilteredPlans(allPlans); // 전체 데이터로 초기화
+      setFilteredPlans(allPlans); // 전체 데이터로 초기화
     };
 
     getPlans();
