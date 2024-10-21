@@ -41,3 +41,6 @@ package-lock.json
 # yml
 /.github
 deploy.yml
+
+# json
+kt_chatbot.json
