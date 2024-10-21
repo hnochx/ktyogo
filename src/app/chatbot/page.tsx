@@ -7,17 +7,19 @@ import { Inter } from 'next/font/google';
 import { LeftChat } from '@/components/chatbot/LeftChat';
 import { RightChat } from '@/components/chatbot/RightChat';
 import { MenuButton } from '@/components/chatbot/MenuButton';
-import { fetchChatbotData } from '@/firebase/firestoreChatbot';
+import { useFetchChatbot } from '@/app/hook/useChatbot';
+import { ChatSkeleton } from '@/components/chatbot/ChatSkeleton';
 
 const inter = Inter({
   weight: ['400', '700'],
   subsets: ['latin'],
 });
 
-const ChatBotMain = () => {
+export default function ChatBotMain() {
   const [sendText, setSendText] = useState<string>('');
   const [msgArr, setMsgArr] = useState<msgType[]>([]);
   const msgRef = useRef<HTMLDivElement>(null);
+  const fetchChatbot = useFetchChatbot();
 
   const sendMsg = (msg: string) => {
     if (msg.trim() !== '') {
@@ -26,14 +28,28 @@ const ChatBotMain = () => {
         { msgId: Date.now(), message: msg, created: new Date(), location: 'right', type: 'text' },
       ]);
 
-      fetchChatbotData(msg)
-        .then((res) => {
+      try {
+        fetchChatbot.fetchData(msg).then((res) => {
           if (res) {
             setMsgArr((msgList) => [...msgList, { ...res, msgId: Date.now(), created: new Date(), location: 'left' }]);
-            setSendText('');
+          } else {
+            setMsgArr((msgList) => [
+              ...msgList,
+              {
+                type: 'text',
+                message: `제가 잘 이해하지 못했어요. \nKT상품과 관련된 문의는 대답을 잘 할 수 있어요.\n`,
+                msgId: Date.now(),
+                created: new Date(),
+                location: 'left',
+              },
+            ]);
           }
-        })
-        .catch((error) => alert('오류가 발생했습니다. \n에러 : ' + error));
+        });
+      } catch (error) {
+        alert('오류가 발생했습니다. \n에러 : ' + error);
+      } finally {
+        setSendText('');
+      }
     }
   };
 
@@ -88,6 +104,7 @@ const ChatBotMain = () => {
             }
           })}
         </div>
+        {fetchChatbot.isLoading && <ChatSkeleton />}
       </div>
       <div className="py-2 px-3">
         <div className="flex items-center bg-[#F7F7F7] rounded-[30px] px-3 py-1">
@@ -106,5 +123,4 @@ const ChatBotMain = () => {
       </div>
     </div>
   );
-};
-export default ChatBotMain;
+}
