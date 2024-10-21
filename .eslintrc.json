@@ -7,5 +7,6 @@
     "no-console": "error", // 콘솔로그 사용 시 에러
     "@typescript-eslint/no-unused-vars": "error",
     "react-hooks/exhaustive-deps": "off"
+
   }
 }

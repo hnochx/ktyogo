@@ -12,6 +12,9 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         whiteSmoke: '#F5F5F5',
+        yogoGreen: '#01A69F',
+        medium_gray: '#979797',
+        lightGray: '#ADB5BD',
       },
       keyframes: {
         shimmer: {
