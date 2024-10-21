@@ -45,6 +45,12 @@ body {
   }
 }
 
+@layer components {
+  .skeleton {
+    @apply animate-shimmer bg-gradient-shimmer bg-custom;
+  }
+}
+
 /* Commented out for now: Theming based on prefers-color-scheme */
 /*
 :root {
@@ -59,3 +65,4 @@ body {
   }
 }
 */
+
