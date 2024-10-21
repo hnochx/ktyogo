@@ -21,7 +21,6 @@ const DirectChangeRate = () => {
   const [data, setData] = useState<PlanData[] | null>(null);
   const [filteredPlans, setFilteredPlans] = useState<PlanMeta[]>([]);
   const [allFilteredPlans, setAllFilteredPlans] = useState<PlanMeta[]>([]);
-  const [selectedPlan, setSelectedPlan] = useState<string>('전체 용량');
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [selectedAll, setSelectedAll] = useState<SelectedState>({
     selectedMno: [],
@@ -36,16 +35,14 @@ const DirectChangeRate = () => {
       setData(planList);
       const allPlans = planList.flatMap((plan) => plan.planMetas);
       setAllFilteredPlans(allPlans);
-      setInitialFilteredPlans(allPlans); // 전체 데이터로 초기화
-      setFilteredPlans(allPlans); // 전체 데이터로 초기화
+      setInitialFilteredPlans(allPlans);
+      setFilteredPlans(allPlans);
     };
 
     getPlans();
   }, []);
 
   const handleDataFilter = (selectedData: string) => {
-    setSelectedPlan(selectedData);
-
     if (!selectedData || !data) return;
 
     const range = dataRangeOptions[selectedData];
@@ -128,11 +125,11 @@ const DirectChangeRate = () => {
           </>
         ) : null}
       </div>
-      {filteredPlans.length > 0
-        ? filteredPlans.map((plan) => (
-            <PlanSummary key={`${plan.mno}-${plan.mobileDataStr}-${plan.name}`} plan={plan} />
-          ))
-        : selectedPlan === '전체 용량' && <p className="text-medium_gray text-center">어떤 요금제가 딱 맞을까요? </p>}
+      {filteredPlans.length > 0 ? (
+        filteredPlans.map((plan) => <PlanSummary key={`${plan.mno}-${plan.mobileDataStr}-${plan.name}`} plan={plan} />)
+      ) : (
+        <p className="text-medium_gray text-center">선택한 필터의 결과값이 없습니다. </p>
+      )}
     </div>
   );
 };
