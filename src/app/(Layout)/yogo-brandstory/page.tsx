@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import SliderButton from './SliderButton';
-import ScrollToTopButton from './ScrollToTopButton';
+import SliderButton from '@/components/brandstory/SliderButton';
+import ScrollToTopButton from '@/components/brandstory/ScrollToTopButton';
 import { back_img, back_img2, promo_btn, slider_1, yt, yt2, yt3 } from '@/assets/images/brandstory/images';
 
 const Brandstory = () => {
@@ -51,7 +51,7 @@ const Brandstory = () => {
         </div>
       </div>
 
-      <div className="fixed top-3 right-0 z-10">
+      <div className="fixed top-[120px] right-0 z-10">
         <Image src={promo_btn} alt="promo_btn" width={100} height={100} />
       </div>
 
