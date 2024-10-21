@@ -1,6 +1,10 @@
-import Brandstory from '@/components/brandstory/Brandstory';
+import PlanCalc from '@/components/plan-calc/plan-calc';
 
-export default function page() {
-  return <Brandstory />;
+export default function Home() {
+  return (
+    <div>
+      Home
+    </div>
+  );
 }
 
