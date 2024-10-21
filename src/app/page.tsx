@@ -1,5 +1,6 @@
-const page = () => {
-  return <div>page</div>;
-};
+import Brandstory from '@/components/brandstory/Brandstory';
 
-export default page;
+export default function page() {
+  return <Brandstory />;
+}
+

@@ -16,6 +16,21 @@ const config: Config = {
         medium_gray: '#979797',
         lightGray: '#ADB5BD',
       },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '300%' },
+          '100%': { backgroundPosition: '0%' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 2.5s infinite',
+      },
+      backgroundImage: {
+        'gradient-shimmer': 'linear-gradient(to right, #D0D0D0 0%, #EDEDED 50%, #D0D0D0 100%)',
+      },
+      backgroundSize: {
+        custom: '300% 300%',
+      },
     },
   },
   plugins: [],
