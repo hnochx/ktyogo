@@ -1,5 +1,5 @@
+import { db } from '@/firebase/firebaseInitial';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../firebase/firebaseInitial';
 import { useState } from 'react';
 
 export const useFetchChatbot = () => {
