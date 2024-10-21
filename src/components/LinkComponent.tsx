@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import image_32 from '@/assets/images/image_32.png';
+import image_32 from '@/assets/images/planChange/images/yogoImage.png';
 import { Noto_Sans_KR } from 'next/font/google';
 import Link from 'next/link';
 

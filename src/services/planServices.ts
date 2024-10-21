@@ -1,7 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore';
 
 import { PlanData } from '@/types/types';
-import db from '../../../firebase/firestore';
+import { db } from '@/firebase/firebaseInitial';
 
 const fetchPlan = async (planId: string) => {
   const planRef = doc(db, 'total_plan', planId); // 문서 참조 생성

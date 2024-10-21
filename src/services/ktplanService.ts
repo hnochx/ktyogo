@@ -1,6 +1,6 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { KTPlan } from '@/types/types';
-import db from '../../../firebase/firestore';
+import { db } from '@/firebase/firebaseInitial';
 
 export const KTfetchPlans = async (): Promise<KTPlan[]> => {
   const results = await getDocs(collection(db, 'kt_plan'));

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css';
-import Header from '@/components/Header/header';
-// import SubHeader from '@/components/Header/sub-header';
-import Footer from '@/components/Footer';
+import '../globals.css';
+import Header from '@/components/header/header';
+import Footer from '@/components/footer/Footer';
 
 export const metadata: Metadata = {
   title: 'KT',
@@ -18,7 +17,6 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Header />
-        {/* <SubHeader/> */}
         <div className="min-h-[100vh]">{children}</div>
         <Footer />
       </body>
