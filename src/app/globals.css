@@ -9,6 +9,11 @@ body {
   position: relative;
 }
 
+/* 스크롤바 보이지 않게 */
+*::-webkit-scrollbar {
+  display: none;
+}
+
 /* swiper CSS */
 .swiper {
   width: 100%;
@@ -60,3 +65,4 @@ body {
   }
 }
 */
+

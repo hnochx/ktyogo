@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import fetchPlan from '@/app/services/planServices';
+import fetchPlan from '@/services/planServices';
 import { PlanData } from '@/types/types';
 import FeeInfo from '@/components/PlanChangeForm/FeeInfo';
 import formatToDateString from '@/lib/utils';

@@ -4,9 +4,10 @@ import Image from 'next/image';
 import images from '@/assets/images/yogoRatePlan/images';
 import YogoPlanCard from './yogoPlanCard';
 import { useEffect, useState } from 'react';
-import { KTfetchPlans } from '@/app/services/ktplanService';
+
 import { KTPlan } from '@/types/types';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { KTfetchPlans } from '@/services/ktplanService';
 
 const YogoPlanRate = () => {
   const [ktPlans, setKtPlans] = useState<KTPlan[] | null>(null);

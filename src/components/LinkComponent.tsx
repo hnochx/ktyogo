@@ -12,7 +12,7 @@ const notoSansKR = Noto_Sans_KR({
 const LinkComponent = () => {
   return (
     <>
-      <div className={`w-[390px] h-[844px] flex justify-center ${notoSansKR.className}`}>
+      <div className={`w-full flex justify-center ${notoSansKR.className}`}>
         <div className="rounded-3xl bg-whiteSmoke w-[354px] h-[294px] flex flex-col items-center p-7 shadow-[9px_9px_5px_rgba(128,128,128,0.2)]">
           <div className="flex flex-col justify-center *:mb-[10px]">
             <div className="flex flex-row items-center gap-1 justify-center p-1">

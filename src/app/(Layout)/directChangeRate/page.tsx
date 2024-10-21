@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import DataPlanSelect, { dataRangeOptions } from '@/components/PlanChangeForm/SelectData';
-import fetchPlan from '../services/planServices';
+import fetchPlan from '../../../services/planServices';
 import FilterHandler from '@/components/PlanChangeForm/FilterHandler';
 import SortButton from '@/components/PlanChangeForm/SortButton';
 import PlanSummary from '@/components/PlanChangeForm/PlanSummary';
