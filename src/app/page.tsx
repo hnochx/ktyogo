@@ -1,6 +1,3 @@
-import Brandstory from '@/components/brandstory/Brandstory';
-
-export default function page() {
-  return <Brandstory />;
+export default function Home() {
+  return <div>Home</div>;
 }
-
