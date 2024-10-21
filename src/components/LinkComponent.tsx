@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import image_32 from '@/public/images/image_32.png';
+import image_32 from '@/assets/images/image_32.png';
 import { Noto_Sans_KR } from 'next/font/google';
+import Link from 'next/link';
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ['latin'],
@@ -28,11 +29,11 @@ const LinkComponent = () => {
                 USIM개통 하러가기
               </button>
             </a>
-            <a href="https://m.shop.kt.com:444/m/direct/directChangeRate.do">
+            <Link href="/directChangeRate">
               <button className="bg-black w-[308px] text-sm font-medium text-white rounded-md h-10">
                 요금제 변경하기
               </button>
-            </a>
+            </Link>
           </div>
           <div>
             <p className="text-xs text-gray-500 ">
