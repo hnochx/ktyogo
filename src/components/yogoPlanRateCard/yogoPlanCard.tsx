@@ -17,14 +17,12 @@ const YogoPlanCard = ({ ktPlan }: IYogoPlanCard) => {
     <div className="bg-white w-full h-auto px-5 pb-5 rounded-xl border border-lightGray mb-5 last:mb-0">
       {ktPlan.benefits.additional_benefits ? (
         <div className="flex flex-row items-center justify-between w-full">
-          {' '}
-          {/* w-full 추가 */}
-          <div className="flex flex-col items-center relative" style={{ top: '-10px', left: '-28px' }}>
+          <div className="flex flex-col items-center relative" style={{ top: '-10px', left: '-50px' }}>
             <span className="absolute text-center text-white py-5 px-6 text-xs">
               {ktPlan.benefits.additional_benefits.replace(/출시기념 데이터 (\d+)GB 추가 제공/, '출시기념 $1GB 더!')}
             </span>
             <div className="flex justify-center items-center">
-              <BookmarkIcon className="w-28 h-[75px] text-blue-500 " />
+              <BookmarkIcon className="w-28 h-[76px] text-blue-500 " />
             </div>
           </div>
           <h1 className="text-lg font-bold text-center absolute left-1/2 transform -translate-x-1/2">
@@ -33,12 +31,10 @@ const YogoPlanCard = ({ ktPlan }: IYogoPlanCard) => {
         </div>
       ) : ktPlan.data.total_data === '5G 완전 무제한' ? (
         <div className="flex flex-row items-center justify-between w-full">
-          {' '}
-          {/* w-full 추가 */}
-          <div className="flex flex-col items-center relative" style={{ top: '-10px', left: '-28px' }}>
+          <div className="flex flex-col items-center relative" style={{ top: '-10px', left: '-50px' }}>
             <span className="absolute text-center text-white py-5 px-10 text-xs">완전 무제한</span>
             <div className="flex justify-center items-center">
-              <BookmarkIcon className="w-28 h-[75px] text-red-500" />
+              <BookmarkIcon className="w-28 h-[76px] text-red-500" />
             </div>
           </div>
           <h1 className="text-lg font-bold text-center absolute left-1/2 transform -translate-x-1/2">
