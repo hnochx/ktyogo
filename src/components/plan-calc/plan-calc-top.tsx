@@ -10,7 +10,6 @@ interface PlanCalcTopProps {
 }
 
 const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) => {
-  const STAGE_MAX = 13;
   const [isMonthToggled, seMonthToggled] = useState(false); // 데이터 용량과 월정액간의 토글
   const [isYBenefit, setIsYBenefit] = useState(false); // Y덤 혜택 여부의 토글
   const [planStage, setPlanStage] = useState(1); // 요금제 단계 선택 (1 시작)
@@ -32,7 +31,7 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
           34세 이하의 Y라면? Y덤 혜택받기!{' '}
           <input type="checkbox" className="hidden" onChange={() => setIsYBenefit((prev) => !prev)} />
           <i
-            className={`w-[4.2vw] h-[4.2vw] inline-block bg-no-repeat bg-[top_right] bg-[length:4.2vw] align-middle ${isYBenefit || 'bg-bottom'}`}
+            className={`w-[4.2vw] h-[4.2vw] inline-block bg-no-repeat bg-[top_right] bg-[length:4.2vw] align-middle ${isYBenefit && 'bg-bottom'}`}
             style={{ backgroundImage: `url(${checkbox.src})` }}
           ></i>
         </label>
@@ -99,13 +98,13 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
           <div className="px-[4vw] py-[1.5vw] h-[10.5vw] pb-[1vw]">
             <div
               className="block h-full bg-gradient-to-r from-[#69f1fa] to-[#0dd9d3] transform skew-x-[-15deg]"
-              style={{ width: `calc(${(planStage / STAGE_MAX) * 100}%)` }}
+              style={{ width: `calc(${(planStage / list.length) * 100}%)` }}
             ></div>
           </div>
           <input
             type="range"
             step="1"
-            max={STAGE_MAX}
+            max={list.length}
             min="1"
             value={planStage}
             onChange={handleStageChange}
