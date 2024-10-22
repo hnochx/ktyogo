@@ -9,8 +9,10 @@ const YogoPlanCard = ({ ktPlan }: IYogoPlanCard) => {
   const details = [
     { label: '데이터', value: `${ktPlan.data.total_data}` },
     { label: '전화/문자', value: `${ktPlan.calls_and_texts}` },
-    { label: 'KT 멤버쉽', value: ktPlan.benefits ? '혜택 제공' : '혜택 미제공' },
-    { label: '유무선 결합할인', value: '혜택 제공' },
+    {
+      label: '공유 데이터',
+      value: ktPlan.data.shared_data_limit ? ktPlan.data.shared_data_limit : '미제공',
+    },
   ];
 
   return (
@@ -55,9 +57,8 @@ const YogoPlanCard = ({ ktPlan }: IYogoPlanCard) => {
             <span className="text-black">{item.value}</span>
           </div>
         ))}
-        <div className="border-t border-gray-200 my-4" />
 
-        <div className="flex flex-col *:text-xs gap-3">
+        <div className="flex flex-col *:text-xs gap-3 my-5 bg-neutral-50 p-4 rounded-xl">
           {ktPlan.benefits.choice_benefits && (
             <div>
               <p className="text-yogoGreen">초이스 혜택</p>
@@ -76,7 +77,7 @@ const YogoPlanCard = ({ ktPlan }: IYogoPlanCard) => {
             </div>
           )}
         </div>
-        <div className="border-t border-gray-200 my-4" />
+
         <h1 className="text-end text-lg">
           월<strong className="font-bold"> {ktPlan.monthly_fee}</strong>
         </h1>

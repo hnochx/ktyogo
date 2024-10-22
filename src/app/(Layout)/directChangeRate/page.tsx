@@ -28,15 +28,20 @@ const DirectChangeRate = () => {
   });
 
   const [initialFilteredPlans, setInitialFilteredPlans] = useState<PlanMeta[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
     const getPlans = async () => {
-      const planList = await fetchPlan('g0vgJer9zDCnuz5ZgxuH');
-      setData(planList);
-      const allPlans = planList.flatMap((plan) => plan.planMetas);
-      setAllFilteredPlans(allPlans);
-      setInitialFilteredPlans(allPlans);
-      setFilteredPlans(allPlans);
+      try {
+        const planList = await fetchPlan('g0vgJer9zDCnuz5ZgxuH');
+        setData(planList);
+        const allPlans = planList.flatMap((plan) => plan.planMetas);
+        setAllFilteredPlans(allPlans);
+        setInitialFilteredPlans(allPlans);
+        setFilteredPlans(allPlans);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getPlans();
@@ -97,9 +102,9 @@ const DirectChangeRate = () => {
             변경하세요.
           </p>
         </div>
-        <Image src={images.planChangeMain} alt="요고 이미지" width={200} height={150} />
+        <Image src={images.planChangeMain} alt="요고 이미지" width={180} height={180} />
       </div>
-      <div className="border-t border-medium_gray mb-5" />
+      <div className="border-t border-lightGray mb-5" />
       <DataPlanSelect onSelect={handleDataFilter} />
 
       <div className="flex flex-row mt-5 gap-2 justify-end">
@@ -113,22 +118,31 @@ const DirectChangeRate = () => {
         {isFilterVisible && <FilterForm toggleFilter={toggleFilter} onFilterChange={handleFilterChange} />}
       </div>
       <div className="border-t border-lightGray my-4" />
-      <div className="flex flex-row justify-between items-center text-medium_gray *:text-sm mb-4">
-        <p>{filteredPlans.length}개의 결과</p>
-        {selectedAll.selectedMno.length > 0 && selectedAll.selectedNets ? (
-          <>
-            <div>
-              <p className="flex flex-row">
-                <h1 className="pr-1">{selectedAll.selectedMno.join(' , ')}</h1> | {selectedAll.selectedNets}
-              </p>
-            </div>
-          </>
-        ) : null}
-      </div>
-      {filteredPlans.length > 0 ? (
-        filteredPlans.map((plan) => <PlanSummary key={`${plan.mno}-${plan.mobileDataStr}-${plan.name}`} plan={plan} />)
+
+      {isLoading ? (
+        <p className="text-center pt-5 text-medium_gray animate-pulse">
+          데이터를 불러오는 중입니다. <br />
+          잠시만 기다려주세요
+        </p>
+      ) : filteredPlans.length > 0 ? ( // 필터링된 데이터가 있을 때
+        <>
+          <div className="flex flex-row justify-between items-center text-medium_gray *:text-sm mb-4">
+            <p>{filteredPlans.length}개의 결과</p>
+            {selectedAll.selectedMno.length > 0 && selectedAll.selectedNets ? (
+              <div>
+                <p className="flex flex-row">
+                  <h1 className="pr-1">{selectedAll.selectedMno.join(' , ')}</h1> | {selectedAll.selectedNets}
+                </p>
+              </div>
+            ) : null}
+          </div>
+          {filteredPlans.map((plan) => (
+            <PlanSummary key={`${plan.mno}-${plan.mobileDataStr}-${plan.name}`} plan={plan} />
+          ))}
+        </>
       ) : (
-        <p className="text-medium_gray text-center">선택한 필터의 결과값이 없습니다. </p>
+        // 데이터가 없을 때
+        <p className="text-medium_gray text-center">데이터가 없습니다.</p>
       )}
     </div>
   );

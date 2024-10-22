@@ -2,12 +2,12 @@
 
 import Image from 'next/image';
 import images from '@/assets/images/yogoRatePlan/images';
-import YogoPlanCard from './yogoPlanCard';
 import { useEffect, useState } from 'react';
 
 import { KTPlan } from '@/types/types';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { KTfetchPlans } from '@/services/ktplanService';
+import YogoPlanCard from './YogoPlanCard';
 
 const YogoPlanRate = () => {
   const [ktPlans, setKtPlans] = useState<KTPlan[] | null>(null);
@@ -45,7 +45,7 @@ const YogoPlanRate = () => {
 
   return (
     <>
-      <div className="bg-[#EEE7DA] w-full py-10 px-5  ">
+      <div className="bg-[#F5F1E8] w-full py-14 px-5  ">
         <div className="flex flex-col justify-center items-center text-center gap-3">
           <div className="text-2xl font-semibold flex flex-col justify-center">
             <p>나에게 맞는 </p>
@@ -55,12 +55,12 @@ const YogoPlanRate = () => {
             </div>
           </div>
           <div className="flex flex-row items-center gap-1">
-            <span className="bg-yogoGreen px-2 py-0.5 text-white rounded-md text-sm">Y덤 혜택</span>
-            <span className="text-neutral-700">34세 이하는 데이터 2배 적용!</span>
+            <span className="bg-yogoGreen px-2 py-0.5 text-white rounded-sm text-xs">Y덤 혜택</span>
+            <span className="text-neutral-700 text-sm">34세 이하는 데이터 2배 적용!</span>
           </div>
         </div>
-        <div className="pt-10">
-          {filteredPlans && filteredPlans.map((ktPlan) => <YogoPlanCard key={ktPlan.id} ktPlan={ktPlan} />)}
+        <div className="pt-8">
+          {filteredPlans && filteredPlans.map((ktPlan) => <YogoPlanCard key={ktPlan.plan_name} ktPlan={ktPlan} />)}
         </div>
         {filteredPlans && !showAll && (
           <div className="flex justify-center mt-4">
@@ -75,7 +75,7 @@ const YogoPlanRate = () => {
         {showAll && otherPlans && (
           <div className="pt-5">
             {otherPlans.map((ktPlan) => (
-              <YogoPlanCard key={ktPlan.id} ktPlan={ktPlan} />
+              <YogoPlanCard key={ktPlan.plan_name} ktPlan={ktPlan} />
             ))}
           </div>
         )}

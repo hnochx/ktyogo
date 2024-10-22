@@ -34,7 +34,7 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
   )[0];
 
   if (!filteredPlan) {
-    return <div>해당 요금제를 찾을 수 없습니다.</div>;
+    return <div className="p-5"> 해당 요금제를 불러오는 중입니다 </div>;
   }
 
   const details = [
@@ -76,17 +76,21 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
     }
   };
 
-  const showFeeClick = (event: React.MouseEvent<HTMLImageElement>) => {
+  const handleMouseEnterFee = (event: React.MouseEvent<HTMLImageElement>) => {
     setShowFeeInfo((prev) => !prev);
     const newLeft = `${event.clientX - 100}px`;
     const newTop = `${event.clientY + window.scrollY - 100}px`;
     setPosition({ left: newLeft, top: newTop });
   };
 
+  const handleMouseLeaveFee = () => {
+    setShowFeeInfo(false);
+  };
+
   return (
-    <div className="flex flex-col px-6">
+    <div className="flex flex-col px-6 ">
       <div className="w-full">
-        <h1 className="text-xl font-bold mt-10">월 {filteredPlan.mobileDataStr}</h1>
+        <h1 className="text-xl font-bold mt-12">월 {filteredPlan.mobileDataStr}</h1>
         <p className="text-medium_gray text-sm mb-5">{filteredPlan.speedWhenExhaustedDescription}</p>
         <div className="flex row gap-5 items-center">
           {features.map(({ src, alt, text }) => (
@@ -96,7 +100,7 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
             </div>
           ))}
         </div>
-        <div className="border-t border-gray-200 my-5" />
+        <div className="border-t border-gray-200 my-6" />
         <h2 className="font-semibold text-base mb-8">요금제 상세정보</h2>
         {details.map(({ label, value }) => (
           <div key={label} className="flex flex-row justify-between text-sm mt-4">
@@ -104,7 +108,7 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
             <span className="text-blue-500">{value}</span>
           </div>
         ))}
-        <div className="border-t border-gray-200 my-5" />
+        <div className="border-t border-gray-200 my-6" />
         <div>
           <p className="text-base font-bold">사은품 및 이벤트</p>
           <div className="flex flex-row justify-start items-center gap-4 border border-gray-200 rounded-lg p-5 mt-2">
@@ -121,7 +125,7 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
                   height={30}
                 />
                 <div className="flex flex-col gap-3">
-                  <h1>
+                  <h1 className="font-semibold">
                     {filteredPlan.giftList[0].description && (
                       <>
                         {filteredPlan.giftList[0].description.split(/\s*\(/).map((part, index) => (
@@ -150,10 +154,19 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
           </div>
 
           <div className="flex flex-row justify-between my-10 items-center">
-            <p className="text-sm text-blue-600 font-semibold">월 {filteredPlan.feeString}</p>
-            <div className="flex flex-row gap-4 justify-center items-center">
-              <Image src={images.Vector} alt="vector" width={12} height={12} onClick={showFeeClick} />
+            <div className="flex flex-row justify-center items-center gap-2">
+              <p className="text-base text-blue-600 font-semibold">월 {filteredPlan.feeString} 원</p>
+              <Image
+                src={images.Vector}
+                alt="vector"
+                width={12}
+                height={12}
+                onMouseEnter={handleMouseEnterFee}
+                onMouseLeave={handleMouseLeaveFee}
+              />
               <FeeInfo position={position} showFeeInfo={showFeeInfo} plan={filteredPlan} />
+            </div>
+            <div className="flex flex-row gap-4 justify-center items-center">
               <a href={filteredPlan.signupUrl} target="_blank" rel="noopener noreferrer">
                 <button className="bg-blue-600 text-sm font-medium px-10 text-white rounded-md h-10 cursor-pointer">
                   신청하기
