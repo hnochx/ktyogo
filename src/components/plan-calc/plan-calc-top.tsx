@@ -18,8 +18,16 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
     setSelectedPlan(list[planStage - 1]);
   }, [planStage]);
 
+  // 요금제 단계 변경
   const handleStageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlanStage(Number(e.target.value));
+  };
+
+  const handleStagePlusBtn = () => {
+    if (planStage < 13) setPlanStage((prev) => prev + 1);
+  };
+  const handleStageMinusBtn = () => {
+    if (planStage > 1) setPlanStage((prev) => prev - 1);
   };
 
   return (
@@ -63,7 +71,7 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
       <div>
         <div className="flex justify-between items-center pt-[5vw] pb-[4vw] border-[#ccc] border-t px-[4vw]">
           <button
-            onClick={() => setPlanStage((prev) => prev - 1)}
+            onClick={handleStageMinusBtn}
             className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[100%]"
           >
             -
@@ -91,7 +99,7 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
             )}
           </div>
           <button
-            onClick={() => setPlanStage((prev) => prev + 1)}
+            onClick={handleStagePlusBtn}
             className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[100%]"
           >
             +
