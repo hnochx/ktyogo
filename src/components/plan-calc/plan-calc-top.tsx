@@ -1,12 +1,23 @@
 'use client';
 import { checkbox, range_bg } from '@/assets/images/plan-calc/images';
-import { useState } from 'react';
+import { KTPlan } from '@/types/types';
+import { useEffect, useState } from 'react';
 
-const PlanCalcTop = () => {
+interface PlanCalcTopProps {
+  list: KTPlan[];
+  selectedPlan: KTPlan | null;
+  setSelectedPlan: React.Dispatch<React.SetStateAction<KTPlan | null>>;
+}
+
+const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) => {
   const STAGE_MAX = 13;
   const [isToggled, setIsToggled] = useState(false); // 데이터 용량과 월정액간의 토글
   const [isYBenefit, setIsYBenefit] = useState(false); // Y덤 혜택 여부의 토글
-  const [planStatge, setPlanStage] = useState(1); // 요금제 단계 선택
+  const [planStage, setPlanStage] = useState(1); // 요금제 단계 선택 (1 시작)
+
+  useEffect(() => {
+    setSelectedPlan(list[planStage - 1]);
+  }, [planStage]);
 
   const handleStageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlanStage(Number(e.target.value));
@@ -60,7 +71,7 @@ const PlanCalcTop = () => {
           </button>
           {/* 데이터 또는 금액 */}
           <div className="text-[5.6vw]">
-            <span>40GB</span>
+            <span>{selectedPlan?.data.total_data}</span>
             <span>+</span>
             <em className="text-[#fe2e36] not-italic">40GB</em>
           </div>
@@ -82,7 +93,7 @@ const PlanCalcTop = () => {
           <div className="px-[4vw] py-[1.5vw] h-[10.5vw] pb-[1vw]">
             <div
               className="block h-full bg-gradient-to-r from-[#69f1fa] to-[#0dd9d3] transform skew-x-[-15deg]"
-              style={{ width: `calc(${(planStatge / STAGE_MAX) * 100}%)` }}
+              style={{ width: `calc(${(planStage / STAGE_MAX) * 100}%)` }}
             ></div>
           </div>
           <input
@@ -90,7 +101,7 @@ const PlanCalcTop = () => {
             step="1"
             max={STAGE_MAX}
             min="1"
-            value={planStatge}
+            value={planStage}
             onChange={handleStageChange}
             className="opacity-0 absolute top-[50%] translate-y-[-50%] left-[4vw] z-10 h-[10.5vw]"
             style={{ width: 'calc(100% - 8vw)' }}

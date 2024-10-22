@@ -24,7 +24,6 @@ import { KTPlan } from '@/types/types';
 
 const YogoBenefit = () => {
   const [planList, setPlanList] = useState<KTPlan[]>([]); // 전체 요금제 플랜 리스트
-  // const [selectedPlan, setSelectedPlan] = useState<KTPlan>();
 
   // 요금제 데이터 불러와 정렬하기
   useEffect(() => {
@@ -36,11 +35,9 @@ const YogoBenefit = () => {
         return feeA - feeB;
       });
       setPlanList(planList);
-      // setSelectedPlan(planList[0]);
     };
     getPlans();
   }, []);
-  // console.log(planList);
 
   return (
     <>
@@ -50,8 +47,7 @@ const YogoBenefit = () => {
         <Image src={yogo_benefit_2} alt="yogo" />
         {/* 요금 계산 들어갈 부분 */}
         <div className="mx-[4.5vw] my-[6vw]">
-          {planList.length > 0 || planList[0]}
-          <PlanCalc />
+          <PlanCalc list={planList} />
         </div>
 
         <div
