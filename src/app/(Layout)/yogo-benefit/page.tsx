@@ -87,7 +87,15 @@ const YogoBenefit = () => {
           KT 쿠폰팩 혜택
         </a>
       </div>
-      <Image src={yogo_benefit_5} alt="yogo" id="link1" />
+      <div className="relative">
+        <Image src={yogo_benefit_5} alt="yogo" id="link1" />
+        <a
+          className="block absolute top-[81%] left-[10%] w-[80%] h-[5%] text-[0px]"
+          href="https://m.product.kt.com/mDic/productDetail.do?ItemCode=1567&benefit=season2"
+        >
+          혜택 자세히 보기
+        </a>
+      </div>
       <Image src={yogo_benefit_6} alt="yogo" id="link2" />
       <div className="px-[7vw] overflow-x-scroll bg-[#f1fffe] pb-[50px]">
         <Image src={yogo_benefit_7} alt="yogo" className="w-[150%] max-w-none" />
@@ -101,7 +109,15 @@ const YogoBenefit = () => {
           요고 브랜드 스토리
         </Link>
       </div>
-      <Image src={yogo_benefit_11} alt="yogo" />
+      <div className="relative">
+        <Image src={yogo_benefit_11} alt="yogo" />
+        <a
+          href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2388"
+          className="absolute block top-[66%] left-[4%] w-[24%] h-[22%] text-[0px]"
+        >
+          자세히 보기
+        </a>
+      </div>
     </>
   );
 };
