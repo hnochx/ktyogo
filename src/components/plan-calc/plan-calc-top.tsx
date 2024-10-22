@@ -11,7 +11,7 @@ interface PlanCalcTopProps {
 
 const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) => {
   const STAGE_MAX = 13;
-  const [isToggled, setIsToggled] = useState(false); // 데이터 용량과 월정액간의 토글
+  const [isMonthToggled, seMonthToggled] = useState(false); // 데이터 용량과 월정액간의 토글
   const [isYBenefit, setIsYBenefit] = useState(false); // Y덤 혜택 여부의 토글
   const [planStage, setPlanStage] = useState(1); // 요금제 단계 선택 (1 시작)
 
@@ -39,24 +39,24 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
       </strong>
       {/* 용량 또는 월정액 토글 버튼 */}
       <div className="border-[#ccc] border-t py-[4vw] flex justify-center gap-[2rem] mt-[5vw] text-[4.2vw]">
-        <button onClick={() => setIsToggled(false)} className={`${isToggled || 'text-[#0f807b]'}`}>
+        <button onClick={() => seMonthToggled(false)} className={`${isMonthToggled || 'text-[#0f807b]'}`}>
           데이터 용량
         </button>
         <label className="inline-flex items-center cursor-pointer">
           <input type="checkbox" className="sr-only peer" />
           <button
-            onClick={() => setIsToggled((prev) => !prev)}
+            onClick={() => seMonthToggled((prev) => !prev)}
             className={`relative w-[75px] h-[30px] rounded-[30px] bg-[#0f807b] text-[0]
         after:w-[22px] after:h-[22px] after:bg-white after:content-[''] 
         after:block after:rounded-full after:absolute after:top-[4px] 
         after:left-[4px] after:transition-transform after:duration-500 
-        ${isToggled ? 'after:translate-x-[45px]' : ''}`}
+        ${isMonthToggled ? 'after:translate-x-[45px]' : ''}`}
           >
             스위치
           </button>
         </label>
 
-        <button onClick={() => setIsToggled(true)} className={`${isToggled && 'text-[#0f807b]'}`}>
+        <button onClick={() => seMonthToggled(true)} className={`${isMonthToggled && 'text-[#0f807b]'}`}>
           월정액
         </button>
       </div>
@@ -71,9 +71,15 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
           </button>
           {/* 데이터 또는 금액 */}
           <div className="text-[5.6vw]">
-            <span>{selectedPlan?.data.total_data}</span>
-            <span>+</span>
-            <em className="text-[#fe2e36] not-italic">40GB</em>
+            {isMonthToggled ? (
+              <>{selectedPlan?.monthly_fee}</>
+            ) : (
+              <>
+                <span>{selectedPlan?.data.total_data}</span>
+                <span>+</span>
+                <em className="text-[#fe2e36] not-italic">40GB</em>
+              </>
+            )}
           </div>
           <button
             onClick={() => setPlanStage((prev) => prev + 1)}
@@ -108,9 +114,19 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
           />
         </div>
         <div className="text-[3.4vw] flex justify-between m-[5px] pt-[10px] relative after:content-[''] after:absolute after:w-[1px] after:h-[10px] after:bg-[#ccc] after:top-0 after:left-1/2">
-          <span>5GB</span>
-          <span>35GB</span>
-          <span>무제한</span>
+          {isMonthToggled ? (
+            <>
+              <span>3만</span>
+              <span>4만2천</span>
+              <span>6만9천</span>
+            </>
+          ) : (
+            <>
+              <span>5GB</span>
+              <span>35GB</span>
+              <span>무제한</span>
+            </>
+          )}
         </div>
       </div>
       {/* 하단 혜택 내용 텍스트 */}
