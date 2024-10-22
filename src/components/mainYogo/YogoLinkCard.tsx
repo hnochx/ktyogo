@@ -12,7 +12,7 @@ interface IYogoLinkCard {
   alt: string;
   title: string;
   description: string;
-  links: IYogoLink[] | string; // 배열 또는 문자열 형태로 받을 수 있도록 타입 정의
+  links: IYogoLink[] | string;
 }
 
 const YogoLinkCard = ({ imageSrc, alt, title, description, links }: IYogoLinkCard) => {

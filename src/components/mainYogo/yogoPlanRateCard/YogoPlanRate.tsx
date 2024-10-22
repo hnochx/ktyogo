@@ -56,7 +56,7 @@ const YogoPlanRate = () => {
           </div>
           <div className="flex flex-row items-center gap-1">
             <span className="bg-yogoGreen px-2 py-0.5 text-white rounded-sm text-xs">Y덤 혜택</span>
-            <span className="text-neutral-700 text-sm">34세 이하는 데이터 2배 적용!</span>
+            <span className="text-neutral-700 text-base">34세 이하는 데이터 2배 적용!</span>
           </div>
         </div>
         <div className="pt-8">

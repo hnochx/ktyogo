@@ -1,7 +1,7 @@
 import YogoLinkComponent from '@/components/mainYogo/YogoLinkComponent';
 import YogoPlanRate from '@/components/mainYogo/yogoPlanRateCard/YogoPlanRate';
 import Image from 'next/image';
-import images from '@/assets/images/yogoMain/images';
+import images from '@/assets/images/yogoMain/main_images';
 
 export default function Home() {
   return (

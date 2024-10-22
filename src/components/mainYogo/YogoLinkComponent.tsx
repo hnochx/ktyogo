@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import images from '@/assets/images/yogoMain/images';
+import images from '@/assets/images/yogoMain/main_images';
 import YogoLinkCard from './YogoLinkCard';
 
 const YogoLinkComponent = () => {
