@@ -54,7 +54,7 @@ const Brandstory = () => {
         </div>
       </div>
 
-      <div className="fixed top-[120px] right-0">
+      <div className="fixed top-[120px] right-0 z-10">
         <Link href="/yogo-benefit">
           <Image src={promo_btn} alt="promo_btn" width={100} height={100} />
         </Link>
