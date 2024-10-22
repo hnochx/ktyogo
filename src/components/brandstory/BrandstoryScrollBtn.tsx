@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import fixdbtn from '@/assets/images/brandstory/bs-fixdbtn.png';
+import { fixed_btn } from '@/assets/images/brandstory/images';
 import Image from 'next/image';
 
 const ScrollToTopButton: React.FC = () => {
@@ -31,7 +31,7 @@ const ScrollToTopButton: React.FC = () => {
       }`}
     >
       <button className="w-[400px] h-auto">
-        <Image src={fixdbtn} alt="fixdbtn" className="w-full h-full" width={400} height={400} />
+        <Image src={fixed_btn} alt="fixdbtn" className="w-full h-full" width={400} height={400} />
       </button>
     </div>
   );
