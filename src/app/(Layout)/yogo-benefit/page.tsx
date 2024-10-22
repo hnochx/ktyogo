@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import {
   yogo_benefit_1,
@@ -15,8 +17,31 @@ import {
   yogo_logo,
 } from '@/assets/images/yogo-benefit/images';
 import LinkComponent from '@/components/LinkComponent';
+import PlanCalc from '@/components/plan-calc/plan-calc';
+import { useEffect, useState } from 'react';
+import { KTfetchPlans } from '@/services/ktplanService';
+import { KTPlan } from '@/types/types';
 
 const YogoBenefit = () => {
+  const [planList, setPlanList] = useState<KTPlan[]>([]); // 전체 요금제 플랜 리스트
+  // const [selectedPlan, setSelectedPlan] = useState<KTPlan>();
+
+  // 요금제 데이터 불러와 정렬하기
+  useEffect(() => {
+    const getPlans = async () => {
+      const planList = await KTfetchPlans();
+      planList.sort((a, b) => {
+        const feeA = parseInt(a.monthly_fee.replace(/[^0-9]/g, ''), 10);
+        const feeB = parseInt(b.monthly_fee.replace(/[^0-9]/g, ''), 10);
+        return feeA - feeB;
+      });
+      setPlanList(planList);
+      // setSelectedPlan(planList[0]);
+    };
+    getPlans();
+  }, []);
+  // console.log(planList);
+
   return (
     <>
       <Image src={yogo_benefit_1} alt="yogo" />
@@ -24,7 +49,10 @@ const YogoBenefit = () => {
       <div className="py-[8vw]">
         <Image src={yogo_benefit_2} alt="yogo" />
         {/* 요금 계산 들어갈 부분 */}
-        <div className="mx-[4.5vw] my-[6vw]"></div>
+        <div className="mx-[4.5vw] my-[6vw]">
+          {planList.length > 0 || planList[0]}
+          <PlanCalc />
+        </div>
 
         <div
           className="flex items-center px-[5vw] py-[6vw] rounded-[25px] mx-[4.5vw] justify-center"
@@ -40,7 +68,7 @@ const YogoBenefit = () => {
           </p>
         </div>
 
-        <div className="mt-[10vw]">
+        <div className="mt-[10vw] my-[6vw]">
           <LinkComponent />
         </div>
       </div>
