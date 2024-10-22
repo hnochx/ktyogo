@@ -75,8 +75,18 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
             ) : (
               <>
                 <span>{selectedPlan?.data.total_data}</span>
-                <span>+</span>
-                <em className="text-[#fe2e36] not-italic">40GB</em>
+                {planStage < 5 && (
+                  <>
+                    <span>+</span>
+                    <em className="text-[#fe2e36] not-italic">5GB</em>
+                  </>
+                )}
+                {planStage < 9 && planStage > 4 && (
+                  <>
+                    <span>+</span>
+                    <em className="text-[#fe2e36] not-italic">{selectedPlan?.data.total_data}</em>
+                  </>
+                )}
               </>
             )}
           </div>
