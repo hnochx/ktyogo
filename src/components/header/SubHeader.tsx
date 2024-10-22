@@ -1,5 +1,5 @@
 'use client';
-import HeaderLink from './header-link';
+import HeaderLink from './HeaderLink';
 import { useState } from 'react';
 
 const SubHeader = () => {
