@@ -1,33 +1,15 @@
 'use client';
 import { checkbox, range_bg } from '@/assets/images/plan-calc/images';
-import { KTPlan } from '@/types/types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-interface PlanCalcTopProps {
-  list: KTPlan[];
-  selectedPlan: KTPlan | null;
-  setSelectedPlan: React.Dispatch<React.SetStateAction<KTPlan | null>>;
-}
-
-const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) => {
-  const [isMonthToggled, seMonthToggled] = useState(false); // 데이터 용량과 월정액간의 토글
+const PlanCalcTop = () => {
+  const STAGE_MAX = 13;
+  const [isToggled, setIsToggled] = useState(false); // 데이터 용량과 월정액간의 토글
   const [isYBenefit, setIsYBenefit] = useState(false); // Y덤 혜택 여부의 토글
-  const [planStage, setPlanStage] = useState(1); // 요금제 단계 선택 (1 시작)
+  const [planStatge, setPlanStage] = useState(1); // 요금제 단계 선택
 
-  useEffect(() => {
-    setSelectedPlan(list[planStage - 1]);
-  }, [planStage]);
-
-  // 요금제 단계 변경
   const handleStageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlanStage(Number(e.target.value));
-  };
-
-  const handleStagePlusBtn = () => {
-    if (planStage < 13) setPlanStage((prev) => prev + 1);
-  };
-  const handleStageMinusBtn = () => {
-    if (planStage > 1) setPlanStage((prev) => prev - 1);
   };
 
   return (
@@ -39,31 +21,31 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
           34세 이하의 Y라면? Y덤 혜택받기!{' '}
           <input type="checkbox" className="hidden" onChange={() => setIsYBenefit((prev) => !prev)} />
           <i
-            className={`w-[4.2vw] h-[4.2vw] inline-block bg-no-repeat bg-[top_right] bg-[length:4.2vw] align-middle ${isYBenefit && 'bg-bottom'}`}
+            className={`w-[4.2vw] h-[4.2vw] inline-block bg-no-repeat bg-[top_right] bg-[length:4.2vw] align-middle ${isYBenefit || 'bg-bottom'}`}
             style={{ backgroundImage: `url(${checkbox.src})` }}
           ></i>
         </label>
       </strong>
       {/* 용량 또는 월정액 토글 버튼 */}
       <div className="border-[#ccc] border-t py-[4vw] flex justify-center gap-[2rem] mt-[5vw] text-[4.2vw]">
-        <button onClick={() => seMonthToggled(false)} className={`${isMonthToggled || 'text-[#0f807b]'}`}>
+        <button onClick={() => setIsToggled(false)} className={`${isToggled || 'text-[#0f807b]'}`}>
           데이터 용량
         </button>
         <label className="inline-flex items-center cursor-pointer">
           <input type="checkbox" className="sr-only peer" />
           <button
-            onClick={() => seMonthToggled((prev) => !prev)}
+            onClick={() => setIsToggled((prev) => !prev)}
             className={`relative w-[75px] h-[30px] rounded-[30px] bg-[#0f807b] text-[0]
         after:w-[22px] after:h-[22px] after:bg-white after:content-[''] 
         after:block after:rounded-full after:absolute after:top-[4px] 
         after:left-[4px] after:transition-transform after:duration-500 
-        ${isMonthToggled ? 'after:translate-x-[45px]' : ''}`}
+        ${isToggled ? 'after:translate-x-[45px]' : ''}`}
           >
             스위치
           </button>
         </label>
 
-        <button onClick={() => seMonthToggled(true)} className={`${isMonthToggled && 'text-[#0f807b]'}`}>
+        <button onClick={() => setIsToggled(true)} className={`${isToggled && 'text-[#0f807b]'}`}>
           월정액
         </button>
       </div>
@@ -71,35 +53,19 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
       <div>
         <div className="flex justify-between items-center pt-[5vw] pb-[4vw] border-[#ccc] border-t px-[4vw]">
           <button
-            onClick={handleStageMinusBtn}
+            onClick={() => setPlanStage((prev) => prev - 1)}
             className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[100%]"
           >
             -
           </button>
           {/* 데이터 또는 금액 */}
           <div className="text-[5.6vw]">
-            {isMonthToggled ? (
-              <>{selectedPlan?.monthly_fee}</>
-            ) : (
-              <>
-                <span>{selectedPlan?.data.total_data}</span>
-                {planStage < 5 && (
-                  <>
-                    <span>+</span>
-                    <em className="text-[#fe2e36] not-italic">5GB</em>
-                  </>
-                )}
-                {planStage < 9 && planStage > 4 && (
-                  <>
-                    <span>+</span>
-                    <em className="text-[#fe2e36] not-italic">{selectedPlan?.data.total_data}</em>
-                  </>
-                )}
-              </>
-            )}
+            <span>40GB</span>
+            <span>+</span>
+            <em className="text-[#fe2e36] not-italic">40GB</em>
           </div>
           <button
-            onClick={handleStagePlusBtn}
+            onClick={() => setPlanStage((prev) => prev + 1)}
             className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[100%]"
           >
             +
@@ -116,34 +82,24 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
           <div className="px-[4vw] py-[1.5vw] h-[10.5vw] pb-[1vw]">
             <div
               className="block h-full bg-gradient-to-r from-[#69f1fa] to-[#0dd9d3] transform skew-x-[-15deg]"
-              style={{ width: `calc(${(planStage / list.length) * 100}%)` }}
+              style={{ width: `calc(${(planStatge / STAGE_MAX) * 100}%)` }}
             ></div>
           </div>
           <input
             type="range"
             step="1"
-            max={list.length}
+            max={STAGE_MAX}
             min="1"
-            value={planStage}
+            value={planStatge}
             onChange={handleStageChange}
             className="opacity-0 absolute top-[50%] translate-y-[-50%] left-[4vw] z-10 h-[10.5vw]"
             style={{ width: 'calc(100% - 8vw)' }}
           />
         </div>
         <div className="text-[3.4vw] flex justify-between m-[5px] pt-[10px] relative after:content-[''] after:absolute after:w-[1px] after:h-[10px] after:bg-[#ccc] after:top-0 after:left-1/2">
-          {isMonthToggled ? (
-            <>
-              <span>3만</span>
-              <span>4만2천</span>
-              <span>6만9천</span>
-            </>
-          ) : (
-            <>
-              <span>5GB</span>
-              <span>35GB</span>
-              <span>무제한</span>
-            </>
-          )}
+          <span>5GB</span>
+          <span>35GB</span>
+          <span>무제한</span>
         </div>
       </div>
       {/* 하단 혜택 내용 텍스트 */}
