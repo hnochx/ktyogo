@@ -11,7 +11,7 @@ const SubHeader = () => {
         <h1 className="text-[17px] font-bold">
           <button onClick={() => setIsOpen(!isOpen)}>요고 다이렉트</button>
           <i
-            className="w-[13px] h-[13px] inline-block"
+            className={`w-[13px] h-[13px] inline-block ${isOpen && 'rotate-180'}`}
             style={{ backgroundImage: `url(${header_arrow.src})`, backgroundSize: '13px 13px' }}
           ></i>
         </h1>
