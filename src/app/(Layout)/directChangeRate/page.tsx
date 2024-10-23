@@ -11,6 +11,8 @@ import FilterForm from '@/components/PlanChangeForm/FilterForm';
 import { PlanData, PlanMeta } from '@/types/types';
 import images from '@/assets/images/planChange/directChangeRateImage';
 import { sortPlansByData } from '@/components/PlanChangeForm/SortData';
+import PlanChangeSkeleton from '@/components/PlanChangeForm/PlanChangeSkeleton';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 interface SelectedState {
   selectedMno: string[];
@@ -30,6 +32,9 @@ const DirectChangeRate = () => {
   const [initialFilteredPlans, setInitialFilteredPlans] = useState<PlanMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
+  // 현재 보여주고 있는 항목의 개수
+  const [itemsToShow, setItemsToShow] = useState(10);
+
   useEffect(() => {
     const getPlans = async () => {
       try {
@@ -40,7 +45,10 @@ const DirectChangeRate = () => {
         setInitialFilteredPlans(allPlans);
         setFilteredPlans(allPlans);
       } finally {
-        setIsLoading(false);
+        // 5초 후에 로딩 상태를 false로 변경
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 5000);
       }
     };
 
@@ -61,6 +69,7 @@ const DirectChangeRate = () => {
 
     setInitialFilteredPlans(filtered);
     setFilteredPlans(filtered);
+    setItemsToShow(10); // 필터링 시 초기 항목 수를 10으로 설정
     setSelectedAll({ selectedMno: [], selectedNets: '' });
   };
 
@@ -72,6 +81,7 @@ const DirectChangeRate = () => {
     });
 
     setFilteredPlans(finalFilteredPlans);
+    setItemsToShow(10); // 필터링 시 초기 항목 수를 10으로 설정
     setSelectedAll({
       selectedMno,
       selectedNets,
@@ -85,6 +95,11 @@ const DirectChangeRate = () => {
   const handleSortByData = (isAscending: boolean) => {
     const sortedPlans = sortPlansByData(filteredPlans, isAscending);
     setFilteredPlans(sortedPlans);
+  };
+
+  // 더보기 버튼 클릭 핸들러
+  const handleShowMore = () => {
+    setItemsToShow((prev) => prev + 10); // 항목 수 증가
   };
 
   return (
@@ -120,11 +135,8 @@ const DirectChangeRate = () => {
       <div className="border-t border-lightGray my-4" />
 
       {isLoading ? (
-        <p className="text-center pt-5 text-medium_gray animate-pulse">
-          데이터를 불러오는 중입니다. <br />
-          잠시만 기다려주세요
-        </p>
-      ) : filteredPlans.length > 0 ? ( // 필터링된 데이터가 있을 때
+        <PlanChangeSkeleton />
+      ) : filteredPlans.length > 0 ? (
         <>
           <div className="flex flex-row justify-between items-center text-medium_gray *:text-sm mb-4">
             <p>{filteredPlans.length}개의 결과</p>
@@ -136,9 +148,16 @@ const DirectChangeRate = () => {
               </div>
             ) : null}
           </div>
-          {filteredPlans.map((plan) => (
+          {filteredPlans.slice(0, itemsToShow).map((plan) => (
             <PlanSummary key={`${plan.mno}-${plan.mobileDataStr}-${plan.name}`} plan={plan} />
           ))}
+          {itemsToShow < filteredPlans.length && (
+            <div className="flex justify-center mt-4">
+              <button onClick={handleShowMore} className="p-2 text-white  text-center rounded">
+                <ChevronDownIcon className="size-10 text-black" />
+              </button>
+            </div>
+          )}
         </>
       ) : (
         // 데이터가 없을 때
