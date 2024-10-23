@@ -36,7 +36,7 @@ export const MainSlider = () => {
   };
 
   return (
-    <div>
+    <div className="py-3">
       <Swiper
         loop={true}
         modules={[Autoplay, Navigation]}
