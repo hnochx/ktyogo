@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <HeaderBox />
-        <div className="min-h-[100vh] pt-[112px]">
+        <div className=" pt-[112px]">
           {children}
           <Link
             href={'/chatbot'}
