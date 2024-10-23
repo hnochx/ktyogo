@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { fixed_btn } from '@/assets/images/brandstory/images';
+import { fixed_btn } from '@/assets/images/brandStory/images';
 import Image from 'next/image';
 
 const ScrollToTopButton: React.FC = () => {
