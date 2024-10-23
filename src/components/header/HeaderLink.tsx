@@ -11,7 +11,7 @@ const HeaderLink = ({ isOpen = false }) => {
     >
       <HeaderLinkBtn link="/" text="요고 다이렉트" on={router === '/'} />
       <HeaderLinkBtn link="/yogo-benefit" text="요고 가입 혜택" on={router === '/yogo-benefit'} />
-      <HeaderLinkBtn link="/yogo-brandstory" text="요고 브랜드 스토리" on={router === '/yogo-brandstory'} />
+      <HeaderLinkBtn link="/yogoBrandstory" text="요고 브랜드 스토리" on={router === '/yogoBrandstory'} />
       <HeaderLinkBtn link="/directChangeRate" text="핸드폰 등록 및 요금제 변경" on={router === '/directChangeRate'} />
     </div>
   );
