@@ -29,7 +29,6 @@ export const BrandstorySlider = () => {
         loop={true}
         modules={[Autoplay, Navigation]}
         className="mySwiper"
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
         onSlideChange={(swiper) => setSwiperIndex(swiper.realIndex)}
         onSwiper={setMainSwiper}
         navigation={false}
