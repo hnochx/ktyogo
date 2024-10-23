@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <HeaderBox />
-        <div className="min-h-[100vh] pt-[112px]">{children}</div>
+        <div className="pt-[112px]">{children}</div>
         <Footer />
       </body>
     </html>
