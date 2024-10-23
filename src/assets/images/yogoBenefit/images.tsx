@@ -11,6 +11,7 @@ import yogo_benefit_10 from './yogo_benefit_10.png';
 import yogo_benefit_11 from './yogo_benefit_11.png';
 import yogo_benefit_12 from './yogo_benefit_12.png';
 import yogo_logo from './yogo_logo.png';
+import yogo_introduce from './yogo_introduce.jpg';
 
 export {
   yogo_benefit_1,
@@ -26,4 +27,5 @@ export {
   yogo_benefit_11,
   yogo_benefit_12,
   yogo_logo,
+  yogo_introduce,
 };

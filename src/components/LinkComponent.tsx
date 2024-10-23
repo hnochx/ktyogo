@@ -1,18 +1,11 @@
 import Image from 'next/image';
 import image_32 from '@/assets/images/planChange/images/yogoImage.png';
-import { Noto_Sans_KR } from 'next/font/google';
 import Link from 'next/link';
-
-const notoSansKR = Noto_Sans_KR({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-noto-sans-kr',
-});
 
 const LinkComponent = () => {
   return (
     <>
-      <div className={`w-full flex justify-center ${notoSansKR.className}`}>
+      <div className="w-full flex justify-center ">
         <div className="rounded-3xl bg-whiteSmoke w-[354px] h-[294px] flex flex-col items-center p-7 shadow-[9px_9px_5px_rgba(128,128,128,0.2)]">
           <div className="flex flex-col justify-center *:mb-[10px]">
             <div className="flex flex-row items-center gap-1 justify-center p-1">
