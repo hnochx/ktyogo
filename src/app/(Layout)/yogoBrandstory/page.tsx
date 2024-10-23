@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
+import { back_img, promo_btn } from '@/assets/images/brandStory/images';
 import BrandstoryScrollBtn from '@/components/brandStory/BrandstoryScrollBtn';
 import BrandstorySlider from '@/components/brandStory/BrandstorySlider';
-import { back_img, promo_btn } from '@/assets/images/brandStory/images';
 
 const Brandstory = () => {
   return (
@@ -57,9 +57,7 @@ const Brandstory = () => {
         </Link>
       </div>
 
-      <div>
-        <BrandstoryScrollBtn />
-      </div>
+      <BrandstoryScrollBtn />
     </div>
   );
 };

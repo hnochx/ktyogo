@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import Image from 'next/image';
 
 import { useState } from 'react';
-import { arrowNext, arrowPrev, sliderImgArr } from '@/assets/images/brandstory/images';
+import { arrowNext, arrowPrev, sliderImgArr } from '@/assets/images/brandStory/images';
 import SwiperCore from 'swiper';
 
 export const BrandstorySlider = () => {
