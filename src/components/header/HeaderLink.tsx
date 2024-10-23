@@ -9,7 +9,7 @@ const HeaderLink = ({ isOpen = false }) => {
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]); // 각 링크의 ref 배열
 
   useEffect(() => {
-    const activeLinkIndex = ['/', '/yogo-benefit', '/yogo-brandstory', '/directChangeRate'].indexOf(router);
+    const activeLinkIndex = ['/', '/yogoBenefit', '/yogoBrandstory', '/directChangeRate'].indexOf(router);
 
     if (activeLinkIndex !== -1 && linkRefs.current[activeLinkIndex]) {
       linkRefs.current[activeLinkIndex].scrollIntoView({
@@ -28,8 +28,8 @@ const HeaderLink = ({ isOpen = false }) => {
       {/* 헤더 링크 버튼 */}
       {[
         { link: '/', text: '요고 다이렉트' },
-        { link: '/yogo-benefit', text: '요고 가입 혜택' },
-        { link: '/yogo-brandstory', text: '요고 브랜드 스토리' },
+        { link: '/yogoBenefit', text: '요고 가입 혜택' },
+        { link: '/yogoBrandstory', text: '요고 브랜드 스토리' },
         { link: '/directChangeRate', text: '핸드폰 등록 및 요금제 변경' },
       ].map((item, index) => (
         <HeaderLinkBtn
