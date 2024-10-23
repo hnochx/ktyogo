@@ -14,8 +14,9 @@ import {
   yogo_benefit_7,
   yogo_benefit_8,
   yogo_benefit_9,
+  yogo_introduce,
   yogo_logo,
-} from '@/assets/images/yogo-benefit/images';
+} from '@/assets/images/yogoBenefit/images';
 import LinkComponent from '@/components/LinkComponent';
 import PlanCalc from '@/components/planCalc/PlanCalc';
 import { useEffect, useState } from 'react';
@@ -70,7 +71,38 @@ const YogoBenefit = () => {
         </div>
       </div>
       {/* 요고를 소개합니다 들어갈 부분 */}
-      <div></div>
+      <div
+        style={{
+          backgroundImage: `url(${yogo_introduce.src})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className=" h-[120vw] relative">
+          <div>
+            <div className="absolute top-[30vw] left-1/2 transform -translate-x-1/2">
+              <iframe
+                className="w-[50.40vw] h-[90.67vw] rounded-[5vw]"
+                src="https://www.youtube.com/embed/EEKovGsbLWg"
+              ></iframe>
+              <h1 className="text-[#00cbb3] text-center text-[4.5vw] mt-[6vw]">요금은 줄이고 혜택은 가득한 요고!!</h1>
+            </div>
+          </div>
+        </div>
+
+        <div className="h-[145vw] flex justify-evenly bg-[#f1ffff]">
+          <div className="flex flex-wrap justify-center gap-[2vw] mt-[28vw]">
+            <div className="w-[44vw] h-[82vw]">
+              <iframe className="w-full h-full rounded-[5vw]" src="https://www.youtube.com/embed/RStVl4lilxM"></iframe>
+              <h2 className="text-[#00cbb3] text-center text-[4.5vw] mt-[6vw]">요고 69 (시즌2)</h2>
+            </div>
+            <div className="w-[44vw] h-[82vw] rounded-[5vw]">
+              <iframe className="w-full h-full rounded-[5vw]" src="https://www.youtube.com/embed/bxFI64dzg1E"></iframe>
+              <h2 className="text-[#00cbb3] text-center text-[4.5vw] mt-[6vw]">요고 30 (시즌2)</h2>
+            </div>
+          </div>
+        </div>
+      </div>
       <Image src={yogo_benefit_3} alt="yogo" />
       <div className="relative">
         <Image src={yogo_benefit_4} alt="yogo" />
