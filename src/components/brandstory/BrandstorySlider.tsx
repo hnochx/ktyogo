@@ -39,23 +39,23 @@ export const BrandstorySlider = () => {
             <Image src={item} alt="" />
           </SwiperSlide>
         ))}
-      </Swiper>
 
-      <div className="absolute w-full top-[590px] flex items-center justify-center">
-        <button onClick={movePrev} className="mr-5">
-          <Image src={arrowPrev} alt="arrow_prev" className="w-full h-full" />
-        </button>
+        <div className="w-full flex items-center justify-center mt-[3vw]">
+          <button onClick={movePrev} className="mr-[5vw]">
+            <Image src={arrowPrev} alt="arrow_prev" className="w-[10vw] h-[12vw]" />
+          </button>
 
-        <div className="w-[80px] h-[35px] text-center rounded-full bg-white flex items-center justify-center">
-          <div className="text-[20px] font-normal text-black">
-            {swiperIndex + 1} / {sliderImgArr.length}
+          <div className="w-[20vw] h-[10vw] text-center rounded-full bg-white flex items-center justify-center">
+            <div className="text-[5vw] font-normal text-black">
+              {swiperIndex + 1} / {sliderImgArr.length}
+            </div>
           </div>
-        </div>
 
-        <button onClick={moveNext} className="ml-5">
-          <Image src={arrowNext} alt="arrow_next" className="w-full h-full" />
-        </button>
-      </div>
+          <button onClick={moveNext} className="ml-[5vw]">
+            <Image src={arrowNext} alt="arrow_next" className="w-[10vw] h-[12vw]" />
+          </button>
+        </div>
+      </Swiper>
     </div>
   );
 };

@@ -30,8 +30,14 @@ const ScrollToTopButton: React.FC = () => {
         isVisible ? 'translate-y-0' : 'translate-y-[150%]'
       }`}
     >
-      <button className="w-[400px] h-auto">
-        <Image src={fixed_btn} alt="fixdbtn" className="w-full h-full" width={400} height={400} />
+      <button
+        className="w-[100vw] h-auto"
+        onClick={() =>
+          (window.location.href =
+            'https://m.product.kt.com/mDic/productDetail.do?ItemCode=1567&CateCode=6041&filter_code=95&option_code=&pageSize=5')
+        }
+      >
+        <Image src={fixed_btn} alt="fixdbtn" className="w-full h-full" />
       </button>
     </div>
   );

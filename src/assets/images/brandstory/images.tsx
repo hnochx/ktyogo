@@ -1,5 +1,4 @@
 import back_img from './bg_1.png';
-import back_img2 from './bg_2.png';
 import promo_btn from './bs-promobtn.png';
 import fixed_btn from './bs-fixedbtn.png';
 
@@ -17,5 +16,5 @@ export const sliderImgArr = [img1, img2, img3, img4, img5, img6];
 export const arrowNext = img_arrow_next;
 export const arrowPrev = img_arrow_prev;
 
-export { back_img, back_img2, promo_btn };
+export { back_img, promo_btn };
 export { fixed_btn };
