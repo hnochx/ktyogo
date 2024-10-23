@@ -15,7 +15,7 @@ const DataInfo = ({ position, showDataInfo, plan }: IDataInfoProps) => {
     <div className="flex flex-col items-center z-10 absolute" style={{ left: position.left, top: position.top }}>
       <div className="relative">
         <Image src={images.message} height={100} width={200} alt="message" />
-        <p className="absolute inset-0 flex items-center justify-center text-xs text-white p-2">
+        <p className="absolute inset-0 flex items-center justify-center text-center text-xs text-white p-2">
           {plan.speedWhenExhaustedDescription}
         </p>
       </div>

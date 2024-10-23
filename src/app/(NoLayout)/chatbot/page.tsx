@@ -9,6 +9,7 @@ import { RightChat } from '@/components/chatbot/RightChat';
 import { MenuButton } from '@/components/chatbot/MenuButton';
 import { useFetchChatbot } from '@/hook/useChatbot';
 import { ChatSkeleton } from '@/components/chatbot/ChatSkeleton';
+import { WritingChat } from '@/components/chatbot/WritingChat';
 
 const inter = Inter({
   weight: ['400', '700'],
@@ -69,7 +70,7 @@ const ChatBotMain = () => {
 
   useEffect(() => {
     scrollBottom();
-  }, [msgArr]);
+  }, [msgArr, sendText]);
 
   useEffect(() => {
     sendMsg('요고 다이렉트');
@@ -112,6 +113,8 @@ const ChatBotMain = () => {
             })}
           </div>
           {fetchChatbot.isLoading && <ChatSkeleton />}
+
+          {sendText.length > 0 && <WritingChat />}
         </div>
         <div className="py-2 px-3">
           <div className="flex items-center bg-[#F7F7F7] rounded-[30px] px-3 py-1">

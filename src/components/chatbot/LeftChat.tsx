@@ -7,7 +7,12 @@ export const LeftChat = ({ msgInfo }: { msgInfo: msgType }) => {
     <div className="mt-8 max-w-[80%]">
       <b className="text-sm text-black">KT 챗봇</b>
       <span className="ml-3 text-[#797979] text-[0.6rem]">{`${moment(msgInfo.created).format('LT')}`}</span>
-      <div className="bg-white rounded-[4px_16px_16px_16px] p-3 mt-2 shadow-[0_2px_8px__#00000014]">
+      <div
+        className={
+          `bg-white rounded-[4px_16px_16px_16px] p-3 mt-2 shadow-[0_2px_8px__#00000014]` +
+          `${msgInfo.img ? ' max-w-[21rem]' : ' max-w-[27rem]'}`
+        }
+      >
         {msgInfo.img && (
           <div className="h-[7rem] m-[-0.75rem_-0.75rem_0] rounded-[4px_16px_0px_0px] mb-4 relative">
             <Image
