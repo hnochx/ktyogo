@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import Image from 'next/image';
 
 import { useState } from 'react';
-import { arrowNext, arrowPrev, sliderImgArr } from '@/assets/images/brandstory/images';
+import { arrowNext, arrowPrev, sliderImgArr } from '@/assets/images/brandStory/images';
 import SwiperCore from 'swiper';
 
 export const BrandstorySlider = () => {
@@ -29,7 +29,6 @@ export const BrandstorySlider = () => {
         loop={true}
         modules={[Autoplay, Navigation]}
         className="mySwiper"
-        autoplay={{ delay: 4000, disableOnInteraction: false }}
         onSlideChange={(swiper) => setSwiperIndex(swiper.realIndex)}
         onSwiper={setMainSwiper}
         navigation={false}

@@ -6,6 +6,9 @@ import HeaderBox from '@/components/header/HeaderBox';
 export const metadata: Metadata = {
   title: 'KT',
   description: '',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
