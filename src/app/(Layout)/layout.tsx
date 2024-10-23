@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import '../globals.css';
 import Footer from '@/components/footer/Footer';
-import Header from '@/components/header/Header';
+import HeaderBox from '@/components/header/HeaderBox';
+import Link from 'next/link';
+import Image from 'next/image';
+import { icon_chatbot } from '@/assets/images/images';
 
 export const metadata: Metadata = {
   title: 'KT',
@@ -16,8 +19,16 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Header />
-        <div className="min-h-[100vh] pt-[112px]">{children}</div>
+        <HeaderBox />
+        <div className="min-h-[100vh] pt-[112px]">
+          {children}
+          <Link
+            href={'/chatbot'}
+            className="fixed bottom-[5%] right-[5%] w-[3rem] h-[3rem] rounded-full flex items-center justify-center border-[2px] border-black bg-red-50 z-[1]"
+          >
+            <Image src={icon_chatbot} alt="chatbot" className="w-[2rem] h-[2rem]" />
+          </Link>
+        </div>
         <Footer />
       </body>
     </html>
