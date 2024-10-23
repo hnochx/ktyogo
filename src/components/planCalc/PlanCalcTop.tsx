@@ -1,5 +1,5 @@
 'use client';
-import { checkbox, range_bg } from '@/assets/images/plan-calc/images';
+import { checkbox, range_bg } from '@/assets/images/planCalc/images';
 import { KTPlan } from '@/types/types';
 import { useEffect, useState } from 'react';
 

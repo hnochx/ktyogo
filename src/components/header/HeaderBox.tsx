@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import MainHeader from './MainHeader';
 import SubHeader from './SubHeader';
 
-const Header = () => {
+const HeaderBox = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   // 스크롤 이벤트 핸들러
@@ -21,4 +21,4 @@ const Header = () => {
   return <div className="fixed z-[99]">{isScrolled ? <SubHeader /> : <MainHeader />}</div>;
 };
 
-export default Header;
+export default HeaderBox;

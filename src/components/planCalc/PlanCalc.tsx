@@ -1,6 +1,6 @@
 import { KTPlan } from '@/types/types';
-import PlanCalcBottom from './plan-calc-bottom';
-import PlanCalcTop from './plan-calc-top';
+import PlanCalcBottom from './PlanCalcBottom';
+import PlanCalcTop from './PlanCalcTop';
 import { useEffect, useState } from 'react';
 
 interface PlanCalcProps {
