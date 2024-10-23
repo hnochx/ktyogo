@@ -17,7 +17,7 @@ import {
   yogo_logo,
 } from '@/assets/images/yogo-benefit/images';
 import LinkComponent from '@/components/LinkComponent';
-import PlanCalc from '@/components/plan-calc/plan-calc';
+import PlanCalc from '@/components/planCalc/plan-calc';
 import { useEffect, useState } from 'react';
 import { KTfetchPlans } from '@/services/ktplanService';
 import { KTPlan } from '@/types/types';
