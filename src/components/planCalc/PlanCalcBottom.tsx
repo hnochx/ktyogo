@@ -1,4 +1,4 @@
-import { title_icon } from '@/assets/images/plan-calc/images';
+import { title_icon } from '@/assets/images/planCalc/images';
 import { KTPlan } from '@/types/types';
 
 interface PlacCalcBtmProps {
