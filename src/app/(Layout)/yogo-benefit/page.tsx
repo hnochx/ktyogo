@@ -105,7 +105,10 @@ const YogoBenefit = () => {
       <Image src={yogo_benefit_10} alt="yogo" />
       <div className="relative">
         <Image src={yogo_benefit_12} alt="yogo" />
-        <Link href="/yogo-brandstory" className="top-[80%] left-[5%] w-[90%] h-[10%] absolute text-[0px]">
+        <Link
+          href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2389"
+          className="top-[80%] left-[5%] w-[90%] h-[10%] absolute text-[0px]"
+        >
           요고 브랜드 스토리
         </Link>
       </div>
