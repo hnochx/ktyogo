@@ -15,7 +15,7 @@ export default function Home() {
             className="block absolute top-[94%] left-[10%] w-[80%] h-[2%] text-[0px]"
             href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2389"
           >
-            자세히 보기
+            자세히 보기 버튼
           </a>
         </div>
         <YogoPlanRate />
