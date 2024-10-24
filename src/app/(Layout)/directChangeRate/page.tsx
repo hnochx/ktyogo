@@ -13,6 +13,7 @@ import images from '@/assets/images/planChange/directChangeRateImage';
 import { sortPlansByData } from '@/components/PlanChangeForm/SortData';
 import PlanChangeSkeleton from '@/components/PlanChangeForm/PlanChangeSkeleton';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 interface SelectedState {
   selectedMno: string[];
@@ -104,7 +105,7 @@ const DirectChangeRate = () => {
   return (
     <div className="min-h-full px-5 mx-auto pb-5">
       <div className="flex flex-row justify-between items-center">
-        <div>
+        <div className="flex flex-col gap-2 mt-3">
           <h1 className="text-yogoGreen text-sm font-semibold">요금제 변경</h1>
           <p className="font-bold text-lg flex gap-0">
             3사 통신사를
@@ -115,10 +116,19 @@ const DirectChangeRate = () => {
             <br />
             변경하세요.
           </p>
+
+          <div>
+            <Link
+              href="/directChangeRate/recommendation"
+              className="bg-yogoGreen px-2 py-2 text-xs text-white rounded-xl"
+            >
+              나만의 요금제 찾기
+            </Link>
+          </div>
         </div>
         <Image src={images.planChangeMain} alt="요고 이미지" width={180} height={180} />
       </div>
-      <div className="border-t border-lightGray mb-5" />
+      <div className="border-t border-lightGray my-4" />
       <DataPlanSelect onSelect={handleDataFilter} />
 
       <div className="flex flex-row mt-5 gap-2 justify-end">
