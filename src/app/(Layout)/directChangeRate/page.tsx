@@ -45,10 +45,9 @@ const DirectChangeRate = () => {
         setInitialFilteredPlans(allPlans);
         setFilteredPlans(allPlans);
       } finally {
-        // 5초 후에 로딩 상태를 false로 변경
         setTimeout(() => {
           setIsLoading(false);
-        }, 5000);
+        }, 2000);
       }
     };
 
