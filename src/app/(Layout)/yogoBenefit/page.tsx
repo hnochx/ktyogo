@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 import { KTfetchPlans } from '@/services/ktplanService';
 import { KTPlan } from '@/types/types';
 import Link from 'next/link';
+import Caution from '@/components/caution/Caution';
 
 const YogoBenefit = () => {
   const [planList, setPlanList] = useState<KTPlan[]>([]); // 전체 요금제 플랜 리스트
@@ -153,6 +154,7 @@ const YogoBenefit = () => {
           자세히 보기
         </a>
       </div>
+      <Caution />
     </>
   );
 };
