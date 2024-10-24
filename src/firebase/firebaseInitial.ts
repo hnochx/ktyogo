@@ -1,4 +1,3 @@
-import { getAnalytics, isSupported } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
@@ -14,15 +13,6 @@ const firebaseConfig = {
 
 // Firebase 초기화
 const app = initializeApp(firebaseConfig);
-
-// Firebase Analytics 초기화 (클라이언트 환경에서만 실행)
-if (typeof window !== 'undefined') {
-  isSupported().then((supported) => {
-    if (supported) {
-      getAnalytics(app);
-    }
-  });
-}
 
 const db = getFirestore(app);
 export { db };

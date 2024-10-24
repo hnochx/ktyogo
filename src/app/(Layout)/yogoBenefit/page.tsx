@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 import { KTfetchPlans } from '@/services/ktplanService';
 import { KTPlan } from '@/types/types';
 import Link from 'next/link';
+import Caution from '@/components/caution/Caution';
 
 const YogoBenefit = () => {
   const [planList, setPlanList] = useState<KTPlan[]>([]); // 전체 요금제 플랜 리스트
@@ -43,10 +44,10 @@ const YogoBenefit = () => {
 
   return (
     <>
-      <Image src={yogo_benefit_1} alt="yogo" />
+      <Image src={yogo_benefit_1} alt="다이랙트 요금제 요고" className="w-[100%]" />
 
       <div className="py-[8vw]">
-        <Image src={yogo_benefit_2} alt="yogo" />
+        <Image src={yogo_benefit_2} alt="요금제 고민 끝! 내게 맞는 요금제를 만들어보세요" className="w-[100%]" />
         {/* 요금 계산 들어갈 부분 */}
         <div className="mx-[4.5vw] my-[6vw]">
           <PlanCalc list={planList} />
@@ -103,9 +104,9 @@ const YogoBenefit = () => {
           </div>
         </div>
       </div>
-      <Image src={yogo_benefit_3} alt="yogo" />
+      <Image src={yogo_benefit_3} alt="요고 이렇게 좋아졌어요" className="w-[100%]" />
       <div className="relative">
-        <Image src={yogo_benefit_4} alt="yogo" />
+        <Image src={yogo_benefit_4} alt="yogo" className="w-[100%]" />
         <a href="#link1" className="w-[37.33%] h-[27.38%] block absolute top-[25%] left-[10%] text-[0px]">
           초이스 플러스
         </a>
@@ -120,7 +121,7 @@ const YogoBenefit = () => {
         </a>
       </div>
       <div className="relative">
-        <Image src={yogo_benefit_5} alt="yogo" id="link1" />
+        <Image src={yogo_benefit_5} alt="더욱 강력해진 시즌2" id="link1" className="w-[100%]" />
         <a
           className="block absolute top-[81%] left-[10%] w-[80%] h-[5%] text-[0px]"
           href="https://m.product.kt.com/mDic/productDetail.do?ItemCode=1567&benefit=season2"
@@ -128,24 +129,24 @@ const YogoBenefit = () => {
           혜택 자세히 보기
         </a>
       </div>
-      <Image src={yogo_benefit_6} alt="yogo" id="link2" />
+      <Image src={yogo_benefit_6} alt="잍이터가 최대 3배" id="link2" className="w-[100%]" />
       <div className="px-[7vw] overflow-x-scroll bg-[#f1fffe] pb-[50px]">
         <Image src={yogo_benefit_7} alt="yogo" className="w-[150%] max-w-none" />
       </div>
-      <Image src={yogo_benefit_8} alt="yogo" id="link3" />
-      <Image src={yogo_benefit_9} alt="yogo" id="link4" />
-      <Image src={yogo_benefit_10} alt="yogo" />
+      <Image src={yogo_benefit_8} alt="요고 멤버쉽 혜택" id="link3" className="w-[100%]" />
+      <Image src={yogo_benefit_9} alt="쿠폰팩 혜택" id="link4" className="w-[100%]" />
+      <Image src={yogo_benefit_10} alt="yogo" className="w-[100%]" />
       <div className="relative">
-        <Image src={yogo_benefit_12} alt="yogo" />
+        <Image src={yogo_benefit_12} alt="약정 걱정 없이 통신비 할인" className="w-[100%]" />
         <Link
           href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2389"
           className="top-[80%] left-[5%] w-[90%] h-[10%] absolute text-[0px]"
         >
-          요고 브랜드 스토리
+          요고 뭉치 자세히 보기
         </Link>
       </div>
       <div className="relative">
-        <Image src={yogo_benefit_11} alt="yogo" />
+        <Image src={yogo_benefit_11} alt="yogo" className="w-[100%]" />
         <a
           href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2388"
           className="absolute block top-[66%] left-[4%] w-[24%] h-[22%] text-[0px]"
@@ -153,6 +154,7 @@ const YogoBenefit = () => {
           자세히 보기
         </a>
       </div>
+      <Caution />
     </>
   );
 };
