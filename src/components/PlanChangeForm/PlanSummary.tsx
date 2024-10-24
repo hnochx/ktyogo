@@ -59,7 +59,7 @@ const PlanSummary = ({ plan }: KTPlanSummaryProps) => {
 
   return (
     <div className="w-full flex flex-col p-3 rounded-lg border border-lightGray mb-3 gap-1">
-      <Link href={`/DirectChangeRate/${plan.name}`} className="flex flex-col gap-1">
+      <Link href={`/directChangeRate/${plan.name}`} className="flex flex-col gap-1">
         <div className="flex flex-row items-center gap-2">
           {renderLogo()}
           <p className="text-xs text-lightGray">{plan.name}</p>

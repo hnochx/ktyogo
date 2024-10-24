@@ -100,7 +100,7 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
           </div>
           <button
             onClick={handleStagePlusBtn}
-            className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[100%]"
+            className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[7vw]"
           >
             +
           </button>

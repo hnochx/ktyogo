@@ -7,6 +7,7 @@ import { PlanData } from '@/types/types';
 import FeeInfo from '@/components/PlanChangeForm/FeeInfo';
 import formatToDateString from '@/lib/utils';
 import images from '@/assets/images/planChange/PlanDetailImage';
+import PlanDetailSkeleton from '@/components/PlanChangeForm/PlanDetailSkeleton';
 
 interface PlanDetailProps {
   params: {
@@ -17,13 +18,17 @@ interface PlanDetailProps {
 const PlanDetail = ({ params }: PlanDetailProps) => {
   const { name } = params;
   const [datas, setDatas] = useState<PlanData[] | null>(null);
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
   const [showFeeInfo, setShowFeeInfo] = useState(false);
   const [position, setPosition] = useState({ left: '0px', top: '0px' });
 
   useEffect(() => {
     const getPlans = async () => {
       const planList = await fetchPlan('g0vgJer9zDCnuz5ZgxuH');
-      setDatas(planList);
+      setTimeout(() => {
+        setDatas(planList);
+        setLoading(false); // 2초 후 로딩 상태 변경
+      }, 2000); // 2초 지연
     };
 
     getPlans();
@@ -33,8 +38,12 @@ const PlanDetail = ({ params }: PlanDetailProps) => {
     data.planMetas.filter((plan) => plan.name === decodeURIComponent(name)),
   )[0];
 
+  if (loading) {
+    return <PlanDetailSkeleton />; // 로딩 중 스켈레톤 표시
+  }
+
   if (!filteredPlan) {
-    return <div className="p-5"> 해당 요금제를 불러오는 중입니다 </div>;
+    return <PlanDetailSkeleton />; // 플랜을 찾지 못했을 때도 스켈레톤 표시
   }
 
   const details = [
