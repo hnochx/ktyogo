@@ -142,7 +142,7 @@ const YogoBenefit = () => {
           href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2389"
           className="top-[80%] left-[5%] w-[90%] h-[10%] absolute text-[0px]"
         >
-          요고 브랜드 스토리
+          요고 뭉치 자세히 보기
         </Link>
       </div>
       <div className="relative">
