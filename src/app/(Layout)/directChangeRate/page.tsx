@@ -103,7 +103,7 @@ const DirectChangeRate = () => {
 
   return (
     <div className="min-h-full px-5 mx-auto pb-5">
-      <div className="flex flex-row justify-around items-center">
+      <div className="flex flex-row justify-between items-center">
         <div>
           <h1 className="text-yogoGreen text-sm font-semibold">요금제 변경</h1>
           <p className="font-bold text-lg flex gap-0">

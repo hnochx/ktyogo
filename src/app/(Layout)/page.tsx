@@ -11,6 +11,12 @@ export default function Home() {
         <MainSlider />
         <div className="relative w-full" style={{ aspectRatio: '150 / 671' }}>
           <Image src={images.main_image_1} alt="메인페이지1" layout="fill" style={{ objectFit: 'contain' }} />
+          <a
+            className="block absolute top-[94%] left-[10%] w-[80%] h-[2%] text-[0px]"
+            href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2389"
+          >
+            자세히 보기 버튼
+          </a>
         </div>
         <YogoPlanRate />
         <YogoLinkComponent />
