@@ -10,6 +10,7 @@ import { MenuButton } from '@/components/chatbot/MenuButton';
 import { useFetchChatbot } from '@/hook/useChatbot';
 import { ChatSkeleton } from '@/components/chatbot/ChatSkeleton';
 import { WritingChat } from '@/components/chatbot/WritingChat';
+import { AutoKeywordBox } from '@/components/chatbot/AutoKeywordBox';
 
 const inter = Inter({
   weight: ['400', '700'],
@@ -21,6 +22,9 @@ const ChatBotMain = () => {
 
   const [sendText, setSendText] = useState<string>('');
   const [msgArr, setMsgArr] = useState<msgType[]>([]);
+  const [autoArr, setAutoArr] = useState<string[]>([]);
+  const [filterArr, setFilterArr] = useState<string[]>([]);
+
   const msgRef = useRef<HTMLDivElement>(null);
   const fetchChatbot = useFetchChatbot();
 
@@ -73,11 +77,13 @@ const ChatBotMain = () => {
   }, [msgArr, sendText]);
 
   useEffect(() => {
-    sendMsg('요고 다이렉트');
-  }, []);
+    setFilterArr(autoArr.filter((auto) => auto.includes(sendText)));
+  }, [sendText]);
 
   useEffect(() => {
     setMounted(true);
+    sendMsg('요고 다이렉트');
+    fetchChatbot.fetchAllTitle().then((res) => setAutoArr(res));
   }, []);
 
   return (
@@ -93,7 +99,10 @@ const ChatBotMain = () => {
                 고객님, 반가워요~ {'\n'}무엇이 궁금하신가요?
               </b>
             </div>
-            <MenuButton menuArr={['요고 다이렉트']} sendHandler={sendMsg} />
+            <MenuButton
+              menuArr={['iPhone16 Series', '요고 다이렉트', '알뜰할인 프로모션', '인터넷 TV 동시가입 혜택']}
+              sendHandler={sendMsg}
+            />
 
             {msgArr.map((msgItem, index) => {
               if (msgItem.location === 'left') {
@@ -113,9 +122,12 @@ const ChatBotMain = () => {
             })}
           </div>
           {fetchChatbot.isLoading && <ChatSkeleton />}
-
           {sendText.length > 0 && <WritingChat />}
         </div>
+
+        {sendText.length > 0 && filterArr.length > 0 && (
+          <AutoKeywordBox arr={filterArr} keyword={sendText} sendHandler={sendMsg} />
+        )}
         <div className="py-2 px-3">
           <div className="flex items-center bg-[#F7F7F7] rounded-[30px] px-3 py-1">
             <input
