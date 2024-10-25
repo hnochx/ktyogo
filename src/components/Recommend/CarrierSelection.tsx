@@ -18,11 +18,6 @@ const CarrierSelection = ({ onCarrierSelect }: CarrierSelectionProps) => {
     <div className={`p-3 bg-gray-100 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <div className="text-center flex flex-col gap-8 m-2 pt-10 pb-20 px-5 h-[665px] bg-white rounded-xl shadow-lg ">
         <div className="flex flex-col gap-3">
-          {/* <div className="flex flex-row items-center gap-2">
-            <Image src={images.KT_Logo} alt="KT_Logo" width={30} height={30} />
-            <Image src={images.SKT_Logo} alt="SKT_Logo" width={30} height={30} />
-            <Image src={images.LGU_Logo} alt="LGU_Logo" width={30} height={30} />
-          </div> */}
           <div className="flex flex-col gap-2">
             <p className="text-2xl text-start">
               사용하고 싶은 <br />

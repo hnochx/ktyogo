@@ -10,6 +10,7 @@ import { dataRangeOptions } from '@/components/PlanChangeForm/SelectData';
 import PlanSummary from '@/components/PlanChangeForm/PlanSummary';
 import RecommendSkeleton from '@/components/Recommend/RecommendSkeleton';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 const Recommendation = () => {
   const [data, setData] = useState<PlanData[] | null>(null);
@@ -48,7 +49,7 @@ const Recommendation = () => {
 
       setTimeout(() => {
         setFilteredPlans(filtered);
-        setDisplayedPlans(filtered.slice(0, visibleCount)); // 초기 표시 개수만큼 설정
+        setDisplayedPlans(filtered.slice(0, visibleCount));
         setShowSkeleton(false);
       }, 2000);
     }
@@ -109,6 +110,12 @@ const Recommendation = () => {
                         <PlanSummary key={`${plan.mno}-${plan.mobileDataStr}-${plan.name}`} plan={plan} />
                       ))}
                     </ul>
+                    <div className="flex justify-end">
+                      <Link href={'/directChangeRate'} className="bg-yogoGreen text-sm py-1 px-2 rounded-md text-white">
+                        더 많은 요금제 보러가기
+                      </Link>
+                    </div>
+
                     {filteredPlans.length > displayedPlans.length && (
                       <div className="flex justify-center mt-4">
                         <button onClick={handleLoadMore} className="p-2 text-white  text-center rounded">
