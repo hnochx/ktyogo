@@ -15,12 +15,23 @@ const netOptions = ['5G', 'LTE'];
 const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
   const [selectedMno, setSelectedMno] = useState<string[]>([]);
   const [selectedNets, setSelectedNets] = useState<string>('');
-
   const [isMounted, setIsMounted] = useState(false);
+  const [paddingTop, setPaddingTop] = useState<number>(128); // Initial padding-top value (32 * 4)
 
   useEffect(() => {
     setIsMounted(true);
     return () => setIsMounted(false);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const newPadding = Math.max(64, 128 - scrollY);
+      setPaddingTop(newPadding);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const onClick = () => {
@@ -32,7 +43,6 @@ const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
 
   const handleApply = () => {
     onFilterChange(selectedMno, selectedNets);
-
     toggleFilter();
   };
 
@@ -53,11 +63,11 @@ const FilterForm = ({ toggleFilter, onFilterChange }: IFilterProps) => {
     <>
       <div className="mx-auto h-full px-5 fixed inset-0 z-10 bg-gray-800 bg-opacity-50" onClick={onClick} />
       <div
-        className={`fixed top-0  mx-auto left-0 z-20 h-screen w-full  bg-white transform transition-transform duration-500 ease-in-out ${
+        className={`fixed top-0 mx-auto left-0 z-20 h-screen w-full bg-white transform transition-transform duration-500 ease-in-out ${
           isMounted ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-4">
+        <div className="p-4" style={{ paddingTop: `${paddingTop}px` }}>
           <div className="flex justify-between items-center">
             <div className="flex-1 text-center">
               <h1 className="font-bold text-lg">필터</h1>
