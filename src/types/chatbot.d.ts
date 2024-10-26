@@ -8,3 +8,23 @@ type msgType = {
   buttonList?: string[]; // 하단 버튼 배열
   chipList?: { displayText: string; pageUrl: string }[]; // 메세지 내 하단 버튼
 };
+
+type chatMsgType = 'button' | 'input';
+
+type chatLogType = {
+  type: chatMsgType;
+  text: string;
+  chatTime: Date;
+};
+
+type chatLogField = {
+  createTime: Date;
+  ip: string;
+  chatLog: [
+    {
+      type: chatMsgType;
+      text: string;
+      chatTime: Date;
+    },
+  ];
+};

@@ -12,6 +12,8 @@ import { WritingChat } from '@/components/chatbot/WritingChat';
 import { AutoKeywordBox } from '@/components/chatbot/AutoKeywordBox';
 import { useRouter } from 'next/navigation';
 import { arrowPrev } from '@/assets/images/slider/sliderImg';
+import { getIp } from '@/services/getIp';
+import { useFetchChatLog } from '@/hook/useChatbotLog';
 
 const ChatBotMain = () => {
   const router = useRouter();
@@ -23,10 +25,34 @@ const ChatBotMain = () => {
   const [autoArr, setAutoArr] = useState<string[]>([]);
   const [filterArr, setFilterArr] = useState<string[]>([]);
 
+  const [ip, setIp] = useState('');
+  const [firstTime, setFirstTime] = useState<Date>(new Date());
+
   const msgRef = useRef<HTMLDivElement>(null);
   const fetchChatbot = useFetchChatbot();
+  const fetchLog = useFetchChatLog();
 
-  const sendMsg = (msg: string) => {
+  const sendLog = async (msg: string, type: chatMsgType) => {
+    if (firstTime) {
+      await fetchLog.findField(ip, firstTime);
+    }
+
+    const logData: chatLogType = {
+      chatTime: new Date(),
+      text: msg,
+      type: type,
+    };
+
+    await fetchLog.findDocu(`${ip}_${firstTime}`).then((res) => {
+      fetchLog.saveData(res, ip, logData, firstTime);
+    });
+  };
+
+  const sendMsg = (msg: string, type: chatMsgType) => {
+    if (ip) {
+      sendLog(msg, type);
+    }
+
     if (msg.trim() !== '') {
       setMsgArr((msgList) => [
         ...msgList,
@@ -66,7 +92,7 @@ const ChatBotMain = () => {
 
   const inputEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
-      sendMsg(sendText);
+      sendMsg(sendText, 'input');
     }
   };
 
@@ -80,8 +106,20 @@ const ChatBotMain = () => {
 
   useEffect(() => {
     setMounted(true);
-    sendMsg('요고 다이렉트');
+    if (!mounted) {
+      sendMsg('요고 다이렉트', 'button');
+    }
+
     fetchChatbot.fetchAllTitle().then((res) => setAutoArr(res));
+  }, []);
+
+  useEffect(() => {
+    const ipHandle = async () => {
+      setIp(await getIp());
+    };
+    ipHandle();
+
+    setFirstTime(new Date());
   }, []);
 
   const memoSkeleton = useMemo(() => <ChatSkeleton />, []);
@@ -90,7 +128,7 @@ const ChatBotMain = () => {
   return (
     mounted && (
       <div className="flex flex-col h-full">
-        <div className="text-center py-4 bg-white border-b-[0.5px] border-[#808080] relative ">
+        <div className="text-center py-4 bg-white border-b-[0.5px] border-[#808080] relative">
           <button type="button" onClick={() => router.back()} className="p-2 absolute left-[15px] top-[20%]">
             <Image src={arrowPrev} alt="arrow_prev" className="h-4 w-4" />
           </button>
@@ -140,7 +178,7 @@ const ChatBotMain = () => {
               onChange={(e) => setSendText(e.target.value)}
               onKeyDown={(e) => inputEnter(e)}
             />
-            <button type="button" onClick={() => sendMsg(sendText)} disabled={sendText.trim() === ''}>
+            <button type="button" onClick={() => sendMsg(sendText, 'input')} disabled={sendText.trim() === ''}>
               <Image src={icon_send} alt="send" className="w-[30px] h-[30px]" />
             </button>
           </div>
