@@ -2,7 +2,7 @@
 
 import { icon_send } from '@/assets/images/images';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LeftChat } from '@/components/chatbot/LeftChat';
 import { RightChat } from '@/components/chatbot/RightChat';
 import { MenuButton } from '@/components/chatbot/MenuButton';
@@ -58,11 +58,11 @@ const ChatBotMain = () => {
     }
   };
 
-  const scrollBottom = () => {
+  const scrollBottom = useCallback(() => {
     if (msgRef.current) {
       msgRef.current.scrollTop = msgRef.current.scrollHeight;
     }
-  };
+  }, []);
 
   const inputEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
@@ -84,11 +84,14 @@ const ChatBotMain = () => {
     fetchChatbot.fetchAllTitle().then((res) => setAutoArr(res));
   }, []);
 
+  const memoSkeleton = useMemo(() => <ChatSkeleton />, []);
+  const memoWritingChat = useMemo(() => <WritingChat />, []);
+
   return (
     mounted && (
       <div className="flex flex-col h-full">
         <div className="text-center py-4 bg-white border-b-[0.5px] border-[#808080] relative ">
-          <button type="button" onClick={() => router.back()} className="p-2 absolute left-[2.5%] top-[23%]">
+          <button type="button" onClick={() => router.back()} className="p-2 absolute left-[15px] top-[20%]">
             <Image src={arrowPrev} alt="arrow_prev" className="h-4 w-4" />
           </button>
           <div className="font-bold text-black text-lg">KT 요고 챗봇</div>
@@ -120,8 +123,8 @@ const ChatBotMain = () => {
               }
             })}
           </div>
-          {fetchChatbot.isLoading && <ChatSkeleton />}
-          {sendText.length > 0 && <WritingChat />}
+          {fetchChatbot.isLoading && memoSkeleton}
+          {sendText.length > 0 && memoWritingChat}
         </div>
 
         {sendText.length > 0 && filterArr.length > 0 && (
