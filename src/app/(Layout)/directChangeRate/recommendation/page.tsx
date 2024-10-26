@@ -50,6 +50,7 @@ const Recommendation = () => {
       setTimeout(() => {
         setFilteredPlans(filtered);
         setDisplayedPlans(filtered.slice(0, visibleCount));
+
         setShowSkeleton(false);
       }, 2000);
     }
@@ -72,7 +73,7 @@ const Recommendation = () => {
 
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 10); // 10개씩 추가
-    setDisplayedPlans(filteredPlans.slice(0, visibleCount + 10)); // 현재 표시 개수 업데이트
+    setDisplayedPlans(filteredPlans.slice(0, visibleCount + 10));
   };
 
   const renderCurrentStep = () => {
@@ -125,7 +126,12 @@ const Recommendation = () => {
                     )}
                   </>
                 ) : (
-                  <p>조건에 맞는 요금제가 없습니다.</p>
+                  <div className="flex flex-col items-center justify-center mt-5 p-6 bg-gray-50 rounded-lg shadow-md border border-lightGray">
+                    <p className="text-lg text-gray-600 font-semibold text-center">조건에 맞는 요금제가 없습니다.</p>
+                    <p className="text-sm text-gray-400 mt-2 text-center">
+                      다른 요금 조건을 선택하거나 <br /> 더 많은 옵션을 확인해보세요.
+                    </p>
+                  </div>
                 )}
               </>
             )}

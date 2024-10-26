@@ -41,27 +41,33 @@ const FeeSelection = ({ onFeeSelect, onPrevious }: FeeSelectionProps) => {
         <div className="flex flex-col gap-4 text-start">
           <div
             className="border border-lightGray rounded-xl p-4 cursor-pointer hover:bg-yogoGreen hover:bg-opacity-25 transition duration-300 ease-in-out"
-            onClick={() => handleFeeSelect('1~2만원대')}
+            onClick={() => handleFeeSelect('2만원대')}
           >
-            <p>1~2만원대</p>
+            <p>2만원대</p>
           </div>
           <div
             className="border border-lightGray rounded-xl p-4 cursor-pointer hover:bg-yogoGreen hover:bg-opacity-25  transition duration-300 ease-in-out"
-            onClick={() => handleFeeSelect('3~4만원대')}
+            onClick={() => handleFeeSelect('3만원대')}
           >
-            <p>3~4만원대</p>
+            <p>3만원대</p>
           </div>
           <div
             className="border border-lightGray rounded-xl p-4 cursor-pointer hover:bg-yogoGreen hover:bg-opacity-25 transition duration-300 ease-in-out"
-            onClick={() => handleFeeSelect('5~6만원대')}
+            onClick={() => handleFeeSelect('4만원대')}
           >
-            <p>5~6만원대</p>
+            <p>4만원대</p>
           </div>
           <div
             className="border border-lightGray rounded-xl p-4 cursor-pointer hover:bg-yogoGreen hover:bg-opacity-25 transition duration-300 ease-in-out"
-            onClick={() => handleFeeSelect('7만원 이상')}
+            onClick={() => handleFeeSelect('5만원대')}
           >
-            <p>7만원 이상</p>
+            <p>5만원대</p>
+          </div>
+          <div
+            className="border border-lightGray rounded-xl p-4 cursor-pointer hover:bg-yogoGreen hover:bg-opacity-25 transition duration-300 ease-in-out"
+            onClick={() => handleFeeSelect('6만원대')}
+          >
+            <p>6만원대</p>
           </div>
         </div>
       </div>
