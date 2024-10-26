@@ -3,7 +3,6 @@
 import { icon_send } from '@/assets/images/images';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { Inter } from 'next/font/google';
 import { LeftChat } from '@/components/chatbot/LeftChat';
 import { RightChat } from '@/components/chatbot/RightChat';
 import { MenuButton } from '@/components/chatbot/MenuButton';
@@ -11,13 +10,12 @@ import { useFetchChatbot } from '@/hook/useChatbot';
 import { ChatSkeleton } from '@/components/chatbot/ChatSkeleton';
 import { WritingChat } from '@/components/chatbot/WritingChat';
 import { AutoKeywordBox } from '@/components/chatbot/AutoKeywordBox';
-
-const inter = Inter({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-});
+import { useRouter } from 'next/navigation';
+import { arrowPrev } from '@/assets/images/slider/sliderImg';
 
 const ChatBotMain = () => {
+  const router = useRouter();
+
   const [mounted, setMounted] = useState<boolean>(false);
 
   const [sendText, setSendText] = useState<string>('');
@@ -89,15 +87,16 @@ const ChatBotMain = () => {
   return (
     mounted && (
       <div className="flex flex-col h-full">
-        <div className="font-bold text-black text-lg text-center py-4 bg-white border-b-[0.5px] border-[#808080]">
-          KT 요고 챗봇
+        <div className="text-center py-4 bg-white border-b-[0.5px] border-[#808080] relative ">
+          <button type="button" onClick={() => router.back()} className="p-2 absolute left-[2.5%] top-[23%]">
+            <Image src={arrowPrev} alt="arrow_prev" className="h-4 w-4" />
+          </button>
+          <div className="font-bold text-black text-lg">KT 요고 챗봇</div>
         </div>
         <div ref={msgRef} className="flex-1 bg-[#F4F7FA] py-4 px-5 overflow-y-auto">
           <div>
             <div className="pt-5">
-              <b className={`text-xl whitespace-pre-line ${inter.className}`}>
-                고객님, 반가워요~ {'\n'}무엇이 궁금하신가요?
-              </b>
+              <b className={`text-xl whitespace-pre-line`}>고객님, 반가워요~ {'\n'}무엇이 궁금하신가요?</b>
             </div>
             <MenuButton
               menuArr={['iPhone16 Series', '요고 다이렉트', '알뜰할인 프로모션', '인터넷 TV 동시가입 혜택']}
