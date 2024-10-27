@@ -9,22 +9,20 @@ type msgType = {
   chipList?: { displayText: string; pageUrl: string }[]; // 메세지 내 하단 버튼
 };
 
-type chatMsgType = 'button' | 'input';
+type chatInitType = 'button' | 'input';
 
-type chatLogType = {
-  type: chatMsgType;
+type chatMsgType = {
+  type: chatInitType;
   text: string;
   chatTime: Date;
 };
 
-type chatLogField = {
-  createTime: Date;
+type chatLogType = {
+  createTime: Timestamp;
+  messageList: chatMsgType[];
+};
+
+type chatbotColletion = {
   ip: string;
-  chatLog: [
-    {
-      type: chatMsgType;
-      text: string;
-      chatTime: Date;
-    },
-  ];
+  chatLog: chatLogType[];
 };

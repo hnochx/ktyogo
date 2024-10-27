@@ -3,7 +3,7 @@ export const MenuButton = ({
   sendHandler,
 }: {
   menuArr: string[];
-  sendHandler: (msg: string, type: chatMsgType) => void;
+  sendHandler: (msg: string, type: chatInitType) => void;
 }) => {
   return (
     <div className="mt-5 flex flex-wrap gap-x-3 gap-y-3">

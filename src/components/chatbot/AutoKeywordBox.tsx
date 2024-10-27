@@ -5,7 +5,7 @@ export const AutoKeywordBox = ({
 }: {
   arr: string[];
   keyword: string;
-  sendHandler: (msg: string, type: chatMsgType) => void;
+  sendHandler: (msg: string, type: chatInitType) => void;
 }) => {
   return (
     <div className="bg-white overflow-y-auto max-h-[12rem]">

@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { getIp } from '@/services/getIp';
 import { useFetchChatLog } from '@/hook/useChatbotLog';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { Timestamp } from 'firebase/firestore';
 
 const ChatBotMain = () => {
   const router = useRouter();
@@ -26,29 +27,27 @@ const ChatBotMain = () => {
   const [filterArr, setFilterArr] = useState<string[]>([]);
 
   const [ip, setIp] = useState('');
-  const [firstTime, setFirstTime] = useState<Date>(new Date());
+  const [firstTime, setFirstTime] = useState<Timestamp>();
 
   const msgRef = useRef<HTMLDivElement>(null);
   const fetchChatbot = useFetchChatbot();
   const fetchLog = useFetchChatLog();
 
-  const sendLog = async (msg: string, type: chatMsgType) => {
-    if (firstTime) {
-      await fetchLog.findField(ip, firstTime);
-    }
-
-    const logData: chatLogType = {
+  const sendLog = async (msg: string, type: chatInitType) => {
+    const logData: chatMsgType = {
       chatTime: new Date(),
       text: msg,
       type: type,
     };
 
-    await fetchLog.findDocu(`${ip}_${firstTime}`).then((res) => {
-      fetchLog.saveData(res, ip, logData, firstTime);
-    });
+    if (firstTime) {
+      await fetchLog.findDocu(`${ip}`).then((res) => {
+        fetchLog.saveData(res, ip, logData, firstTime);
+      });
+    }
   };
 
-  const sendMsg = (msg: string, type: chatMsgType) => {
+  const sendMsg = (msg: string, type: chatInitType) => {
     if (ip) {
       sendLog(msg, type);
     }
@@ -119,7 +118,7 @@ const ChatBotMain = () => {
     };
     ipHandle();
 
-    setFirstTime(new Date());
+    setFirstTime(Timestamp.fromDate(new Date()));
   }, []);
 
   const memoSkeleton = useMemo(() => <ChatSkeleton />, []);
@@ -177,8 +176,13 @@ const ChatBotMain = () => {
               value={sendText}
               onChange={(e) => setSendText(e.target.value)}
               onKeyDown={(e) => inputEnter(e)}
+              disabled={fetchChatbot.isLoading}
             />
-            <button type="button" onClick={() => sendMsg(sendText, 'input')} disabled={sendText.trim() === ''}>
+            <button
+              type="button"
+              onClick={() => sendMsg(sendText, 'input')}
+              disabled={sendText.trim() === '' || fetchChatbot.isLoading}
+            >
               <Image src={icon_send} alt="send" className="w-[30px] h-[30px]" />
             </button>
           </div>
