@@ -10,7 +10,7 @@ export const useFetchChatbot = () => {
   const fetchData = async (title: string) => {
     try {
       setIsLoading(true);
-      await new Promise((reslove) => setTimeout(reslove, 2000));
+      await new Promise((reslove) => setTimeout(reslove, 1500));
 
       const queryDB = query(collection(db, 'chatbot'), where('title', '==', title));
       const snapshot = await getDocs(queryDB);

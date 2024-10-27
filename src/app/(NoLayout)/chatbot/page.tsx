@@ -11,9 +11,9 @@ import { ChatSkeleton } from '@/components/chatbot/ChatSkeleton';
 import { WritingChat } from '@/components/chatbot/WritingChat';
 import { AutoKeywordBox } from '@/components/chatbot/AutoKeywordBox';
 import { useRouter } from 'next/navigation';
-import { arrowPrev } from '@/assets/images/slider/sliderImg';
 import { getIp } from '@/services/getIp';
 import { useFetchChatLog } from '@/hook/useChatbotLog';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 
 const ChatBotMain = () => {
   const router = useRouter();
@@ -129,12 +129,12 @@ const ChatBotMain = () => {
     mounted && (
       <div className="flex flex-col h-full">
         <div className="text-center py-4 bg-white border-b-[0.5px] border-[#808080] relative">
-          <button type="button" onClick={() => router.back()} className="p-2 absolute left-[15px] top-[20%]">
-            <Image src={arrowPrev} alt="arrow_prev" className="h-4 w-4" />
+          <button type="button" onClick={() => router.back()} className="p-2 absolute left-[10px] top-[15%]">
+            <ChevronLeftIcon className="w-6 h-6" />
           </button>
           <div className="font-bold text-black text-lg">KT 요고 챗봇</div>
         </div>
-        <div ref={msgRef} className="flex-1 bg-[#F4F7FA] py-4 px-5 overflow-y-auto">
+        <div ref={msgRef} className="flex-1 bg-[#F4F7FA] py-4 px-5 overflow-y-auto mt-[1px]">
           <div>
             <div className="pt-5">
               <b className={`text-xl whitespace-pre-line`}>고객님, 반가워요~ {'\n'}무엇이 궁금하신가요?</b>
