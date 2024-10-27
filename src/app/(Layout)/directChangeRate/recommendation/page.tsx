@@ -20,8 +20,8 @@ const Recommendation = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [filteredPlans, setFilteredPlans] = useState<PlanMeta[]>([]);
   const [showSkeleton, setShowSkeleton] = useState<boolean>(false);
-  const [displayedPlans, setDisplayedPlans] = useState<PlanMeta[]>([]); // 현재 표시된 요금제
-  const [visibleCount, setVisibleCount] = useState<number>(10); // 표시할 요금제 개수
+  const [displayedPlans, setDisplayedPlans] = useState<PlanMeta[]>([]);
+  const [visibleCount, setVisibleCount] = useState<number>(10);
 
   useEffect(() => {
     const getPlans = async () => {
@@ -47,12 +47,14 @@ const Recommendation = () => {
         return matchesCarrier && matchesDataRange && matchesFee;
       });
 
-      setTimeout(() => {
-        setFilteredPlans(filtered);
-        setDisplayedPlans(filtered.slice(0, visibleCount));
+      setFilteredPlans(filtered);
+      setDisplayedPlans(filtered.slice(0, visibleCount));
 
+      const skeletonTimeout = setTimeout(() => {
         setShowSkeleton(false);
       }, 2000);
+
+      return () => clearTimeout(skeletonTimeout);
     }
   }, [data, selectedCarrier, selectedDataAmount, selectedFee]);
 
@@ -72,7 +74,7 @@ const Recommendation = () => {
   };
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 10); // 10개씩 추가
+    setVisibleCount((prevCount) => prevCount + 10);
     setDisplayedPlans(filteredPlans.slice(0, visibleCount + 10));
   };
 
@@ -126,11 +128,17 @@ const Recommendation = () => {
                     )}
                   </>
                 ) : (
-                  <div className="flex flex-col items-center justify-center mt-5 p-6 bg-gray-50 rounded-lg shadow-md border border-lightGray">
+                  <div className="flex flex-col items-center justify-center mt-5 p-6 bg-gray-50 rounded-lg shadow-md border border-lightGray gap-4">
                     <p className="text-lg text-gray-600 font-semibold text-center">조건에 맞는 요금제가 없습니다.</p>
-                    <p className="text-sm text-gray-400 mt-2 text-center">
+                    <p className="text-sm text-gray-400  text-center">
                       다른 요금 조건을 선택하거나 <br /> 더 많은 옵션을 확인해보세요.
                     </p>
+                    <button
+                      onClick={() => setCurrentStep(0)}
+                      className="bg-yogoGreen text-sm py-1 px-2 rounded-md text-white"
+                    >
+                      다른 요금제 찾으러 가기
+                    </button>
                   </div>
                 )}
               </>

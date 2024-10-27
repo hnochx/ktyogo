@@ -33,7 +33,6 @@ const DirectChangeRate = () => {
   const [initialFilteredPlans, setInitialFilteredPlans] = useState<PlanMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
 
-  // 현재 보여주고 있는 항목의 개수
   const [itemsToShow, setItemsToShow] = useState(10);
 
   useEffect(() => {
@@ -97,7 +96,6 @@ const DirectChangeRate = () => {
     setFilteredPlans(sortedPlans);
   };
 
-  // 더보기 버튼 클릭 핸들러
   const handleShowMore = () => {
     setItemsToShow((prev) => prev + 10); // 항목 수 증가
   };
@@ -120,7 +118,7 @@ const DirectChangeRate = () => {
           <div>
             <Link
               href="/directChangeRate/recommendation"
-              className="bg-yogoGreen px-2 py-2 text-xs text-white rounded-xl"
+              className="bg-yogoGreen px-2 py-2 text-sm text-white rounded-xl"
             >
               나만의 요금제 찾기
             </Link>
