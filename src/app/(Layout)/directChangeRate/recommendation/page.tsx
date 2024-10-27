@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import CarrierSelection from '@/components/Recommend/CarrierSelection';
 import DataAmountSelection from '@/components/Recommend/DataAmountSelection';
 import FeeSelection, { FeeRangeOptions } from '@/components/Recommend/FeeSelection';
 import fetchPlan from '@/services/planServices';
-import { PlanData, PlanMeta } from '@/types/types';
+import { PlanData } from '@/types/types';
 import { dataRangeOptions } from '@/components/PlanChangeForm/SelectData';
 import PlanSummary from '@/components/PlanChangeForm/PlanSummary';
 import RecommendSkeleton from '@/components/Recommend/RecommendSkeleton';
@@ -14,14 +14,12 @@ import Link from 'next/link';
 
 const Recommendation = () => {
   const [data, setData] = useState<PlanData[] | null>(null);
-  const [selectedCarrier, setSelectedCarrier] = useState<string | null>('');
-  const [selectedDataAmount, setSelectedDataAmount] = useState<string | null>('');
-  const [selectedFee, setSelectedFee] = useState<string | null>('');
+  const [selectedCarrier, setSelectedCarrier] = useState<string | null>(null);
+  const [selectedDataAmount, setSelectedDataAmount] = useState<string | null>(null);
+  const [selectedFee, setSelectedFee] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const [filteredPlans, setFilteredPlans] = useState<PlanMeta[]>([]);
-  const [showSkeleton, setShowSkeleton] = useState<boolean>(false);
-  const [displayedPlans, setDisplayedPlans] = useState<PlanMeta[]>([]);
   const [visibleCount, setVisibleCount] = useState<number>(10);
+  const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
 
   useEffect(() => {
     const getPlans = async () => {
@@ -32,51 +30,45 @@ const Recommendation = () => {
     getPlans();
   }, []);
 
-  useEffect(() => {
-    if (data) {
-      const allPlans = data.flatMap((plan) => plan.planMetas);
-      setShowSkeleton(true);
+  const filteredPlans = useMemo(() => {
+    if (!data) return [];
+    const allPlans = data.flatMap((plan) => plan.planMetas);
+    setShowSkeleton(true);
 
-      const filtered = allPlans.filter((plan) => {
-        const matchesCarrier = plan.mno === selectedCarrier;
-        const range = selectedDataAmount ? dataRangeOptions[selectedDataAmount] : null;
-        const matchesDataRange = range ? range.includes(plan.mobileDataStr!) : true;
-        const feeRange = selectedFee ? FeeRangeOptions[selectedFee] : null;
-        const matchesFee = feeRange ? feeRange.includes(plan.fee.toString()) : true;
+    return allPlans.filter((plan) => {
+      const matchesCarrier = selectedCarrier ? plan.mno === selectedCarrier : true;
+      const dataRange = selectedDataAmount ? dataRangeOptions[selectedDataAmount] : null;
+      const matchesDataRange = dataRange ? dataRange.includes(plan.mobileDataStr!) : true;
+      const feeRange = selectedFee ? FeeRangeOptions[selectedFee] : null;
+      const matchesFee = feeRange ? feeRange.includes(plan.fee.toString()) : true;
 
-        return matchesCarrier && matchesDataRange && matchesFee;
-      });
-
-      setFilteredPlans(filtered);
-      setDisplayedPlans(filtered.slice(0, visibleCount));
-
-      const skeletonTimeout = setTimeout(() => {
+      setTimeout(() => {
         setShowSkeleton(false);
-      }, 2000);
-
-      return () => clearTimeout(skeletonTimeout);
-    }
+      }, 3000);
+      return matchesCarrier && matchesDataRange && matchesFee;
+    });
   }, [data, selectedCarrier, selectedDataAmount, selectedFee]);
 
-  const handleCarrierSelect = (carrier: string) => {
+  const displayedPlans = useMemo(() => filteredPlans.slice(0, visibleCount), [filteredPlans, visibleCount]);
+
+  const handleCarrierSelect = useCallback((carrier: string) => {
     setSelectedCarrier(carrier);
     setCurrentStep(1);
-  };
+  }, []);
 
-  const handleDataAmountSelect = (amount: string) => {
+  const handleDataAmountSelect = useCallback((amount: string) => {
     setSelectedDataAmount(amount);
     setCurrentStep(2);
-  };
+  }, []);
 
-  const handleFeeSelect = (fee: string) => {
+  const handleFeeSelect = useCallback((fee: string) => {
     setSelectedFee(fee);
     setCurrentStep(3);
-  };
+  }, []);
 
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     setVisibleCount((prevCount) => prevCount + 10);
-    setDisplayedPlans(filteredPlans.slice(0, visibleCount + 10));
-  };
+  }, []);
 
   const renderCurrentStep = () => {
     switch (currentStep) {
@@ -95,7 +87,7 @@ const Recommendation = () => {
               <>
                 <div className="mb-3">
                   <div className="bg-gray-100 p-3 rounded-lg shadow-md">
-                    <p className="text-center text-base font-semibold ">
+                    <p className="text-center text-base font-semibold">
                       선택하신 <br />
                       <span className="font-bold text-yogoGreen">{selectedCarrier}</span>
                       <span className="text-lightGray mx-2">/</span>
@@ -121,7 +113,7 @@ const Recommendation = () => {
 
                     {filteredPlans.length > displayedPlans.length && (
                       <div className="flex justify-center mt-4">
-                        <button onClick={handleLoadMore} className="p-2 text-white  text-center rounded">
+                        <button onClick={handleLoadMore} className="p-2 text-white text-center rounded">
                           <ChevronDownIcon className="size-10 text-black" />
                         </button>
                       </div>
@@ -130,7 +122,7 @@ const Recommendation = () => {
                 ) : (
                   <div className="flex flex-col items-center justify-center mt-5 p-6 bg-gray-50 rounded-lg shadow-md border border-lightGray gap-4">
                     <p className="text-lg text-gray-600 font-semibold text-center">조건에 맞는 요금제가 없습니다.</p>
-                    <p className="text-sm text-gray-400  text-center">
+                    <p className="text-sm text-gray-400 text-center">
                       다른 요금 조건을 선택하거나 <br /> 더 많은 옵션을 확인해보세요.
                     </p>
                     <button
