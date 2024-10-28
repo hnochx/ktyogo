@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     template: '%s | KT',
     default: '요고 다이렉트 | KT',
   },
+  icons: {
+    icon: '/favicon.svg',
+  },
   description:
     'KT 공식 온라인몰 요고 다이렉트 요금제의 브랜드 스토리를 소개합니다. KT 다이렉트 요금제 요고를 다른 요금제와 비교하고 선택하세요. 34세 이하라면 누구나 5G 데이터 최대 3배! 출시 기념 역대급 프로모션 혜택을 드립니다. ',
 };
