@@ -33,7 +33,6 @@ const Recommendation = () => {
   const filteredPlans = useMemo(() => {
     if (!data) return [];
     const allPlans = data.flatMap((plan) => plan.planMetas);
-    setShowSkeleton(true);
 
     return allPlans.filter((plan) => {
       const matchesCarrier = selectedCarrier ? plan.mno === selectedCarrier : true;
@@ -42,12 +41,18 @@ const Recommendation = () => {
       const feeRange = selectedFee ? FeeRangeOptions[selectedFee] : null;
       const matchesFee = feeRange ? feeRange.includes(plan.fee.toString()) : true;
 
-      setTimeout(() => {
-        setShowSkeleton(false);
-      }, 3000);
       return matchesCarrier && matchesDataRange && matchesFee;
     });
   }, [data, selectedCarrier, selectedDataAmount, selectedFee]);
+
+  useEffect(() => {
+    setShowSkeleton(true);
+    const timer = setTimeout(() => {
+      setShowSkeleton(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [filteredPlans]);
 
   const displayedPlans = useMemo(() => filteredPlans.slice(0, visibleCount), [filteredPlans, visibleCount]);
 
