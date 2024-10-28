@@ -33,7 +33,7 @@ const ScrollToTopButton: React.FC = () => {
   return (
     <div>
       <div
-        className={`z-20 fixed bottom-[8vw] right-[5vw] w-[3rem] h-[3rem] rounded-full flex items-center justify-center transition-all duration-300 transform ${
+        className={`z-20 fixed bottom-[50px] right-[5%] w-[3rem] h-[3rem] rounded-full flex items-center justify-center transition-all duration-300 transform ${
           showBtnTop ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}
       >
@@ -46,8 +46,8 @@ const ScrollToTopButton: React.FC = () => {
       </div>
       <Link
         href={'/chatbot'}
-        className={`z-20 fixed right-[5vw] w-[3rem] h-[3rem] rounded-full flex items-center justify-center border-[2px] border-black bg-red-50 shadow-lg transition-all duration-300 ${
-          showBtnTop ? 'bottom-[12%]' : 'bottom-[8vw]'
+        className={`z-20 fixed right-[5%] w-[3rem] h-[3rem] rounded-full flex items-center justify-center border-[2px] border-black bg-red-50 shadow-lg transition-all duration-300 ${
+          showBtnTop ? 'bottom-[120px]' : 'bottom-[50px]'
         }`}
       >
         <Image src={icon_chatbot} alt="chatbot" className="w-[2rem] h-[2rem]" />
