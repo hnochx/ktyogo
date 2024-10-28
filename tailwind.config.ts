@@ -27,10 +27,15 @@ const config: Config = {
           '40%, 60%': { opacity: '0.3' },
           '100%': { opacity: '1' },
         },
+        fade: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         shimmer: 'shimmer 2.5s infinite',
         wave: 'wave 1.2s infinite ease-in-out',
+        slow_spin: 'spin 2s linear infinite',
       },
       backgroundImage: {
         'gradient-shimmer': 'linear-gradient(to right, #D0D0D0 0%, #EDEDED 50%, #D0D0D0 100%)',

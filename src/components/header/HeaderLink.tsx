@@ -31,6 +31,7 @@ const HeaderLink = ({ isOpen = false }) => {
         { link: '/yogoBenefit', text: '요고 가입 혜택' },
         { link: '/yogoBrandstory', text: '요고 브랜드 스토리' },
         { link: '/directChangeRate', text: '핸드폰 등록 및 요금제 변경' },
+        { link: '/directChangeRate/recommendation', text: '나만의 요금제 찾기' },
       ].map((item, index) => (
         <HeaderLinkBtn
           key={item.link}
