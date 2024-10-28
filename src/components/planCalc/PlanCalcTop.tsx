@@ -1,5 +1,5 @@
 'use client';
-import { checkbox, range_bg } from '@/assets/images/planCalc/images';
+import { add_badge, benefit_twice, checkbox, range_bg } from '@/assets/images/planCalc/images';
 import { KTPlan } from '@/types/types';
 import { useEffect, useState } from 'react';
 
@@ -12,7 +12,7 @@ interface PlanCalcTopProps {
 const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) => {
   const [isMonthToggled, seMonthToggled] = useState(false); // 데이터 용량과 월정액간의 토글
   const [isYBenefit, setIsYBenefit] = useState(false); // Y덤 혜택 여부의 토글
-  const [planStage, setPlanStage] = useState(1); // 요금제 단계 선택 (1 시작)
+  const [planStage, setPlanStage] = useState(7); // 요금제 단계 선택 (7 시작)
 
   useEffect(() => {
     setSelectedPlan(list[planStage - 1]);
@@ -72,7 +72,7 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
         <div className="flex justify-between items-center pt-[5vw] pb-[4vw] border-[#ccc] border-t px-[4vw]">
           <button
             onClick={handleStageMinusBtn}
-            className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[100%]"
+            className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white flex items-center justify-center pb-[3px]"
           >
             -
           </button>
@@ -86,21 +86,32 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
                 {planStage < 5 && (
                   <>
                     <span>+</span>
-                    <em className="text-[#fe2e36] not-italic">5GB</em>
+                    <em
+                      className="text-[#fe2e36] not-italic pr-[9vw] bg-no-repeat bg-right-bottom"
+                      style={{ backgroundImage: `url(${add_badge.src})`, backgroundSize: '8vw' }}
+                    >
+                      5GB
+                      <i className=""></i>
+                    </em>
                   </>
                 )}
                 {planStage < 9 && planStage > 4 && (
                   <>
                     <span>+</span>
-                    <em className="text-[#fe2e36] not-italic">{selectedPlan?.data.total_data}</em>
+                    <em
+                      className="text-[#fe2e36] not-italic pr-[9vw] bg-no-repeat bg-right-bottom"
+                      style={{ backgroundImage: `url(${add_badge.src})`, backgroundSize: '8vw' }}
+                    >
+                      {selectedPlan?.data.total_data}
+                    </em>
                   </>
                 )}
               </>
             )}
           </div>
           <button
+            className="w-[8vw] h-[8vw] border-[#0f807b] rounded-full border-2 text-[6vw] bg-white flex items-center justify-center pb-[3px]"
             onClick={handleStagePlusBtn}
-            className="w-[8vw] h-[8vw] border-[#0f807b] rounded-[50%] border-2 text-[7vw] bg-white leading-[7vw]"
           >
             +
           </button>
@@ -137,11 +148,31 @@ const PlanCalcTop = ({ list, selectedPlan, setSelectedPlan }: PlanCalcTopProps) 
               <span>4만2천</span>
               <span>6만9천</span>
             </>
+          ) : isYBenefit ? (
+            <>
+              <div className={'text-center relative'}>
+                <del>5GB</del>
+                <span className="font-bold block">10GB</span>
+                <i
+                  className="absolute w-[7vw] h-[4.8vw] top-[1.2vw] right-[-7vw] bg-contain"
+                  style={{ backgroundImage: `url(${benefit_twice.src})` }}
+                ></i>
+              </div>
+              <div className={'text-center relative'}>
+                <del>35GB</del>
+                <span className="font-bold block">70GB</span>
+                <i
+                  className="absolute w-[7vw] h-[4.8vw] top-[1.2vw] right-[-7vw] bg-contain"
+                  style={{ backgroundImage: `url(${benefit_twice.src})` }}
+                ></i>
+              </div>
+              <span className="font-bold block">무제한</span>
+            </>
           ) : (
             <>
-              <span>5GB</span>
-              <span>35GB</span>
-              <span>무제한</span>
+              <span className="font-bold block">5GB</span>
+              <span className="font-bold block">35GB</span>
+              <span className="font-bold block">무제한</span>
             </>
           )}
         </div>
