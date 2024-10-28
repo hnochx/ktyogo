@@ -26,7 +26,7 @@ const ScrollToTopButton: React.FC = () => {
 
   return (
     <div
-      className={`fixed bottom-5 left-1/2 transform -translate-x-1/2 transition-transform duration-500 z-20 ${
+      className={`fixed bottom-5 left-1/2 transform -translate-x-1/2 transition-transform duration-500 z-10 ${
         isVisible ? 'translate-y-0' : 'translate-y-[150%]'
       }`}
     >

@@ -44,8 +44,8 @@ export const BrandstorySlider = () => {
             <Image src={arrowPrev} alt="arrow_prev" className="w-[10vw] h-[12vw]" />
           </button>
 
-          <div className="w-[20vw] h-[10vw] text-center rounded-full bg-white flex items-center justify-center">
-            <div className="text-[5vw] font-normal text-black">
+          <div className="w-[22vw] h-[10vw] text-center rounded-full bg-white flex items-center justify-center">
+            <div className="text-[5.5vw] font-medium text-black">
               {swiperIndex + 1} / {sliderImgArr.length}
             </div>
           </div>
