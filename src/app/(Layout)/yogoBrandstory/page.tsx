@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { back_img, promo_btn } from '@/assets/images/brandStory/images';
 import BrandstoryScrollBtn from '@/components/brandStory/BrandstoryScrollBtn';
 import BrandstorySlider from '@/components/brandStory/BrandstorySlider';
-import ButtonToTop from '@/components/buttonToTop/ButtonToTop';
 
 const Brandstory = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -99,7 +98,6 @@ const Brandstory = () => {
       </div>
 
       <BrandstoryScrollBtn />
-      <ButtonToTop />
     </div>
   );
 };
