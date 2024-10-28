@@ -3,6 +3,9 @@ import '../globals.css';
 
 export const metadata: Metadata = {
   title: 'KT 챗봇 | 글로벌 No.1 KT',
+  icons: {
+    icon: '/favicon.svg',
+  },
   description: '챗봇입니다. 궁금한게 있다면 물어봐주세요!',
 };
 

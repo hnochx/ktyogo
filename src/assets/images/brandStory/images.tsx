@@ -9,8 +9,8 @@ import img4 from './bs-slider_4.png';
 import img5 from './bs-slider_5.png';
 import img6 from './bs-slider_6.png';
 
-import img_arrow_prev from './bs-sliderbtn_1.png';
-import img_arrow_next from './bs-sliderbtn_2.png';
+import img_arrow_prev from './bs-sliderbtn_1.svg';
+import img_arrow_next from './bs-sliderbtn_2.svg';
 
 export const sliderImgArr = [img1, img2, img3, img4, img5, img6];
 export const arrowNext = img_arrow_next;

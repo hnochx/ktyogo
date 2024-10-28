@@ -5,7 +5,7 @@ export const AutoKeywordBox = ({
 }: {
   arr: string[];
   keyword: string;
-  sendHandler: (msg: string) => void;
+  sendHandler: (msg: string, type: chatInitType) => void;
 }) => {
   return (
     <div className="bg-white overflow-y-auto max-h-[12rem]">
@@ -15,7 +15,7 @@ export const AutoKeywordBox = ({
             key={index}
             type="button"
             className="w-full border-b border-b-[#E0E0E0] text-left px-3 py-3"
-            onClick={() => sendHandler(item)}
+            onClick={() => sendHandler(item, 'button')}
           >
             <div className="flex">
               {item.split('').map((text, idx) =>

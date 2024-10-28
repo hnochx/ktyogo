@@ -9,7 +9,7 @@ export const WritingChat = () => {
           {['-0.3s', '-0.2s', '-0.1s'].map((delay, index) => (
             <div
               key={index}
-              className={`w-[0.4rem] h-[0.4rem] bg-[#FE2E36] rounded-full animate-wave`}
+              className={`w-[0.4rem] h-[0.4rem] bg-[#15edc6] rounded-full animate-wave`}
               style={{ animationDelay: delay }}
             ></div>
           ))}

@@ -2,8 +2,7 @@
 
 import { icon_send } from '@/assets/images/images';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-import { Inter } from 'next/font/google';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LeftChat } from '@/components/chatbot/LeftChat';
 import { RightChat } from '@/components/chatbot/RightChat';
 import { MenuButton } from '@/components/chatbot/MenuButton';
@@ -11,13 +10,15 @@ import { useFetchChatbot } from '@/hook/useChatbot';
 import { ChatSkeleton } from '@/components/chatbot/ChatSkeleton';
 import { WritingChat } from '@/components/chatbot/WritingChat';
 import { AutoKeywordBox } from '@/components/chatbot/AutoKeywordBox';
-
-const inter = Inter({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-});
+import { useRouter } from 'next/navigation';
+import { getIp } from '@/services/getIp';
+import { useFetchChatLog } from '@/hook/useChatbotLog';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { Timestamp } from 'firebase/firestore';
 
 const ChatBotMain = () => {
+  const router = useRouter();
+
   const [mounted, setMounted] = useState<boolean>(false);
 
   const [sendText, setSendText] = useState<string>('');
@@ -25,10 +26,32 @@ const ChatBotMain = () => {
   const [autoArr, setAutoArr] = useState<string[]>([]);
   const [filterArr, setFilterArr] = useState<string[]>([]);
 
+  const [ip, setIp] = useState('');
+  const [firstTime, setFirstTime] = useState<Timestamp>();
+
   const msgRef = useRef<HTMLDivElement>(null);
   const fetchChatbot = useFetchChatbot();
+  const fetchLog = useFetchChatLog();
 
-  const sendMsg = (msg: string) => {
+  const sendLog = async (msg: string, type: chatInitType) => {
+    const logData: chatMsgType = {
+      chatTime: new Date(),
+      text: msg,
+      type: type,
+    };
+
+    if (firstTime) {
+      await fetchLog.findDocu(`${ip}`).then((res) => {
+        fetchLog.saveData(res, ip, logData, firstTime);
+      });
+    }
+  };
+
+  const sendMsg = (msg: string, type: chatInitType) => {
+    if (ip) {
+      sendLog(msg, type);
+    }
+
     if (msg.trim() !== '') {
       setMsgArr((msgList) => [
         ...msgList,
@@ -60,15 +83,15 @@ const ChatBotMain = () => {
     }
   };
 
-  const scrollBottom = () => {
+  const scrollBottom = useCallback(() => {
     if (msgRef.current) {
       msgRef.current.scrollTop = msgRef.current.scrollHeight;
     }
-  };
+  }, []);
 
   const inputEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
-      sendMsg(sendText);
+      sendMsg(sendText, 'input');
     }
   };
 
@@ -82,22 +105,38 @@ const ChatBotMain = () => {
 
   useEffect(() => {
     setMounted(true);
-    sendMsg('요고 다이렉트');
+    if (!mounted) {
+      sendMsg('요고 다이렉트', 'button');
+    }
+
     fetchChatbot.fetchAllTitle().then((res) => setAutoArr(res));
   }, []);
+
+  useEffect(() => {
+    const ipHandle = async () => {
+      setIp(await getIp());
+    };
+    ipHandle();
+
+    setFirstTime(Timestamp.fromDate(new Date()));
+  }, []);
+
+  const memoSkeleton = useMemo(() => <ChatSkeleton />, []);
+  const memoWritingChat = useMemo(() => <WritingChat />, []);
 
   return (
     mounted && (
       <div className="flex flex-col h-full">
-        <div className="font-bold text-black text-lg text-center py-4 bg-white border-b-[0.5px] border-[#808080]">
-          KT 요고 챗봇
+        <div className="text-center py-4 bg-white border-b-[0.5px] border-[#808080] relative">
+          <button type="button" onClick={() => router.back()} className="p-2 absolute left-[10px] top-[15%]">
+            <ChevronLeftIcon className="w-6 h-6" />
+          </button>
+          <div className="font-bold text-black text-lg">KT 요고 챗봇</div>
         </div>
-        <div ref={msgRef} className="flex-1 bg-[#F4F7FA] py-4 px-5 overflow-y-auto">
+        <div ref={msgRef} className="flex-1 bg-[#F4F7FA] py-4 px-5 overflow-y-auto mt-[1px]">
           <div>
             <div className="pt-5">
-              <b className={`text-xl whitespace-pre-line ${inter.className}`}>
-                고객님, 반가워요~ {'\n'}무엇이 궁금하신가요?
-              </b>
+              <b className={`text-xl whitespace-pre-line`}>고객님, 반가워요~ {'\n'}무엇이 궁금하신가요?</b>
             </div>
             <MenuButton
               menuArr={['iPhone16 Series', '요고 다이렉트', '알뜰할인 프로모션', '인터넷 TV 동시가입 혜택']}
@@ -121,8 +160,8 @@ const ChatBotMain = () => {
               }
             })}
           </div>
-          {fetchChatbot.isLoading && <ChatSkeleton />}
-          {sendText.length > 0 && <WritingChat />}
+          {fetchChatbot.isLoading && memoSkeleton}
+          {sendText.length > 0 && memoWritingChat}
         </div>
 
         {sendText.length > 0 && filterArr.length > 0 && (
@@ -137,8 +176,13 @@ const ChatBotMain = () => {
               value={sendText}
               onChange={(e) => setSendText(e.target.value)}
               onKeyDown={(e) => inputEnter(e)}
+              disabled={fetchChatbot.isLoading}
             />
-            <button type="button" onClick={() => sendMsg(sendText)} disabled={sendText.trim() === ''}>
+            <button
+              type="button"
+              onClick={() => sendMsg(sendText, 'input')}
+              disabled={sendText.trim() === '' || fetchChatbot.isLoading}
+            >
               <Image src={icon_send} alt="send" className="w-[30px] h-[30px]" />
             </button>
           </div>
