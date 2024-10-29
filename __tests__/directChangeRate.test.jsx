@@ -12,6 +12,11 @@ describe('DataPlanSelect', () => {
     jest.clearAllMocks();
   });
 
+  afterAll(() => {
+    global.fetch.mockClear();
+    delete global.fetch;
+  });
+
   test('fetches correct plan name for 2.5GB data from API', async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
