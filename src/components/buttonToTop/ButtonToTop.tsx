@@ -33,24 +33,24 @@ const ScrollToTopButton: React.FC = () => {
   return (
     <div>
       <div
-        className={`z-20 fixed bottom-[10vw] right-[5vw] w-[13vw] h-[13vw] rounded-full flex items-center justify-center transition-all duration-300 transform ${
+        className={`z-20 fixed bottom-[50px] right-[5%] w-[3rem] h-[3rem] rounded-full flex items-center justify-center transition-all duration-300 transform ${
           showBtnTop ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}
       >
         <button
           onClick={scrollToTop}
-          className="w-[12vw] h-[12vw] rounded-full bg-white shadow-lg flex items-center justify-center opacity-75"
+          className="w-[3rem] h-[3rem] rounded-full bg-white shadow-lg flex items-center justify-center opacity-75"
         >
-          <Image src={btn_top} alt="Scroll to top" className="w-[8vw] h-[8vw]" />
+          <Image src={btn_top} alt="Scroll to top" className="w-[2rem] h-[2rem]" />
         </button>
       </div>
       <Link
         href={'/chatbot'}
-        className={`z-20 fixed right-[5vw] w-[13vw] h-[13vw] rounded-full flex items-center justify-center border-[2px] border-black bg-red-50 shadow-lg transition-all duration-300 ${
-          showBtnTop ? 'bottom-[27vw]' : 'bottom-[10vw]'
+        className={`z-20 fixed right-[5%] w-[3rem] h-[3rem] rounded-full flex items-center justify-center border-[2px] border-black bg-red-50 shadow-lg transition-all duration-300 ${
+          showBtnTop ? 'bottom-[120px]' : 'bottom-[50px]'
         }`}
       >
-        <Image src={icon_chatbot} alt="chatbot" className="w-[8vw] h-[8vw]" />
+        <Image src={icon_chatbot} alt="chatbot" className="w-[2rem] h-[2rem]" />
       </Link>
     </div>
   );

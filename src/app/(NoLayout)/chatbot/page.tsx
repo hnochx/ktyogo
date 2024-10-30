@@ -10,15 +10,12 @@ import { useFetchChatbot } from '@/hook/useChatbot';
 import { ChatSkeleton } from '@/components/chatbot/ChatSkeleton';
 import { WritingChat } from '@/components/chatbot/WritingChat';
 import { AutoKeywordBox } from '@/components/chatbot/AutoKeywordBox';
-import { useRouter } from 'next/navigation';
 import { getIp } from '@/services/getIp';
 import { useFetchChatLog } from '@/hook/useChatbotLog';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Timestamp } from 'firebase/firestore';
 
 const ChatBotMain = () => {
-  const router = useRouter();
-
   const [mounted, setMounted] = useState<boolean>(false);
 
   const [sendText, setSendText] = useState<string>('');
@@ -32,6 +29,7 @@ const ChatBotMain = () => {
   const msgRef = useRef<HTMLDivElement>(null);
   const fetchChatbot = useFetchChatbot();
   const fetchLog = useFetchChatLog();
+  const [fetchLoading, setFetchLoading] = useState(false);
 
   const sendLog = async (msg: string, type: chatInitType) => {
     const logData: chatMsgType = {
@@ -48,6 +46,7 @@ const ChatBotMain = () => {
   };
 
   const sendMsg = (msg: string, type: chatInitType) => {
+    setFetchLoading(true);
     if (ip) {
       sendLog(msg, type);
     }
@@ -58,28 +57,36 @@ const ChatBotMain = () => {
         { msgId: Date.now(), message: msg, created: new Date(), location: 'right', type: 'text' },
       ]);
 
-      try {
-        fetchChatbot.fetchData(msg).then((res) => {
-          if (res) {
-            setMsgArr((msgList) => [...msgList, { ...res, msgId: Date.now(), created: new Date(), location: 'left' }]);
-          } else {
-            setMsgArr((msgList) => [
-              ...msgList,
-              {
-                type: 'text',
-                message: `제가 잘 이해하지 못했어요. \nKT상품과 관련된 문의는 대답을 잘 할 수 있어요.\n`,
-                msgId: Date.now(),
-                created: new Date(),
-                location: 'left',
-              },
-            ]);
-          }
-        });
-      } catch (error) {
-        alert('오류가 발생했습니다. \n에러 : ' + error);
-      } finally {
-        setSendText('');
-      }
+      const getChatbotMsg = async () => {
+        try {
+          await fetchChatbot.fetchData(msg).then((res) => {
+            if (res) {
+              setMsgArr((msgList) => [
+                ...msgList,
+                { ...res, msgId: Date.now(), created: new Date(), location: 'left' },
+              ]);
+            } else {
+              setMsgArr((msgList) => [
+                ...msgList,
+                {
+                  type: 'text',
+                  message: `제가 잘 이해하지 못했어요. \nKT상품과 관련된 문의는 대답을 잘 할 수 있어요.\n`,
+                  msgId: Date.now(),
+                  created: new Date(),
+                  location: 'left',
+                },
+              ]);
+            }
+          });
+        } catch (error) {
+          alert('오류가 발생했습니다. \n에러 : ' + error);
+        } finally {
+          setSendText('');
+          setFetchLoading(false);
+        }
+      };
+
+      getChatbotMsg();
     }
   };
 
@@ -110,14 +117,8 @@ const ChatBotMain = () => {
     }
 
     fetchChatbot.fetchAllTitle().then((res) => setAutoArr(res));
-  }, []);
 
-  useEffect(() => {
-    const ipHandle = async () => {
-      setIp(await getIp());
-    };
-    ipHandle();
-
+    getIp().then((res) => setIp(res));
     setFirstTime(Timestamp.fromDate(new Date()));
   }, []);
 
@@ -128,7 +129,7 @@ const ChatBotMain = () => {
     mounted && (
       <div className="flex flex-col h-full">
         <div className="text-center py-4 bg-white border-b-[0.5px] border-[#808080] relative">
-          <button type="button" onClick={() => router.back()} className="p-2 absolute left-[10px] top-[15%]">
+          <button type="button" onClick={() => history.back()} className="p-2 absolute left-[10px] top-[15%]">
             <ChevronLeftIcon className="w-6 h-6" />
           </button>
           <div className="font-bold text-black text-lg">KT 요고 챗봇</div>
@@ -160,7 +161,7 @@ const ChatBotMain = () => {
               }
             })}
           </div>
-          {fetchChatbot.isLoading && memoSkeleton}
+          {fetchLoading && memoSkeleton}
           {sendText.length > 0 && memoWritingChat}
         </div>
 
@@ -176,12 +177,12 @@ const ChatBotMain = () => {
               value={sendText}
               onChange={(e) => setSendText(e.target.value)}
               onKeyDown={(e) => inputEnter(e)}
-              disabled={fetchChatbot.isLoading}
+              disabled={fetchLoading}
             />
             <button
               type="button"
               onClick={() => sendMsg(sendText, 'input')}
-              disabled={sendText.trim() === '' || fetchChatbot.isLoading}
+              disabled={sendText.trim() === '' || fetchLoading}
             >
               <Image src={icon_send} alt="send" className="w-[30px] h-[30px]" />
             </button>
