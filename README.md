@@ -11,7 +11,7 @@
 > - 컴포넌트 별 개발 및 종합 기능 테스트
 
 ### 프로젝트 진행 기간
-: 2024.10.01 ~ 2024.11.01
+: 2024.10.08 ~ 2024.11.01
 
 ![프로젝트 일정](public/readme/schedule.png)
 
@@ -28,8 +28,32 @@
 [**황현호**](https://github.com/hnochx): 챗봇 페이지 UI 설계 및 Tailwind CSS 스타일링, Firebase 연동 및 데이터 관리
 
 ## 버전
+> - "next": "14.2.14"
+> - "react": "18"
+> - "tailwindcss": "3.4.1"
 
-## 폴더구조
+## 폴더 구조
+```.
+├── app
+│   ├── (Layout)
+│   ├── (NoLayout)
+│   └── globals.css
+├── assets
+│   └── images
+├── components
+├── firebase
+│   └── firebaseInitial.ts
+├── hook
+│   └── useChatbot.ts
+├── lib
+│   └── utils.ts
+├── services
+│   ├── ktplanService.ts
+│   └── planServices.ts
+└── types
+    ├── chatbot.d.ts
+    └── types.ts
+```
 
 ## 🏁 프로젝트 실행
 ### Installation
@@ -57,19 +81,12 @@ logoColor=white"/>
 
 
 ## 🖥️ 화면 구성
-### 요고 다이렉트 (메인 페이지)
-![요고 다이렉트](public/readme/yogo_direct.png)
-### 요고 가입 혜택
-![요고 가입 혜택](public/readme/yogo_benefit.png)
-### 요고 브랜드 스토리
-![요고 브랜드 스토리](public/readme/yogo_brandstory.png)
-### 핸드폰 등록 및 요금제 변경
-![핸드폰 등록 및 요금제 변경](public/readme/yogo_changerate.png)
-### 챗봇
-![챗봇](public/readme/yogo_chatbot.png)
+|요고 다이렉트|요고 가입 혜택|요고 브랜드 스토리|
+|:---:|:---:|:---:|
+|![요고 다이렉트](public/readme/yogo_direct.png)|![요고 가입 혜택](public/readme/yogo_benefit.png)|![요고 브랜드 스토리](public/readme/yogo_brandstory.png)|
+|핸드폰 등록 및 요금제 변경|챗봇|
+|![핸드폰 등록 및 요금제 변경](public/readme/yogo_changerate.png)|![챗봇](public/readme/yogo_chatbot.png)|
 
 
 ## ☄️ 트러블 슈팅
 ### 스크롤시 헤더색상 변경
-
-- 표처럼 사진
