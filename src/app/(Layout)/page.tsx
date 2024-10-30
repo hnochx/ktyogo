@@ -10,7 +10,7 @@ export default function Home() {
       <div className="relative w-full min-h-screen overflow-y-auto">
         <MainSlider />
         <div className="relative w-full" style={{ aspectRatio: '150 / 671' }}>
-          <Image src={images.main_image_1} alt="메인페이지1" layout="fill" style={{ objectFit: 'contain' }} />
+          <Image src={images.main_image_1} alt="메인페이지1" priority layout="fill" style={{ objectFit: 'contain' }} />
           <a
             className="block absolute top-[94%] left-[10%] w-[80%] h-[2%] text-[0px]"
             href="https://m.shop.kt.com:444/m/display/olhsPlan.do?plnDispNo=2389"
@@ -21,7 +21,7 @@ export default function Home() {
         <YogoPlanRate />
         <YogoLinkComponent />
         <div className="relative w-full" style={{ aspectRatio: '750 / 869', height: 'auto' }}>
-          <Image src={images.main_image_4} alt="메인페이지4" layout="fill" style={{ objectFit: 'cover' }} />
+          <Image src={images.main_image_4} alt="메인페이지4" priority layout="fill" style={{ objectFit: 'cover' }} />
         </div>
       </div>
     </>
