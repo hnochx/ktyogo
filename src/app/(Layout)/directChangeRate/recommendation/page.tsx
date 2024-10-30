@@ -85,7 +85,7 @@ const Recommendation = () => {
         return <FeeSelection onFeeSelect={handleFeeSelect} onPrevious={() => setCurrentStep(1)} />;
       case 3:
         return (
-          <div className="p-4">
+          <div className="p-4 min-h-[43vh]">
             {showSkeleton ? (
               <RecommendSkeleton />
             ) : (

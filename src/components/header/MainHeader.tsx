@@ -6,12 +6,12 @@ import Link from 'next/link';
 const MainHeader = () => {
   return (
     <>
-      <header className="h-[65px] pt-5 pl-5 bg-white w-[100vw]">
+      <header className="py-3 pl-5 bg-white w-[100vw]">
         <h1 className="font-bold">
-          <Link href="/">
+          <Link href="/" className="py-2 inline-flex items-center">
             <Image alt="kt" src={kt_logo.src} width={29} height={23} className="inline-block" />
+            <span className="pl-[2px] ml-1">Shop</span>
           </Link>
-          <span className="pl-[2px]">Shop</span>
         </h1>
       </header>
       <HeaderLink />

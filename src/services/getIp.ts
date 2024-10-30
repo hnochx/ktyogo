@@ -1,12 +1,13 @@
-import axios from 'axios';
-
-const IP_URL = 'http://ip.jsontest.com/';
+const IP_URL = 'https://geolocation-db.com/json/';
 
 export const getIp = async () => {
-  try {
-    const res = await axios.get(IP_URL);
-    return res.data.ip;
-  } catch (err) {
-    alert(`IP ERROR : ${err}`);
-  }
+  let ip = '';
+
+  await fetch(IP_URL, { method: 'GET' })
+    .then((res) => res.json())
+    .then((data) => {
+      ip = data.IPv4;
+    });
+
+  return ip;
 };
