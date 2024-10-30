@@ -54,25 +54,25 @@ export const MainSlider = () => {
             className="rounded-[10px] border border-[#D9D9D9] bg-white absolute bottom-[-1px] right-[-1px]"
             onClick={swiperStop}
           >
-            <Image src={controlImg} alt="stop_button" className="w-[6.4vw] h-[6.4vw]" />
+            <Image src={controlImg} alt="stop_button" className="w-[6.4vw] h-[6.4vw]" priority />
           </button>
         </div>
 
         <div className="absolute z-[1] top-1/2 transform -translate-y-1/2 left-[1.5vw]">
           <button onClick={movePrev}>
-            <Image src={arrowPrev} alt="arrow_prev" className="w-[3vw] h-[3vw]" />
+            <Image src={arrowPrev} alt="arrow_prev" className="w-[3vw] h-[3vw]" priority />
           </button>
         </div>
 
         <div className="absolute z-[1] top-1/2 transform -translate-y-1/2 right-[1.5vw]">
           <button onClick={moveNext}>
-            <Image src={arrowNext} alt="arrow_next" className="w-[3vw] h-[3vw]" />
+            <Image src={arrowNext} alt="arrow_next" className="w-[3vw] h-[3vw]" priority />
           </button>
         </div>
 
         {sliderImgArr.map((item, index) => (
           <SwiperSlide key={index}>
-            <Image src={item} alt="" />
+            <Image src={item} alt="" priority />
           </SwiperSlide>
         ))}
       </Swiper>
