@@ -64,7 +64,7 @@ const BenefitLinkMove = () => {
     <>
       {/* 스크롤시 나타나는 링크 버튼 */}
       <BenefitLinkBtns
-        className={`fixed top-[20px] z-[99] transition-all duration-500 ${
+        className={`fixed top-[20px] z-[9] transition-all duration-500 ${
           isStickyVisible ? 'translate-y-[35px]' : '-translate-y-[120px] opacity-0'
         }`}
         active={activeSection}
