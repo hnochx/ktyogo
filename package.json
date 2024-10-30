@@ -10,7 +10,8 @@
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "tsc": "tsc -p tsconfig.json --noEmit",
     "prepare": "husky",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
