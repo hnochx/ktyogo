@@ -9,8 +9,9 @@ import 'swiper/css/navigation';
 import Image, { StaticImageData } from 'next/image';
 
 import { useState } from 'react';
-import { arrowNext, arrowPrev, sliderImgArr, stopImg, startImg } from '@/assets/images/slider/sliderImg';
+import { sliderImgArr, stopImg, startImg } from '@/assets/images/slider/sliderImg';
 import SwiperCore from 'swiper';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 export const MainSlider = () => {
   const [swiperIndex, setSwiperIndex] = useState<number>(0);
@@ -58,15 +59,15 @@ export const MainSlider = () => {
           </button>
         </div>
 
-        <div className="absolute z-[1] top-1/2 transform -translate-y-1/2 left-[1.5vw]">
+        <div className="absolute z-[1] top-1/2 transform -translate-y-1/2 left-[1vw]">
           <button onClick={movePrev}>
-            <Image src={arrowPrev} alt="arrow_prev" className="w-[3vw] h-[3vw]" priority />
+            <ChevronLeftIcon className="w-[7vw] h-[7vw]" />
           </button>
         </div>
 
-        <div className="absolute z-[1] top-1/2 transform -translate-y-1/2 right-[1.5vw]">
+        <div className="absolute z-[1] top-1/2 transform -translate-y-1/2 right-[1vw]">
           <button onClick={moveNext}>
-            <Image src={arrowNext} alt="arrow_next" className="w-[3vw] h-[3vw]" priority />
+            <ChevronRightIcon className="w-[7vw] h-[7vw]" />
           </button>
         </div>
 
