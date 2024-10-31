@@ -29,13 +29,16 @@ const ChatBotMain = () => {
   const msgRef = useRef<HTMLDivElement>(null);
   const fetchChatbot = useFetchChatbot();
   const fetchLog = useFetchChatLog();
-  const [fetchLoading, setFetchLoading] = useState(false);
+  const [fetchLoading, setFetchLoading] = useState<boolean>(false);
 
-  const sendLog = async (msg: string, type: chatInitType) => {
+  const isFind = useRef<boolean>(false);
+
+  const sendLog = async (msg: string, type: chatInitType, isFind: boolean) => {
     const logData: chatMsgType = {
       chatTime: new Date(),
       text: msg,
       type: type,
+      isKeyword: isFind,
     };
 
     if (firstTime) {
@@ -46,10 +49,8 @@ const ChatBotMain = () => {
   };
 
   const sendMsg = (msg: string, type: chatInitType) => {
+    setSendText('');
     setFetchLoading(true);
-    if (ip) {
-      sendLog(msg, type);
-    }
 
     if (msg.trim() !== '') {
       setMsgArr((msgList) => [
@@ -65,6 +66,7 @@ const ChatBotMain = () => {
                 ...msgList,
                 { ...res, msgId: Date.now(), created: new Date(), location: 'left' },
               ]);
+              isFind.current = true;
             } else {
               setMsgArr((msgList) => [
                 ...msgList,
@@ -76,13 +78,14 @@ const ChatBotMain = () => {
                   location: 'left',
                 },
               ]);
+              isFind.current = false;
             }
           });
         } catch (error) {
           alert('오류가 발생했습니다. \n에러 : ' + error);
         } finally {
-          setSendText('');
           setFetchLoading(false);
+          sendLog(msg, type, isFind.current);
         }
       };
 
@@ -173,7 +176,7 @@ const ChatBotMain = () => {
             <input
               type="text"
               placeholder="요금제에 관해 궁금한 점을 물어보세요!"
-              className="flex-1 bg-[#F7F7F7] text-sm"
+              className="flex-1 bg-[#F7F7F7] text-sm focus:outline-none"
               value={sendText}
               onChange={(e) => setSendText(e.target.value)}
               onKeyDown={(e) => inputEnter(e)}

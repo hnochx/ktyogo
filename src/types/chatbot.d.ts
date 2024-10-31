@@ -15,6 +15,7 @@ type chatMsgType = {
   type: chatInitType;
   text: string;
   chatTime: Date;
+  isKeyword: boolean;
 };
 
 type chatLogType = {
