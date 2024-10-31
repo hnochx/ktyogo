@@ -176,7 +176,7 @@ const ChatBotMain = () => {
             <input
               type="text"
               placeholder="요금제에 관해 궁금한 점을 물어보세요!"
-              className="flex-1 bg-[#F7F7F7] text-sm"
+              className="flex-1 bg-[#F7F7F7] text-sm focus:outline-none"
               value={sendText}
               onChange={(e) => setSendText(e.target.value)}
               onKeyDown={(e) => inputEnter(e)}
